@@ -13,9 +13,11 @@ const plugins = [
   }),
 ];
 if (process.env.npm_lifecycle_event === "analyze") {
-  plugins.push(new WebpackBundleAnalyzer.BundleAnalyzerPlugin({
-    analyzerPort: 8890
-  }));
+  plugins.push(
+    new WebpackBundleAnalyzer.BundleAnalyzerPlugin({
+      analyzerPort: 8890,
+    })
+  );
 }
 
 module.exports = {
@@ -50,7 +52,7 @@ module.exports = {
       commonjs: "vue",
       commonjs2: "vue",
     },
-    "axios": "axios",
+    axios: "axios",
     "async-validator": "async-validator",
   },
 };
