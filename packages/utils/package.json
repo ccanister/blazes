@@ -1,0 +1,15 @@
+{
+  "name": "@flame/utils",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "extend": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/extend": "^3.0.1"
+  },
+  "scripts": {
+    "build": "webpack"
+  }
+}
