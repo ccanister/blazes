@@ -1,0 +1,16 @@
+{
+  "name": "@flame/theme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.4"
+  },
+  "scripts": {
+    "build": "webpack",
+    "analyze": "webpack"
+  },
+  "dependencies": {
+    "@flame/utils": "^1.0.0"
+  }
+}
