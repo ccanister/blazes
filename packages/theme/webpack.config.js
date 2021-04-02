@@ -32,7 +32,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-    alias: { "@flame": path.resolve(__dirname, "../../packages") },
+    // 不加alias也能找到包的解析路径？
+    // alias: {
+    //   "@flame/utils": path.resolve(__dirname, "../utils"),
+    // },
   },
   module: {
     rules: [
@@ -47,12 +50,9 @@ module.exports = {
   externals: {
     "vue-router": "vue-router",
     "ant-design-vue": "ant-design-vue",
-    vue: {
-      root: "Vue",
-      commonjs: "vue",
-      commonjs2: "vue",
-    },
+    vue: "vue",
     axios: "axios",
     "async-validator": "async-validator",
+    "@flame/utils": "flame-utils",
   },
 };

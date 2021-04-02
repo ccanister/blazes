@@ -16,7 +16,7 @@ export interface IDialogRef<T = any> {
 
 let seed = 1;
 
-export default class ModalHelper {
+export class ModalHelper {
   static open<T>(config: IModalOption): { dialogRef: IDialogRef<T> } {
     const container = document.createElement("div");
     const id = "dialog_" + seed++;
