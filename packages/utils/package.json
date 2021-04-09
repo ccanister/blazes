@@ -1,6 +1,6 @@
 {
   "name": "@flame/utils",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -14,6 +14,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "83caa021da700867153bf22118d23c82f71ca8eb"
+  }
 }
