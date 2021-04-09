@@ -8,7 +8,7 @@ export function addClass(el: HTMLElement, className: string) {
   if (!className) return;
   if (hasClass(el, className)) return;
 
-  el.className += ` ${className}`;
+  el.className += ` ${className} `;
 }
 
 export function removeClass(el: HTMLElement, className: string) {
