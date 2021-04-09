@@ -29,6 +29,8 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
+    library: "blazeTheme",
+    libraryTarget: "umd",
   },
   resolve: {
     extensions: [".ts", ".js"],

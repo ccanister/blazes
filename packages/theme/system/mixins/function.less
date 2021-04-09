@@ -13,3 +13,17 @@
     .loop();
   }
 }
+
+.for(@adList, @adCode) {
+  & {
+    .loop(@adI:1) when (@adI =< length(@adList)) {
+      @adIndex: @adI - 1;
+      @adItem: extract(@adList, @adI);
+
+      @adCode();
+
+      .loop(@adI + 1);
+    }
+    .loop();
+  }
+}
