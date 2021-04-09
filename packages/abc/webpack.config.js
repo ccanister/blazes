@@ -24,7 +24,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../blazes/abc"),
+    path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
   },
   resolve: {

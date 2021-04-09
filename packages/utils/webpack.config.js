@@ -7,7 +7,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../blazes/utils"),
+    path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
   },
   resolve: {

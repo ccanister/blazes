@@ -1,0 +1,6 @@
+54 error Error: Command failed with exit code 128: git tag v0.0.2-alpha.0 -m v0.0.2-alpha.0
+54 error fatal: tag 'v0.0.2-alpha.0' already exists
+54 error     at makeError (C:\Users\YH-10246\AppData\Local\Yarn\Data\global\node_modules\@lerna\child-process\node_modules\execa\lib\error.js:59:11)
+54 error     at handlePromise (C:\Users\YH-10246\AppData\Local\Yarn\Data\global\node_modules\@lerna\child-process\node_modules\execa\index.js:114:26)
+54 error     at processTicksAndRejections (internal/process/task_queues.js:93:5)
+54 error     at async Promise.all (index 0)

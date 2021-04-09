@@ -7,7 +7,7 @@ const plugins = [
     patterns: [
       {
         from: path.join(__dirname, "system"),
-        to: path.join(__dirname, "../../blazes/theme"),
+        to: path.join(__dirname, "./dist"),
       },
     ],
   }),
@@ -27,7 +27,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../blazes/theme"),
+    path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
   },
   resolve: {
