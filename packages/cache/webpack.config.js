@@ -7,7 +7,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../flame/cache"),
+    path: path.resolve(__dirname, "../../blazes/cache"),
     publicPath: "/",
   },
   resolve: {

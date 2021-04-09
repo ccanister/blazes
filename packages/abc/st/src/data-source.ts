@@ -1,5 +1,5 @@
-import { instance } from "@flame/theme";
-import { deepCopy, deepGet } from "@flame/utils";
+import { instance } from "@blazes/theme";
+import { deepCopy, deepGet } from "@blazes/utils";
 import {
   ISTColumn,
   ISTColumnFilter,

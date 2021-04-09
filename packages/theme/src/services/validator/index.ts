@@ -1,5 +1,5 @@
 import Schema from "async-validator";
-import { deepMerge } from "@flame/utils";
+import { deepMerge } from "@blazes/utils";
 
 const prototype = Schema.prototype as any;
 function customMessages() {

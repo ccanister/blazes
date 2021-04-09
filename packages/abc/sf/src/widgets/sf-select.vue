@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { useModel } from "@flame/utils";
+import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
 import { getData } from "../util";

@@ -57,7 +57,7 @@ import {
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
-import { CUSTOM_TRIGGER } from "@flame/theme";
+import { CUSTOM_TRIGGER } from "@blazes/theme";
 
 export default defineComponent({
   name: "sf",

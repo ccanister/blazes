@@ -62,7 +62,7 @@
 import { computed, defineComponent } from "vue";
 import { IOperate } from "./type";
 import { DownOutlined } from "@ant-design/icons-vue";
-import { ArrayService } from "@flame/utils";
+import { ArrayService } from "@blazes/utils";
 
 export default defineComponent({
   name: "operates",

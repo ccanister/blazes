@@ -149,8 +149,8 @@
   </div>
 </template>
 <script lang="ts">
-import { useRefs } from "@flame/utils";
-import { deepMerge } from "@flame/utils";
+import { useRefs } from "@blazes/utils";
+import { deepMerge } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -172,7 +172,7 @@ import {
   ISTLoadOptions,
   ISTResetColumnsOption,
 } from "./type";
-import Ellipsis from "@flame/abc/ellipsis";
+import Ellipsis from "@blazes/abc/ellipsis";
 import { LoadingOutlined, DownOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";

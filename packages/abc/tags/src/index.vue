@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { TagColor } from "@flame/utils";
+import { TagColor } from "@blazes/utils";
 
 export default defineComponent({
   name: "tag",

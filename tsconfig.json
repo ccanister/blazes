@@ -15,7 +15,7 @@
     "types": ["webpack-env"],
     "paths": {
       "@/*": ["src/*"],
-      "@flame/*": ["packages/*"]
+      "@blazes/*": ["packages/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

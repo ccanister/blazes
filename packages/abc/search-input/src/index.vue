@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { useModel } from "@flame/utils";
+import { useModel } from "@blazes/utils";
 import { defineComponent } from "vue";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons-vue";
 

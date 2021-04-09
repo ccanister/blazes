@@ -6,7 +6,7 @@ import {
   ISTColumnFilter,
   ISTColumnFilterMenu
 } from "./type";
-import { ArrayService, deepCopy } from "@flame/utils";
+import { ArrayService, deepCopy } from "@blazes/utils";
 import { reactive } from "vue";
 
 export default class STColumnSource {

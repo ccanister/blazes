@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../flame/abc"
+    "outDir": "../../blazes/abc"
   },
   "include": ["./**/*.vue", "./**/*.ts"]
 }

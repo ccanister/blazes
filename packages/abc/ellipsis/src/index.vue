@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { toNum } from "@flame/utils";
+import { toNum } from "@blazes/utils";
 import { defineComponent, onMounted, Ref, ref } from "vue";
 
 export default defineComponent({

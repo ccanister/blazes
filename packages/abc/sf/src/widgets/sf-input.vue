@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useModel } from "@flame/utils";
+import { useModel } from "@blazes/utils";
 import { Input } from "ant-design-vue";
 
 export default defineComponent({

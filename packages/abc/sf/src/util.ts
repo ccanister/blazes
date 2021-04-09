@@ -1,4 +1,4 @@
-import { deepCopy } from "@flame/utils";
+import { deepCopy } from "@blazes/utils";
 import { ISFSchema, ISFSchemaEnum, ISFUISchemaItem } from "./type";
 
 export function isBlank(o: any): boolean {

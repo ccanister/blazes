@@ -24,7 +24,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
 import { Sv } from "./type";
-import { responseService } from "@flame/theme";
+import { responseService } from "@blazes/theme";
 
 export default defineComponent({
   name: "sv",

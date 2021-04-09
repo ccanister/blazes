@@ -1,4 +1,4 @@
-import { CUSTOM_TRIGGER } from "@flame/theme";
+import { CUSTOM_TRIGGER } from "@blazes/theme";
 
 export interface ISFSchemaEnum {
   label?: string;

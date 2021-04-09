@@ -2,6 +2,6 @@
   "extends": "../../tsconfig.json",
   "include": ["./**/*.ts", "./*.ts"],
   "compilerOptions": {
-    "outDir": "../../flame/utils"
+    "outDir": "../../blazes/utils"
   }
 }

@@ -1,4 +1,4 @@
-import { ArrayService } from "@flame/utils";
+import { ArrayService } from "@blazes/utils";
 import { useRoute, useRouter } from "vue-router";
 import { MenuService } from "../menu/menu.service";
 

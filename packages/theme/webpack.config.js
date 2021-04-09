@@ -7,7 +7,7 @@ const plugins = [
     patterns: [
       {
         from: path.join(__dirname, "system"),
-        to: path.join(__dirname, "../../flame/theme"),
+        to: path.join(__dirname, "../../blazes/theme"),
       },
     ],
   }),
@@ -27,14 +27,14 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../flame/theme"),
+    path: path.resolve(__dirname, "../../blazes/theme"),
     publicPath: "/",
   },
   resolve: {
     extensions: [".ts", ".js"],
     // 不加alias也能找到包的解析路径？
     // alias: {
-    //   "@flame/utils": path.resolve(__dirname, "../utils"),
+    //   "@blazes/utils": path.resolve(__dirname, "../utils"),
     // },
   },
   module: {
@@ -53,6 +53,6 @@ module.exports = {
     vue: "vue",
     axios: "axios",
     "async-validator": "async-validator",
-    "@flame/utils": "flame-utils",
+    "@blazes/utils": "blazes-utils",
   },
 };

@@ -24,12 +24,12 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../../flame/abc"),
+    path: path.resolve(__dirname, "../../blazes/abc"),
     publicPath: "/",
   },
   resolve: {
     extensions: [".ts", ".js", ".vue"],
-    alias: { "@flame": path.resolve(__dirname, "../../packages") },
+    alias: { "@blazes": path.resolve(__dirname, "../../packages") },
   },
   module: {
     rules: [
@@ -68,7 +68,7 @@ module.exports = {
     axios: "axios",
     "async-validator": "async-validator",
     "@ant-design/icons-vue": "ant-design/icons-vue",
-    "@flame/utils": "flame-utils",
-    "@flame/theme": "flame-theme",
+    "@blazes/utils": "blazes-utils",
+    "@blazes/theme": "blazes-theme",
   },
 };

@@ -1,4 +1,4 @@
-# flame2
+# blazes
 
 ## Project setup
 ```

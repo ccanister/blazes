@@ -39,9 +39,9 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
-import menuService from "@flame/theme/src/services/menu/menu.service";
-import { ArrayService } from "@flame/utils";
-import { IMenu } from "@flame/theme";
+import menuService from "@blazes/theme/src/services/menu/menu.service";
+import { ArrayService } from "@blazes/utils";
+import { IMenu } from "@blazes/theme";
 
 export default defineComponent({
   name: "page-header",

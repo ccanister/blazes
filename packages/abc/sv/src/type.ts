@@ -1,4 +1,4 @@
-import { deepGet } from "@flame/utils";
+import { deepGet } from "@blazes/utils";
 
 export interface ISvOption<T> {
   label: string | ((data: T) => any);
