@@ -9,6 +9,8 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
+    library: "blazeCache",
+    libraryTarget: "umd",
   },
   resolve: {
     extensions: [".ts", ".js"],
