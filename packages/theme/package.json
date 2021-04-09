@@ -1,6 +1,6 @@
 {
   "name": "@flame/theme",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.3-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -11,7 +11,7 @@
     "analyze": "webpack"
   },
   "dependencies": {
-    "@flame/utils": "^0.0.2-alpha.0"
+    "@flame/utils": "^0.0.3-alpha.0"
   },
   "publishConfig": {
     "access": "public"
