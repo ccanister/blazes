@@ -3,7 +3,7 @@ import { ref, SetupContext, watch } from "vue";
 // 没有监听props的变化
 export function useModel<T>(
   props: { modelValue?: T | undefined; [key: string]: any },
-  ctx: SetupContext,
+  ctx: SetupContext<any>,
   key = "modelValue"
 ) {
   const modelValue$ = ref(props[key]) as any;
