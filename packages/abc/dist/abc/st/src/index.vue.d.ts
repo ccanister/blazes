@@ -38,15 +38,15 @@ declare const _default: import("vue").DefineComponent<{
         current?: number;
     }) => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {
-    total?: number | undefined;
-    req?: Record<string, any> | undefined;
+    columns?: unknown[] | undefined;
+    pageVo?: Record<string, any> | undefined;
+    data?: unknown;
     pi?: number | undefined;
     ps?: number | undefined;
-    columns?: unknown[] | undefined;
-    data?: unknown;
+    total?: number | undefined;
     res?: Record<string, any> | undefined;
+    req?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
-    pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
 }>, {}>;
 export default _default;
