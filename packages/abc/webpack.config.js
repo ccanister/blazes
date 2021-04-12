@@ -69,7 +69,7 @@ module.exports = {
     axios: "axios",
     "async-validator": "async-validator",
     "@ant-design/icons-vue": "@ant-design/icons-vue",
-    "@blazes/utils": "blazes-utils",
-    "@blazes/theme": "blazes-theme",
+    "@blazes/utils": "@blazes/utils",
+    "@blazes/theme": "@blazes/theme",
   },
 };
