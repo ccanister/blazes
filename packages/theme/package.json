@@ -10,9 +10,6 @@
     "build": "webpack",
     "analyze": "webpack"
   },
-  "dependencies": {
-    "@blazes/utils": "^0.0.4-alpha.0"
-  },
   "publishConfig": {
     "access": "public"
   },
