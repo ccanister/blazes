@@ -9,6 +9,9 @@
   "devDependencies": {
     "@types/extend": "^3.0.1"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "webpack"
   },
