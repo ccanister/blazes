@@ -1,5 +1,5 @@
 <template>
-  <a-select v-model:value="model$" :placeholder="ui.placeholder">
+  <a-select v-model:value="model$" :placeholder="ui.placeholder" :mode="mode">
     <a-select-option
       v-for="item in list"
       :key="item.value"
@@ -23,11 +23,11 @@ export default defineComponent({
   props: {
     modelValue: [String, Boolean, Number],
     ui: Object,
-    schema: Object
+    schema: Object,
   },
   components: {
     [Select.name]: Select,
-    [Select.Option.displayName as string]: Select.Option
+    [Select.Option.displayName as string]: Select.Option,
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
@@ -36,11 +36,12 @@ export default defineComponent({
       props.schema as ISFSchema,
       props.ui as ISFUISchemaItem,
       model$.value
-    ).then(result => {
+    ).then((result) => {
       list.value = result;
     });
+    const mode = props.ui?.mode || "default";
 
-    return { model$, list };
-  }
+    return { model$, list, mode };
+  },
 });
 </script>
