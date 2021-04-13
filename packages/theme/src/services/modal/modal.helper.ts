@@ -1,4 +1,4 @@
-import { Modal } from "ant-design-vue";
+import Modal from "ant-design-vue/lib/modal";
 import { ModalFuncProps } from "ant-design-vue/lib/modal";
 import { h, isVNode, render, VNode } from "vue";
 
