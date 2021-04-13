@@ -27,7 +27,7 @@ export default defineComponent({
   },
   components: {
     [Select.name]: Select,
-    [Select.Option.name]: Select.Option
+    [Select.Option.displayName as string]: Select.Option
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);

@@ -33,10 +33,10 @@
           <a-button
             type="primary"
             @click="submit"
-            v-btn-loading
             v-if="!button$.hideSubmit"
             >{{ button$.submitText || "确定" }}</a-button
           >
+            <!-- v-btn-loading -->
         </a-col>
       </a-row>
     </div>
