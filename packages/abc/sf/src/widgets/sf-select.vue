@@ -39,7 +39,7 @@ export default defineComponent({
     ).then((result) => {
       list.value = result;
     });
-    const mode = props.ui?.mode || "default";
+    const mode = props.ui?.mode || "";
 
     return { model$, list, mode };
   },
