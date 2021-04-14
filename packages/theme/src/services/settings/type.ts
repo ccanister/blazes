@@ -15,3 +15,8 @@ export interface IUser {
 export interface ILayout {
   collapse: boolean;
 }
+
+export interface IProject {
+  id: number;
+  name: string;
+}
