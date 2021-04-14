@@ -10,6 +10,9 @@
     "build": "webpack",
     "analyze": "webpack"
   },
+  "fiels": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
