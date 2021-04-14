@@ -10,7 +10,7 @@
     "build": "webpack",
     "analyze": "webpack"
   },
-  "fiels": [
+  "files": [
     "dist"
   ],
   "publishConfig": {
