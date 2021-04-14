@@ -11,6 +11,7 @@ declare const _default: import("vue").DefineComponent<{
     req: ObjectConstructor;
     page: ObjectConstructor;
     rowKey: StringConstructor;
+    scroll: ObjectConstructor;
 }, {
     loading: Ref<boolean>;
     columns$: Ref<ISTColumn[]>;
@@ -39,15 +40,16 @@ declare const _default: import("vue").DefineComponent<{
     }) => void;
     showTotal: (total: number) => string;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {
-    columns?: unknown[] | undefined;
-    pageVo?: Record<string, any> | undefined;
-    data?: unknown;
+    total?: number | undefined;
+    req?: Record<string, any> | undefined;
     pi?: number | undefined;
     ps?: number | undefined;
-    total?: number | undefined;
+    columns?: unknown[] | undefined;
+    data?: unknown;
     res?: Record<string, any> | undefined;
-    req?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
+    pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
+    scroll?: Record<string, any> | undefined;
 }>, {}>;
 export default _default;

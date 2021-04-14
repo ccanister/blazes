@@ -15,6 +15,7 @@
           : false
       "
       :rowKey="rowKey"
+      :scroll="scroll"
     >
       <a-table-column
         :width="column.width"
@@ -190,6 +191,7 @@ export default defineComponent({
     req: Object,
     page: Object,
     rowKey: String,
+    scroll: Object
   },
   components: {
     Ellipsis,
