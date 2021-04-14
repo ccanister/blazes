@@ -37,6 +37,7 @@ declare const _default: import("vue").DefineComponent<{
     changeTable: (event: {
         current?: number;
     }) => void;
+    showTotal: (total: number) => string;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {
     columns?: unknown[] | undefined;
     pageVo?: Record<string, any> | undefined;
