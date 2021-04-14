@@ -22,6 +22,7 @@
         :key="column.index + column.render + column.title + column.renderTitle"
         v-for="(column, index) in columns$"
         :customRender="column.customRender"
+        :fixed="column.fixed || false"
       >
         <template #title="scope">
           <div class="header">
