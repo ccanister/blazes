@@ -21,7 +21,7 @@ import { Select } from "ant-design-vue";
 export default defineComponent({
   name: "sf-select",
   props: {
-    modelValue: [String, Boolean, Number],
+    modelValue: [String, Boolean, Number, Array],
     ui: Object,
     schema: Object,
   },
