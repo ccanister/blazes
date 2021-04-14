@@ -32,6 +32,7 @@ export default defineComponent({
   setup(props, context) {
     const model$ = useModel<any>(props, context);
     const list: Ref<any[]> = ref([]);
+    const mode = props.ui?.mode || null;
     getData(
       props.schema as ISFSchema,
       props.ui as ISFUISchemaItem,
@@ -39,9 +40,11 @@ export default defineComponent({
     ).then((result) => {
       list.value = result;
     });
-    const mode = props.ui?.mode || null;
+    const setValue = (value: string) => {
+      model$.value = value;
+    };
 
-    return { model$, list, mode };
+    return { model$, list, mode, setValue };
   },
 });
 </script>
