@@ -26,7 +26,6 @@
       >
         <template #title="scope">
           <div class="header">
-            {{ps$}}
             <slot
               :name="column.renderTitle"
               v-if="column.renderTitle"
