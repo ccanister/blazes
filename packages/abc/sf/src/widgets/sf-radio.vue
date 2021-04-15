@@ -36,8 +36,8 @@ export default defineComponent({
     const setValue = (value: string) => {
       model$.value = value;
     };
-    const change = (value: any) => {
-      props.ui?.change(value);
+    const change = () => {
+      props.ui?.change(model$.value);
     };
 
     return { model$, list, setValue, change };
