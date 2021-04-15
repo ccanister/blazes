@@ -1,5 +1,7 @@
 <template>
-  <a-radio-group :options="list" v-model:value="model$" />
+  <div>
+    <a-radio-group :options="list" v-model:value="model$" @change="change" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -34,8 +36,11 @@ export default defineComponent({
     const setValue = (value: string) => {
       model$.value = value;
     };
+    const change = (value: any) => {
+      props.ui?.change(value);
+    };
 
-    return { model$, list, setValue };
+    return { model$, list, setValue, change };
   },
 });
 </script>

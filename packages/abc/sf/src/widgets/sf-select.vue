@@ -43,8 +43,12 @@ export default defineComponent({
     const setValue = (value: string) => {
       model$.value = value;
     };
+    // todo 需要重写
+    const resetList = (result: any) => {
+      list.value = result;
+    }
 
-    return { model$, list, mode, setValue };
+    return { model$, list, mode, setValue, resetList };
   },
 });
 </script>
