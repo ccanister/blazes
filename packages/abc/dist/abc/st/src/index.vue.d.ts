@@ -12,6 +12,7 @@ declare const _default: import("vue").DefineComponent<{
     page: ObjectConstructor;
     rowKey: StringConstructor;
     scroll: ObjectConstructor;
+    pagination: BooleanConstructor;
 }, {
     loading: Ref<boolean>;
     columns$: Ref<ISTColumn[]>;
@@ -39,17 +40,21 @@ declare const _default: import("vue").DefineComponent<{
         current?: number;
     }) => void;
     showTotal: (total: number) => string;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {
-    req?: Record<string, any> | undefined;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    pagination: boolean;
+} & {
+    columns?: unknown[] | undefined;
+    pageVo?: Record<string, any> | undefined;
+    data?: unknown;
     pi?: number | undefined;
     ps?: number | undefined;
-    columns?: unknown[] | undefined;
-    data?: unknown;
-    res?: Record<string, any> | undefined;
-    page?: Record<string, any> | undefined;
     total?: number | undefined;
-    pageVo?: Record<string, any> | undefined;
+    res?: Record<string, any> | undefined;
+    req?: Record<string, any> | undefined;
+    page?: Record<string, any> | undefined;
     rowKey?: string | undefined;
     scroll?: Record<string, any> | undefined;
-}>, {}>;
+}>, {
+    pagination: boolean;
+}>;
 export default _default;

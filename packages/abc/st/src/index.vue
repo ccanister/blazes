@@ -192,7 +192,8 @@ export default defineComponent({
     req: Object,
     page: Object,
     rowKey: String,
-    scroll: Object
+    scroll: Object,
+    pagination: Boolean,
   },
   components: {
     Ellipsis,
@@ -212,7 +213,7 @@ export default defineComponent({
     const pi$ = ref(props.pi || 1);
     const ps$ = ref(props.ps || 10);
     const total$ = ref(props.total || 0);
-    const isPagination = ref(true);
+    const isPagination: Ref<boolean> = ref(props.pagination || true);
     const data$: Ref<ISTData[]> = ref([]);
     const [dropdownRefs, setDropdownRef] = useRefs<any>();
     const router = useRouter(); // works
@@ -243,7 +244,10 @@ export default defineComponent({
           if (typeof result.total !== "undefined") {
             total$.value = result.total;
           }
-          if (typeof result.pageShow !== "undefined") {
+          if (
+            typeof result.pageShow !== "undefined" &&
+            props.pagination == null
+          ) {
             isPagination.value = result.pageShow;
           }
           data$.value = result.list;
