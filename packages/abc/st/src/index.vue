@@ -213,7 +213,7 @@ export default defineComponent({
     const pi$ = ref(props.pi || 1);
     const ps$ = ref(props.ps || 10);
     const total$ = ref(props.total || 0);
-    const isPagination: Ref<boolean> = ref(props.pagination || true);
+    const isPagination: Ref<boolean> = ref(props.pagination);
     const data$: Ref<ISTData[]> = ref([]);
     const [dropdownRefs, setDropdownRef] = useRefs<any>();
     const router = useRouter(); // works
