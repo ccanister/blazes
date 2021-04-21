@@ -12,7 +12,10 @@ declare const _default: import("vue").DefineComponent<{
     page: ObjectConstructor;
     rowKey: StringConstructor;
     scroll: ObjectConstructor;
-    pagination: BooleanConstructor;
+    pagination: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     loading: Ref<boolean>;
     columns$: Ref<ISTColumn[]>;

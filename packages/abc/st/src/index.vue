@@ -193,7 +193,10 @@ export default defineComponent({
     page: Object,
     rowKey: String,
     scroll: Object,
-    pagination: Boolean,
+    pagination: {
+      type: Boolean,
+      default: true
+    },
   },
   components: {
     Ellipsis,
@@ -244,10 +247,9 @@ export default defineComponent({
           if (typeof result.total !== "undefined") {
             total$.value = result.total;
           }
-          console.log(props.pagination);
           if (
             typeof result.pageShow !== "undefined" &&
-            props.pagination == null
+            !props.pagination
           ) {
             isPagination.value = result.pageShow;
           }
