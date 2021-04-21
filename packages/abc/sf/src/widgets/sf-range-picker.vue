@@ -1,5 +1,5 @@
 <template>
-  <a-range-picker v-model:value="model$" />
+  <a-range-picker v-model:value="model$" :disabledDate="disabledDate" />
 </template>
 
 <script lang="ts">
@@ -20,12 +20,13 @@ export default defineComponent({
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
+    const disabledDate = props.ui?.disabledDate || null;
 
     const setValue = (value: string) => {
       model$.value = value;
     };
 
-    return { model$, setValue };
+    return { model$, setValue, disabledDate };
   },
 });
 </script>
