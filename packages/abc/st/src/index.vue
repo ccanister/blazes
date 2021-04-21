@@ -247,8 +247,6 @@ export default defineComponent({
           if (typeof result.total !== "undefined") {
             total$.value = result.total;
           }
-          console.log(props.pagination);
-          console.log(isPagination.value);
           if (
             typeof result.pageShow !== "undefined" &&
             props.pagination
