@@ -272,6 +272,9 @@ export default defineComponent({
     const reload = (extraParams?: {}, options?: ISTLoadOptions) => {
       load(1, extraParams, options);
     };
+    const reloadCurrent = () =>{
+      load(pi$.value);
+    }
     const refreshColumns = (columns: ISTColumn[]) => {
       columns$.value = columnSource.process(columns);
     };
@@ -390,6 +393,7 @@ export default defineComponent({
       handleCheckPart,
       changeTable,
       showTotal,
+      reloadCurrent
     };
   },
 });
