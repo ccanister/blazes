@@ -17,7 +17,7 @@ export class SettingService {
       this._project.value = {
         ...this.getData(PROJECT_KEY),
       };
-      this.setData(PROJECT_KEY, this._project);
+      this.setData(PROJECT_KEY, this._project.value);
     }
 
     return this._project.value as IProject;
