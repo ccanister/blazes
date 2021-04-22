@@ -176,7 +176,12 @@ import {
   ISTResetColumnsOption,
 } from "./type";
 import Ellipsis from "@blazes/abc/ellipsis";
-import { LoadingOutlined, DownOutlined } from "@ant-design/icons-vue";
+import {
+  LoadingOutlined,
+  DownOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
 
@@ -202,6 +207,8 @@ export default defineComponent({
     Ellipsis,
     LoadingOutlined,
     DownOutlined,
+    EditOutlined,
+    DeleteOutlined,
   },
   setup(props) {
     // 依赖
