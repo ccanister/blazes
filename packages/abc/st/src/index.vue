@@ -135,14 +135,14 @@
                       @click="btnClick(record, subBtn)"
                     >
                       <span v-html="btnText(record._values, subBtn)"></span>
-                      <i :class="subBtn.icon"></i>
+                      <component :is="subBtn.icon" />
                     </a-menu-item>
                   </a-menu>
                 </template>
               </a-dropdown>
               <a v-else @click="btnClick(record, btn)">
                 <span v-html="btnText(record._values, btn)"></span>
-                <i :class="btn.icon"></i>
+                <component :is="btn.icon" />
               </a>
             </span>
           </template>
@@ -195,7 +195,7 @@ export default defineComponent({
     scroll: Object,
     pagination: {
       type: Boolean,
-      default: true
+      default: true,
     },
   },
   components: {
@@ -247,10 +247,7 @@ export default defineComponent({
           if (typeof result.total !== "undefined") {
             total$.value = result.total;
           }
-          if (
-            typeof result.pageShow !== "undefined" &&
-            props.pagination
-          ) {
+          if (typeof result.pageShow !== "undefined" && props.pagination) {
             isPagination.value = result.pageShow;
           }
           data$.value = result.list;
@@ -272,9 +269,9 @@ export default defineComponent({
     const reload = (extraParams?: {}, options?: ISTLoadOptions) => {
       load(1, extraParams, options);
     };
-    const reloadCurrent = () =>{
+    const reloadCurrent = () => {
       load(pi$.value);
-    }
+    };
     const refreshColumns = (columns: ISTColumn[]) => {
       columns$.value = columnSource.process(columns);
     };
@@ -393,7 +390,7 @@ export default defineComponent({
       handleCheckPart,
       changeTable,
       showTotal,
-      reloadCurrent
+      reloadCurrent,
     };
   },
 });
