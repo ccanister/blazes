@@ -10,12 +10,6 @@ export function useModel<T>(
   watch(modelValue$, (value: T) => {
     ctx.emit(`update:${key}`, value);
   });
-  watch(
-    () => props[key],
-    (value) => {
-      modelValue$.value = value;
-    }
-  );
 
   return modelValue$;
 }
