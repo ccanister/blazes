@@ -1,3 +1,4 @@
+import { Ref, ref } from "vue";
 import { IApp, ILayout, IUser, IProject } from "./type";
 
 const APP_KEY = "app";
@@ -9,6 +10,7 @@ export class SettingService {
   private _layout: ILayout | null = null;
   private _user: IUser | null = null;
   private _project: IProject | null = null;
+  projects: Ref<IProject[]> = ref([]);
 
   get project() {
     if (!this._project) {
@@ -77,6 +79,10 @@ export class SettingService {
   setProject(project: IProject) {
     this._project = project;
     this.setData(PROJECT_KEY, project);
+  }
+
+  setProjects(projects: IProject[]) {
+    this.projects.value = projects;
   }
 
   private setData(key: string, value: any) {

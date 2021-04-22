@@ -15,5 +15,6 @@ export interface ILayout {
 }
 export interface IProject {
     id: number;
-    name: string;
+    title: string;
+    code?: string;
 }
