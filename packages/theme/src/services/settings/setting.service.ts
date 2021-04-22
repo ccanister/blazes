@@ -9,18 +9,18 @@ export class SettingService {
   private _app: IApp | null = null;
   private _layout: ILayout | null = null;
   private _user: IUser | null = null;
-  private _project: IProject | null = null;
+  _project: Ref<IProject | null> = ref(null);
   projects: Ref<IProject[]> = ref([]);
 
   get project() {
-    if (!this._project) {
-      this._project = {
+    if (!this._project.value) {
+      this._project.value = {
         ...this.getData(PROJECT_KEY),
       };
       this.setData(PROJECT_KEY, this._project);
     }
 
-    return this._project as IProject;
+    return this._project.value as IProject;
   }
 
   get app() {
@@ -77,7 +77,7 @@ export class SettingService {
   }
 
   setProject(project: IProject) {
-    this._project = project;
+    this._project.value = project;
     this.setData(PROJECT_KEY, project);
   }
 

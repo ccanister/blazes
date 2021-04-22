@@ -4,7 +4,7 @@ export declare class SettingService {
     private _app;
     private _layout;
     private _user;
-    private _project;
+    _project: Ref<IProject | null>;
     projects: Ref<IProject[]>;
     get project(): IProject;
     get app(): IApp;
