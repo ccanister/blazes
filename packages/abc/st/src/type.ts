@@ -133,6 +133,11 @@ export interface ISTColumnButton {
   children?: ISTColumnButton[]; // 更多的下拉菜单
   iif?: (record: ISTData, column: ISTColumn) => boolean;
   iifBehavior?: "hide" | "disabled"; // iif返回false时候的表现
+  type?: "popconfirm";
+  popconfirm?: {
+    title: string;
+    confirm: () => void;
+  };
   [key: string]: any;
 }
 
@@ -152,10 +157,10 @@ export const COLUMN_DEFAULT = "-";
 export const NO_INDEX = 1;
 
 export const DEFAULT_ST_RES: ISTRes = {
-  reName: { total: "total", list: "items" }
+  reName: { total: "total", list: "items" },
 };
 export const DEFAULT_ST_REQ: ISTReq = {
-  reName: { pi: "offset", ps: "limit" }
+  reName: { pi: "offset", ps: "limit" },
 };
 export const DEFAULT_ST_PAGE: ISTPage = {
   front: true,
@@ -166,10 +171,10 @@ export const DEFAULT_ST_PAGE: ISTPage = {
   showQuickJumper: false,
   indexReset: true,
   toTop: true,
-  toTopOffset: 100
+  toTopOffset: 100,
 };
 export const DEFAULT_IIF_BEHAIVOR = "hide";
 export const DEFAULT_FILTER = {
   filterConfirmText: "确定",
-  filterClearText: "重置"
+  filterClearText: "重置",
 };

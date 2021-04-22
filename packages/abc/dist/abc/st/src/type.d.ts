@@ -122,6 +122,11 @@ export interface ISTColumnButton {
     children?: ISTColumnButton[];
     iif?: (record: ISTData, column: ISTColumn) => boolean;
     iifBehavior?: "hide" | "disabled";
+    type?: "popconfirm";
+    popconfirm?: {
+        title: string;
+        confirm: () => void;
+    };
     [key: string]: any;
 }
 export interface ISTResetColumnsOption {

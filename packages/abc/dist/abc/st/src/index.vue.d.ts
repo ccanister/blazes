@@ -47,7 +47,6 @@ declare const _default: import("vue").DefineComponent<{
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     pagination: boolean;
 } & {
-    total?: number | undefined;
     req?: Record<string, any> | undefined;
     pi?: number | undefined;
     ps?: number | undefined;
@@ -55,6 +54,7 @@ declare const _default: import("vue").DefineComponent<{
     data?: unknown;
     res?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
+    total?: number | undefined;
     pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
     scroll?: Record<string, any> | undefined;
