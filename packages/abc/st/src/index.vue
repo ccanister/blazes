@@ -140,20 +140,24 @@
                   </a-menu>
                 </template>
               </a-dropdown>
-              <a v-else @click="btnClick(record, btn)">
+              <template v-else>
                 <a-popconfirm
                   v-if="btn.type === 'popconfirm'"
                   :title="btn.popconfirm.title"
-                  @confirm="btn.popconfirm.confirm"
+                  @confirm="btn.popconfirm.confirm(record)"
                 >
-                  <span v-html="btnText(record._values, btn)"></span>
-                  <component :is="btn.icon" />
+                  <a>
+                    <span v-html="btnText(record._values, btn)"></span>
+                    <component :is="btn.icon" />
+                  </a>
                 </a-popconfirm>
                 <template v-else>
-                  <span v-html="btnText(record._values, btn)"></span>
-                  <component :is="btn.icon" />
+                  <a @click="btnClick(record, btn)">
+                    <span v-html="btnText(record._values, btn)"></span>
+                    <component :is="btn.icon" />
+                  </a>
                 </template>
-              </a>
+              </template>
             </span>
           </template>
         </template>

@@ -125,7 +125,7 @@ export interface ISTColumnButton {
     type?: "popconfirm";
     popconfirm?: {
         title: string;
-        confirm: () => void;
+        confirm: (record: ISTData) => void;
     };
     [key: string]: any;
 }
