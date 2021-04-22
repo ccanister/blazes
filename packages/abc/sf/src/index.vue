@@ -9,10 +9,10 @@
         :rules="item.ui.rules"
         :class="item.class"
         :style="{ width: item.ui.gutter.controlWidth }"
-        :wrapperCol="{ span: item.ui.gutter.spanControl }"
+        :wrapperCol="{ span: item.ui.gutter.spanControl, offset: item.ui.gutter.controlffset, }"
         :labelCol="{
           span: item.ui.gutter.spanLabel,
-          offset: item.ui.gutter.offset,
+          offset: item.ui.gutter.spanOffset,
         }"
       >
         <component

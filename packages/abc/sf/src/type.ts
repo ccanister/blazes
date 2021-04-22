@@ -23,7 +23,8 @@ export interface ISFUISchemaItem {
   };
   asyncData?: () => Promise<ISFSchemaEnumType[]>;
   gutter?: {
-    offset?: number;
+    spanOffset?: number;
+    controlffset?: number;
     controlWidth?: string;
     spanLabel?: number;
     spanControl?: number;
