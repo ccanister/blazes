@@ -8,7 +8,6 @@ export function useModel<T>(
 ) {
   const modelValue$ = ref(props[key]) as any;
   watch(modelValue$, (value: T) => {
-    console.log(value);
     ctx.emit(`update:${key}`, value);
   });
 
