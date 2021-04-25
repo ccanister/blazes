@@ -6,4 +6,8 @@ export class ArrayService {
   static getLast<T>(arr: T[]): T | undefined {
     return arr[arr.length - 1];
   }
+
+  static clear<T>(arr: T[]) {
+    arr.splice(0, arr.length);
+  }
 }
