@@ -29,6 +29,7 @@ export interface ISFUISchemaItem {
     spanLabel?: number;
     spanControl?: number;
   };
+  hidden?: boolean;
   [key: string]: any;
 }
 

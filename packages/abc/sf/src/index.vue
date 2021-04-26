@@ -9,7 +9,10 @@
         :rules="item.ui.rules"
         :class="item.class"
         :style="{ width: item.ui.gutter.controlWidth }"
-        :wrapperCol="{ span: item.ui.gutter.spanControl, offset: item.ui.gutter.controlffset, }"
+        :wrapperCol="{
+          span: item.ui.gutter.spanControl,
+          offset: item.ui.gutter.controlffset,
+        }"
         :labelCol="{
           span: item.ui.gutter.spanLabel,
           offset: item.ui.gutter.spanOffset,
@@ -30,13 +33,10 @@
           <a-button v-if="!button$.hideReset" @click="reset" class="mr-md">{{
             button$.resetText || "取消"
           }}</a-button>
-          <a-button
-            type="primary"
-            @click="submit"
-            v-if="!button$.hideSubmit"
-            >{{ button$.submitText || "确定" }}</a-button
-          >
-            <!-- v-btn-loading -->
+          <a-button type="primary" @click="submit" v-if="!button$.hideSubmit">{{
+            button$.submitText || "确定"
+          }}</a-button>
+          <!-- v-btn-loading -->
         </a-col>
       </a-row>
     </div>
@@ -142,7 +142,9 @@ export default defineComponent({
               validator: item.ui.validate.validator(form),
             });
           }
-          items.push(item);
+          if (!item.ui.hidden) {
+            items.push(item);
+          }
           item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
         });
       },
