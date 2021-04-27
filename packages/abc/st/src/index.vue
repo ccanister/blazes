@@ -200,6 +200,7 @@ import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
+  name: "st",
   props: {
     columns: Array,
     pageVo: Object,
