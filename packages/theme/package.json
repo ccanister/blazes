@@ -6,6 +6,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
   },
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
