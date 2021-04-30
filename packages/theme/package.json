@@ -6,6 +6,9 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "webpack",
     "analyze": "webpack"

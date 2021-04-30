@@ -52,7 +52,11 @@ module.exports = {
   externals: {
     "vue-router": "vue-router",
     "ant-design-vue": "ant-design-vue",
-    vue: "vue",
+    vue: {
+      root: "Vue",
+      commonjs: "vue",
+      commonjs2: "vue",
+    },
     axios: "axios",
     "async-validator": "async-validator",
     "@blazes/utils": "blazes-utils",

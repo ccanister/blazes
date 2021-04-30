@@ -6,6 +6,9 @@
   "scripts": {
     "build": "webpack"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "moment": "^2.27.0"
   },
