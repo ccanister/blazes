@@ -1,12 +1,12 @@
-import Ellipsis from "./ellipsis";
-import st from "./st";
-import PageHeader from "./page-header";
-import Operates from "./operates";
-import SearchInput from "./search-input";
-import sv from "./sv";
-import sf from "./sf";
-import TableWrapper from "./table-wrapper";
-import Tags from "./tags";
+import Ellipsis from "./src/ellipsis";
+import st from "./src/st";
+import PageHeader from "./src/page-header";
+import Operates from "./src/operates";
+import SearchInput from "./src/search-input";
+import sv from "./src/sv";
+import sf from "./src/sf";
+import TableWrapper from "./src/table-wrapper";
+import Tags from "./src/tags";
 
 export {
   Ellipsis,

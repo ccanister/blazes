@@ -189,7 +189,7 @@ import {
   ISTLoadOptions,
   ISTResetColumnsOption,
 } from "./type";
-import Ellipsis from "@blazes/abc/ellipsis";
+import Ellipsis from "../../ellipsis/src/index.vue";
 import {
   LoadingOutlined,
   DownOutlined,
