@@ -14,5 +14,4 @@ export declare class MenuService {
     private setData;
     private getData;
 }
-declare const _default: MenuService;
-export default _default;
+export declare const menuService: MenuService;

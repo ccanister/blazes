@@ -108,4 +108,4 @@ export class MenuService {
   }
 }
 
-export default MenuService.getInstance();
+export const menuService = MenuService.getInstance();
