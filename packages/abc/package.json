@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=production && rm -rf ./dist/theme && mv ./dist/abc/* ./dist",
     "analyze": "webpack --mode=production"
   },
   "publishConfig": {
