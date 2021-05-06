@@ -2,7 +2,9 @@ import { onMounted, ref, Ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { MenuService } from "./menu.service";
 
-export function useCollapse(menuService: MenuService) {
+export function useCollapse(
+  menuService: MenuService
+): { active: Ref<string[]>; opened: Ref<string[]> } {
   const route = useRoute();
   const collapse$ = menuService.collapse;
   const active: Ref<string[]> = ref([]);
