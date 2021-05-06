@@ -39,9 +39,8 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
-import menuService from "@blazes/theme/src/services/menu/menu.service";
 import { ArrayService } from "@blazes/utils";
-import { IMenu } from "@blazes/theme";
+import { IMenu, menuService } from "@blazes/theme";
 
 export default defineComponent({
   name: "page-header",
