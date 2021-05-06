@@ -7,8 +7,11 @@
   "files": [
     "dist"
   ],
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.4"
+  },
   "scripts": {
-    "build": "webpack --mode=production && rm -rf ./dist/theme && mv ./dist/abc/* ./dist",
+    "build": "webpack --mode=production",
     "analyze": "webpack --mode=production"
   },
   "publishConfig": {

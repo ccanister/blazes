@@ -2,11 +2,20 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader-v16");
 const WebpackBundleAnalyzer = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const plugins = [
   new VueLoaderPlugin(),
   new MiniCssExtractPlugin({
     filename: "style.css",
+  }),
+  new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: path.join(__dirname, "src/sf/src/widgets"),
+        to: path.join(__dirname, "./dist/src/sf/src/widgets"),
+      },
+    ],
   }),
 ];
 if (process.env.npm_lifecycle_event === "analyze") {
