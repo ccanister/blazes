@@ -7,6 +7,7 @@ function customMessages() {
     required: "请输入%s",
     types: {
       email: "请输入正确的邮箱",
+      type: "%s不是数字类型"
     },
     pattern: {
       mismatch: "请输入正确的%s",
