@@ -59,7 +59,6 @@ module.exports = {
     },
     axios: "axios",
     "async-validator": "async-validator",
-    "@blazes/utils": "blazes-utils",
     "vue-router": "vue-router",
   },
 };
