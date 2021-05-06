@@ -905,6 +905,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@blazes/utils@^0.0.60-alpha.0":
+  version "0.0.60-alpha.0"
+  resolved "https://registry.npmjs.org/@blazes/utils/-/utils-0.0.60-alpha.0.tgz#48abc286223c231a6166faab8331f6a4d06a13a5"
+  integrity sha512-LTMahIKSPWmpwBoZZFoikCO43kU7CxIvvafNUYzk9w4DwfX993QzwSmfDFljHP/gRInEf3voP/yS7q20K2AHcg==
+  dependencies:
+    extend "^3.0.2"
+
 "@ctrl/tinycolor@^3.3.1":
   version "3.4.0"
   resolved "https://registry.npm.taobao.org/@ctrl/tinycolor/download/@ctrl/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
