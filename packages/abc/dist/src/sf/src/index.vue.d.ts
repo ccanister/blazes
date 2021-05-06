@@ -1,4 +1,5 @@
 import { Ref } from "vue";
+import BaseModel from "./model/base";
 declare const _default: import("vue").DefineComponent<{
     schema: ObjectConstructor;
     width: StringConstructor;
@@ -922,7 +923,7 @@ declare const _default: import("vue").DefineComponent<{
         }>;
     }) | null>;
     form: {
-        [x: string]: false;
+        [key: string]: BaseModel<any>;
     };
     submit: () => void;
     reset: () => void;

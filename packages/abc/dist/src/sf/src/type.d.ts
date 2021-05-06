@@ -29,11 +29,12 @@ export interface ISFUISchemaItem {
     hidden?: boolean;
     [key: string]: any;
 }
+export declare type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";
 export interface ISFSchema {
     title?: string;
     required?: boolean;
     description?: string;
-    type?: string;
+    type?: ISFSchemaType;
     enums?: ISFSchemaEnumType[];
     ui?: ISFUISchemaItem;
     readOnly?: boolean;

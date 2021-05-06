@@ -33,12 +33,14 @@ export interface ISFUISchemaItem {
   [key: string]: any;
 }
 
+export type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";
+
 // 默认object先
 export interface ISFSchema {
   title?: string;
   required?: boolean;
   description?: string;
-  type?: string;
+  type?: ISFSchemaType;
   enums?: ISFSchemaEnumType[];
   ui?: ISFUISchemaItem;
   readOnly?: boolean;
@@ -61,5 +63,5 @@ export const DEFAULT_GUTTER = {
   offset: 0,
   controlWidth: "auto",
   spanLabel: 5,
-  spanControl: 17
+  spanControl: 17,
 };

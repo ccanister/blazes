@@ -43,7 +43,13 @@
   </div>
 </template>
 <script lang="ts">
-import { ISFSchema, formSymbol, formRefSymbol, DEFAULT_GUTTER } from "./type";
+import {
+  ISFSchema,
+  formSymbol,
+  formRefSymbol,
+  DEFAULT_GUTTER,
+  ISFSchemaType,
+} from "./type";
 import { Form, Row, Col, Button } from "ant-design-vue";
 import {
   computed,
@@ -53,11 +59,23 @@ import {
   ref,
   Ref,
   toRefs,
-  UnwrapRef,
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
+import StringModel from "./model/string";
+import AnyModel from "./model/any";
+import NumberModel from "./model/number";
+import BoolModel from "./model/boolean";
+import BaseModel from "./model/base";
+
+const typeModels = {
+  string: StringModel,
+  regexp: StringModel,
+  any: AnyModel,
+  number: NumberModel,
+  boolean: BoolModel,
+};
 
 export default defineComponent({
   name: "sf",
@@ -81,19 +99,19 @@ export default defineComponent({
   directives: {},
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const { schema } = toRefs(props);
     const items: any[] = [];
-    const form: UnwrapRef<{ [key: string]: false }> = reactive({
+    const form: { [key: string]: BaseModel<any> } = reactive({
       ...(props.formData || {}),
     });
     provide(formSymbol, form);
     provide(formRefSymbol, formRef);
-    const addReuiqredRule = (item: ISFSchema) => {
+    const addReuiqredRule = (item: ISFSchema, type: ISFSchemaType) => {
       return {
         required: true,
         fullField: item.title,
         trigger: CUSTOM_TRIGGER,
-        type: "any",
+        type,
+        transform: (value: any) => new typeModels[type]().getValue(value),
       };
     };
     let itemProperties: { [key: string]: any } = {};
@@ -108,7 +126,7 @@ export default defineComponent({
     };
 
     watch(
-      schema as Ref<ISFSchema>,
+      () => props.schema as ISFSchema,
       (schema) => {
         itemProperties = {};
         const parentGutter = {
@@ -128,12 +146,13 @@ export default defineComponent({
               : Array.isArray(item.ui.rules)
               ? item.ui.rules
               : [item.ui.rules];
+          const type = (item.type = item.type || "string");
           if (item.required) {
             const requiredRule = item.ui.rules.find(
               (r: any) => r.ruquired === true
             );
             if (!requiredRule) {
-              item.ui.rules.push(addReuiqredRule(item));
+              item.ui.rules.push(addReuiqredRule(item, type));
             }
           }
           if (item.ui.validate) {
