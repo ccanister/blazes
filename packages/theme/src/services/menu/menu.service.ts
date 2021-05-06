@@ -1,9 +1,20 @@
 import { IMenu } from "./type";
 import { Ref, ref } from "vue";
+
+const COLLAPSE_KEY = "collapse";
 export class MenuService {
   menus: Ref<IMenu[]> = ref([]);
 
-  private constructor() {}
+  private _collapse: Ref<boolean> = ref(this.getData(COLLAPSE_KEY));
+
+  get collapse() {
+    return this._collapse;
+  }
+
+  toggle() {
+    const isCollapse = (this._collapse.value = !this._collapse.value);
+    this.setData(COLLAPSE_KEY, isCollapse);
+  }
 
   static getInstance() {
     return new MenuService();
@@ -86,6 +97,14 @@ export class MenuService {
     };
 
     inFn(data, null, 0);
+  }
+
+  private setData(key: string, value: any) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  private getData(key: string) {
+    return JSON.parse(localStorage.getItem(key) || "null");
   }
 }
 
