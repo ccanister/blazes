@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
-    "@balzes/utils": "^0.0.60-alpha.0"
+    "@balzes/utils": "0.0.60-alpha.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
