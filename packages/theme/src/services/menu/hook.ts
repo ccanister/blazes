@@ -4,7 +4,7 @@ import { MenuService } from "./menu.service";
 
 export function useCollapse(menuService: MenuService) {
   const route = useRoute();
-  const collapse$ = (menuService as any)._collapse;
+  const collapse$ = menuService.collapse;
   const active: Ref<string[]> = ref([]);
   const opened: Ref<string[]> = ref([]);
   let preOpenKey: string[] = [];

@@ -5,16 +5,12 @@ const COLLAPSE_KEY = "collapse";
 export class MenuService {
   menus: Ref<IMenu[]> = ref([]);
 
-  private _collapse: { value: boolean } = reactive({
+  collapse: { value: boolean } = reactive({
     value: this.getData(COLLAPSE_KEY),
   });
 
-  get collapse() {
-    return this._collapse.value;
-  }
-
   toggle() {
-    const isCollapse = (this._collapse.value = !this._collapse.value);
+    const isCollapse = (this.collapse.value = !this.collapse.value);
     this.setData(COLLAPSE_KEY, isCollapse);
   }
 
