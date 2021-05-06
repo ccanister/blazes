@@ -2,7 +2,9 @@ import { IMenu } from "./type";
 import { Ref } from "vue";
 export declare class MenuService {
     menus: Ref<IMenu[]>;
-    collapse: Ref<boolean>;
+    collapse: {
+        value: boolean;
+    };
     toggle(): void;
     add(imenus: IMenu[]): void;
     private addMenuKey;
