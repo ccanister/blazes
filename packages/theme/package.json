@@ -1,7 +1,7 @@
 {
   "name": "@blazes/theme",
   "version": "0.0.69-alpha.0",
-  "main": "main/index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
