@@ -28,4 +28,6 @@ export function useCollapse(menuService: MenuService) {
       opened.value = openKey;
     }
   });
+
+  return { active, opened };
 }
