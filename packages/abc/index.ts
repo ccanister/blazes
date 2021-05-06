@@ -4,7 +4,7 @@ import PageHeader from "./src/page-header";
 import Operates from "./src/operates";
 import SearchInput from "./src/search-input";
 import sv from "./src/sv";
-import sf from "./src/sf";
+import sf, { getData } from "./src/sf";
 import TableWrapper from "./src/table-wrapper";
 import Tags from "./src/tags";
 
@@ -18,4 +18,5 @@ export {
   sf,
   TableWrapper,
   Tags,
+  getData,
 };

@@ -8,7 +8,7 @@
 import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
-import { getData } from "../util";
+import { getData } from "@blazes/abc";
 import { Radio } from "ant-design-vue";
 
 export default defineComponent({
