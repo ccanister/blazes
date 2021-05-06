@@ -18,3 +18,4 @@ export declare class SettingService {
     private setData;
     private getData;
 }
+export declare const settingService: SettingService;

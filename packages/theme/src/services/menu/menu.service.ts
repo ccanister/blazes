@@ -16,10 +16,6 @@ export class MenuService {
     this.setData(COLLAPSE_KEY, isCollapse);
   }
 
-  static getInstance() {
-    return new MenuService();
-  }
-
   // 未添加acl权限
   add(imenus: IMenu[]) {
     this.menus.value = this.addMenuKey(imenus);
@@ -108,4 +104,4 @@ export class MenuService {
   }
 }
 
-export const menuService = MenuService.getInstance();
+export const menuService = new MenuService();

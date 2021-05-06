@@ -1,5 +1,6 @@
 export * from "./src/services/menu/menu.service";
 export * from "./src/services/menu/type";
+export * from "./src/services/menu/hook";
 export * from "./src/services/modal/modal.helper";
 export * from "./src/services/responsive/type";
 export * from "./src/services/responsive/responsive.service";

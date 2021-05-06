@@ -5,7 +5,6 @@ export declare class MenuService {
     private _collapse;
     get collapse(): Ref<boolean>;
     toggle(): void;
-    static getInstance(): MenuService;
     add(imenus: IMenu[]): void;
     private addMenuKey;
     getPathByUrl(url: string, recursive?: boolean): IMenu[];

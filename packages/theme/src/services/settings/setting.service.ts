@@ -93,3 +93,6 @@ export class SettingService {
     return JSON.parse(localStorage.getItem(key) || "null");
   }
 }
+
+export const settingService = new SettingService();
+
