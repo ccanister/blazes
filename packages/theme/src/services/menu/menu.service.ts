@@ -1,14 +1,16 @@
 import { IMenu } from "./type";
-import { Ref, ref } from "vue";
+import { reactive, Ref, ref } from "vue";
 
 const COLLAPSE_KEY = "collapse";
 export class MenuService {
   menus: Ref<IMenu[]> = ref([]);
 
-  private _collapse: Ref<boolean> = ref(this.getData(COLLAPSE_KEY));
+  private _collapse: { value: boolean } = reactive({
+    value: this.getData(COLLAPSE_KEY),
+  });
 
   get collapse() {
-    return this._collapse;
+    return this._collapse.value;
   }
 
   toggle() {

@@ -3,7 +3,7 @@ import { Ref } from "vue";
 export declare class MenuService {
     menus: Ref<IMenu[]>;
     private _collapse;
-    get collapse(): Ref<boolean>;
+    get collapse(): boolean;
     toggle(): void;
     add(imenus: IMenu[]): void;
     private addMenuKey;
