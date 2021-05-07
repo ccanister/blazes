@@ -6,6 +6,7 @@ interface IElType extends HTMLButtonElement {
 
 export class BtnLoading {
   beforeMount(el: IElType) {
+    console.log(el);
     btnLoadingService.register(el);
     el.handler = () => {
       btnLoadingService.latestEl = el;
