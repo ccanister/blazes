@@ -12,7 +12,7 @@ class BtnLoadingService {
 
   startLoading(url: string) {
     const { registerBtnMap, latestEl: el, loadingBtnMap } = this;
-    console.log(url);
+    console.log("url" + url);
 
     if (el) {
       if (this.registerBtnMap.has(el)) {
