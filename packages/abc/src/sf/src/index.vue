@@ -70,7 +70,7 @@ import AnyModel from "./model/any";
 import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
 import BaseModel from "./model/base";
-import { btnLoading } from "@blazes/theme";
+import { BtnLoading, instance } from "@blazes/theme";
 
 const typeModels = {
   string: StringModel,
@@ -100,7 +100,7 @@ export default defineComponent({
     [Button.name]: Button,
   },
   directives: {
-    btnLoading,
+    btnLoading: new BtnLoading(instance),
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
