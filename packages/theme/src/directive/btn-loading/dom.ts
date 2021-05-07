@@ -1,5 +1,3 @@
-import { AxiosInstance } from "axios";
-import { registerAxios } from "./register-axios";
 import btnLoadingService from "./service";
 
 interface IElType extends HTMLButtonElement {
@@ -7,10 +5,6 @@ interface IElType extends HTMLButtonElement {
 }
 
 export class BtnLoading {
-  constructor(axios: AxiosInstance) {
-    registerAxios(axios);
-  }
-
   beforeMount(el: IElType) {
     btnLoadingService.register(el);
     el.handler = () => {

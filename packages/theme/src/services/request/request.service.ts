@@ -4,6 +4,7 @@ import Axios, {
   AxiosRequestConfig,
   Canceler,
 } from "axios";
+import { registerAxios } from "@blazes/theme";
 
 export interface IConfig extends AxiosRequestConfig {
   useCsrf?: boolean;
@@ -28,6 +29,9 @@ export class RequestService {
     }
     if (config.deDuplication) {
       this.addDeDuplication();
+    }
+    if (config.useBtnLoading) {
+      registerAxios(instance);
     }
   }
 
