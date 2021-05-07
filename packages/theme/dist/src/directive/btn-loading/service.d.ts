@@ -7,5 +7,5 @@ declare class BtnLoadingService {
     register(el: HTMLButtonElement): void;
     unsubscribe(el: HTMLButtonElement): void;
 }
-declare const _default: BtnLoadingService;
-export default _default;
+declare const btnLoadingService: BtnLoadingService;
+export default btnLoadingService;

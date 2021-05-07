@@ -12,8 +12,9 @@ class BtnLoadingService {
 
   startLoading(url: string) {
     const { registerBtnMap, latestEl: el, loadingBtnMap } = this;
+    console.log(url);
     console.log(el);
-    
+
     if (el) {
       console.log(this.registerBtnMap.has(el));
       if (this.registerBtnMap.has(el)) {
@@ -53,5 +54,6 @@ class BtnLoadingService {
     this.registerBtnMap.delete(el);
   }
 }
+const btnLoadingService = new BtnLoadingService();
 
-export default new BtnLoadingService();
+export default btnLoadingService;
