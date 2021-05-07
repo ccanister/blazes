@@ -1,10 +1,8 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const WebpackBundleAnalyzer = require("webpack-bundle-analyzer");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const plugins = [
-  new CleanWebpackPlugin(),
   new CopyWebpackPlugin({
     patterns: [
       {

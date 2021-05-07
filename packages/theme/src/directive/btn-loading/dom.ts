@@ -8,7 +8,6 @@ export class BtnLoading {
   beforeMount(el: IElType) {
     btnLoadingService.register(el);
     el.handler = () => {
-      console.log("click" + el);
       btnLoadingService.latestEl = el;
     };
     el.addEventListener("click", el.handler);

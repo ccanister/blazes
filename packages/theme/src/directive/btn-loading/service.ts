@@ -12,8 +12,6 @@ class BtnLoadingService {
 
   startLoading(url: string) {
     const { registerBtnMap, latestEl: el, loadingBtnMap } = this;
-    console.log("url" + url);
-    console.log("latest el" + el);
     if (el) {
       if (this.registerBtnMap.has(el)) {
         loadingBtnMap.set(url, el);
