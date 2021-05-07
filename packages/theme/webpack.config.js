@@ -34,7 +34,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-    // 不加alias也能找到包的解析路径？
+    // 不加alias也能找到包的解析路径
     // alias: {
     //   "@blazes/utils": path.resolve(__dirname, "../utils"),
     // },

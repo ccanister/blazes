@@ -14,7 +14,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "webpack"
+    "build": "rm -rf ./dist && webpack"
   },
   "publishConfig": {
     "access": "public"
