@@ -23,6 +23,7 @@ export class RequestService {
   }[] = [];
 
   constructor(config: IConfig) {
+    console.log(config)
     instance = this.instance = this.genInstance(config);
     if (config.useCsrf) {
       this.addCsrfToken();
@@ -31,6 +32,7 @@ export class RequestService {
       this.addDeDuplication();
     }
     if (config.useBtnLoading) {
+      console.log("register btn laoldin");
       registerAxios(instance);
     }
   }
