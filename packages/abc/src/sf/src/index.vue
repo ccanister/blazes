@@ -33,10 +33,13 @@
           <a-button v-if="!button$.hideReset" @click="reset" class="mr-md">{{
             button$.resetText || "取消"
           }}</a-button>
-          <a-button type="primary" @click="submit" v-if="!button$.hideSubmit">{{
-            button$.submitText || "确定"
-          }}</a-button>
-          <!-- v-btn-loading -->
+          <a-button
+            type="primary"
+            @click="submit"
+            v-if="!button$.hideSubmit"
+            v-btn-loading
+            >{{ button$.submitText || "确定" }}</a-button
+          >
         </a-col>
       </a-row>
     </div>
@@ -58,7 +61,6 @@ import {
   reactive,
   ref,
   Ref,
-  toRefs,
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
@@ -68,6 +70,7 @@ import AnyModel from "./model/any";
 import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
 import BaseModel from "./model/base";
+import { btnLoading } from "@blazes/theme";
 
 const typeModels = {
   string: StringModel,
@@ -96,7 +99,9 @@ export default defineComponent({
     [Col.name]: Col,
     [Button.name]: Button,
   },
-  directives: {},
+  directives: {
+    btnLoading,
+  },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
     const items: any[] = [];
