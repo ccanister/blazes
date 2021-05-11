@@ -161,13 +161,10 @@
             </span>
           </template>
         </template>
-        <template
-          #expandedRowRender="{ record }"
-          v-if="$slots.expandedRowRender"
-        >
-          <slot :record="record" name="expandedRowRender"></slot>
-        </template>
       </a-table-column>
+      <template #expandedRowRender="{ record }" v-if="$slots.expandedRowRender">
+        <slot :record="record" name="expandedRowRender"></slot>
+      </template>
     </a-table>
   </div>
 </template>
