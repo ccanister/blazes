@@ -16,6 +16,7 @@
       "
       :rowKey="rowKey"
       :scroll="scroll"
+      :bordered="bordered"
     >
       <a-table-column
         :width="column.width"
@@ -220,6 +221,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    bordered: Boolean
   },
   components: {
     Ellipsis,

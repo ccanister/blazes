@@ -16,6 +16,7 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    bordered: BooleanConstructor;
 }, {
     loading: Ref<boolean>;
     columns$: Ref<ISTColumn[]>;
@@ -46,6 +47,7 @@ declare const _default: import("vue").DefineComponent<{
     reloadCurrent: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     pagination: boolean;
+    bordered: boolean;
 } & {
     req?: Record<string, any> | undefined;
     pi?: number | undefined;
@@ -60,5 +62,6 @@ declare const _default: import("vue").DefineComponent<{
     scroll?: Record<string, any> | undefined;
 }>, {
     pagination: boolean;
+    bordered: boolean;
 }>;
 export default _default;
