@@ -33,6 +33,7 @@
               :name="column.renderTitle"
               v-if="column.renderTitle"
               :row="scope.row"
+              :title="column.title"
             ></slot>
             <template v-else> {{ column.title }} </template>
             <a-dropdown

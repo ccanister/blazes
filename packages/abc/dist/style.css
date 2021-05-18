@@ -4,27 +4,27 @@
   text-overflow: ellipsis;
 }
 
-.st .ant-table[data-v-3d8493c6] {
+.st .ant-table[data-v-18332130] {
   width: 100%;
 }
-.st .ant-table .header .filter[data-v-3d8493c6] {
+.st .ant-table .header .filter[data-v-18332130] {
   position: static;
   height: 16px;
 }
-.st .ant-table .header .filter[data-v-3d8493c6] svg {
+.st .ant-table .header .filter[data-v-18332130] svg {
   position: static;
   margin: 0;
 }
-.st .ant-table .header .filter.active[data-v-3d8493c6] {
+.st .ant-table .header .filter.active[data-v-18332130] {
   color: #1890ff;
 }
-.st .ant-table .header .filter[data-v-3d8493c6]:focus {
+.st .ant-table .header .filter[data-v-18332130]:focus {
   outline: none;
 }
-.st .ant-table .btn[data-v-3d8493c6]:not(:last-child) {
+.st .ant-table .btn[data-v-18332130]:not(:last-child) {
   position: relative;
 }
-.st .ant-table .btn[data-v-3d8493c6]:not(:last-child)::after {
+.st .ant-table .btn[data-v-18332130]:not(:last-child)::after {
   content: " ";
   height: 1em;
   position: absolute;
