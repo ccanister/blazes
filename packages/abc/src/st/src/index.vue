@@ -25,8 +25,8 @@
         :customRender="column.customRender"
         :fixed="column.fixed || false"
         :sorter="column.sorter"
-        :sortOrder="column.sortOrder"
       >
+        <!-- :sortOrder="column.sortOrder" -->
         <template #title="scope">
           <div class="header">
             <slot
@@ -433,9 +433,8 @@ export default defineComponent({
     .header {
       .filter {
         position: static;
-        width: auto;
         height: 16px;
-        svg {
+        :deep(svg) {
           position: static;
           margin: 0;
         }
