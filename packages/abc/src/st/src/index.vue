@@ -201,7 +201,7 @@ import {
   DownOutlined,
   EditOutlined,
   DeleteOutlined,
-  FilterOutlined
+  FilterOutlined,
 } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
@@ -232,7 +232,7 @@ export default defineComponent({
     DownOutlined,
     EditOutlined,
     DeleteOutlined,
-    FilterOutlined
+    FilterOutlined,
   },
   setup(props) {
     // 依赖
@@ -432,8 +432,13 @@ export default defineComponent({
     width: 100%;
     .header {
       .filter {
+        position: static;
+        width: auto;
         height: 16px;
-        margin-left: 8px;
+        svg {
+          position: static;
+          margin: 0;
+        }
         &.mid-filter {
           &.active {
             color: #1890ff;

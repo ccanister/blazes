@@ -38,6 +38,7 @@ export interface ISTColumnFilter {
     _visible?: UnwrapRef<{
         value: boolean;
     }>;
+    fn?: (filter: ISTColumnFilterMenu, record: ISTData) => boolean;
 }
 export interface ISTColumn {
     title?: string;

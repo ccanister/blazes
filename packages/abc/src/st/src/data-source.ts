@@ -54,20 +54,39 @@ export default class STDataSource {
       }
 
       if (!remote) {
-        data$ = data$.then((result) => {
-          rawData = result;
+        data$ = data$
+          .then((result) => {
+            columns
+              .filter((w) => w.filter)
+              .forEach((c) => {
+                const filter = c.filter!;
+                const values = this.getFilteredData(filter);
+                if (values.length === 0) return;
+                const onFilter = filter.fn;
+                if (typeof onFilter !== "function") {
+                  console.warn(`[st] Muse provide the fn function in filter`);
+                  return;
+                }
+                result = result.filter((record) =>
+                  values.some((v) => onFilter(v, record))
+                );
+              });
+            return result;
+          })
+          .then((result) => {
+            rawData = result;
 
-          if (paginator && page.front) {
-            const maxPageIndex = Math.ceil(result.length / ps);
-            retPi = Math.max(1, pi > maxPageIndex ? maxPageIndex : pi);
-            retTotal = result.length;
-            if (page.show) {
-              return result.slice((retPi - 1) * ps, retPi * ps);
+            if (paginator && page.front) {
+              const maxPageIndex = Math.ceil(result.length / ps);
+              retPi = Math.max(1, pi > maxPageIndex ? maxPageIndex : pi);
+              retTotal = result.length;
+              if (page.show) {
+                return result.slice((retPi - 1) * ps, retPi * ps);
+              }
             }
-          }
 
-          return result;
-        });
+            return result;
+          });
       }
 
       if (typeof res.process === "function") {

@@ -35,6 +35,7 @@ export interface ISTColumnFilter {
   indeterminate?: UnwrapRef<{ value: boolean }>;
   checkAll?: UnwrapRef<{ value: boolean }>;
   _visible?: UnwrapRef<{ value: boolean }>;
+  fn?: (filter: ISTColumnFilterMenu, record: ISTData) => boolean; // 本地筛选函数
 }
 
 export interface ISTColumn {
