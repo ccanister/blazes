@@ -43,11 +43,11 @@
               v-model:visible="column.filter._visible.value"
               :trigger="['click']"
             >
-              <i
-                class="iconfont mid-filter cursor-pointer"
+              <FilterOutlined
+                class="point"
                 :class="{ active: column.filter._default.value }"
                 @click.self="column.filter._visible.value = true"
-              ></i>
+              />
               <template #overlay>
                 <a-menu>
                   <template v-if="column.filter._menus.value.length">
@@ -201,6 +201,7 @@ import {
   DownOutlined,
   EditOutlined,
   DeleteOutlined,
+  FilterOutlined
 } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
@@ -223,7 +224,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    bordered: Boolean
+    bordered: Boolean,
   },
   components: {
     Ellipsis,
@@ -231,6 +232,7 @@ export default defineComponent({
     DownOutlined,
     EditOutlined,
     DeleteOutlined,
+    FilterOutlined
   },
   setup(props) {
     // 依赖
