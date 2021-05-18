@@ -66,7 +66,7 @@ export interface ISTColumn {
     index: number;
   }) => Record<string, any>;
   sorter?: (o1: ISTData, o2: ISTData) => number;
-  sortOrder: "descend" | "ascend";
+  sortOrder?: "descend" | "ascend";
   [key: string]: any;
 }
 
