@@ -131,7 +131,7 @@ export default class STDataSource {
         break;
     }
 
-    return { text: text || "", org: value, color };
+    return { text: text != null ? text : "", org: value, color };
   }
 
   private getByHttp(url: string, options: ISTDataSourceOption): Promise<any> {
