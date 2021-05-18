@@ -64,6 +64,7 @@ export interface ISTColumn {
     record: ISTData;
     index: number;
   }) => Record<string, any>;
+  sorter?: (o1: ISTData, o2: ISTData) => number;
   [key: string]: any;
 }
 

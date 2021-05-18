@@ -24,6 +24,7 @@
         v-for="(column, index) in columns$"
         :customRender="column.customRender"
         :fixed="column.fixed || false"
+        :sorter="column.sorter"
       >
         <template #title="scope">
           <div class="header">
