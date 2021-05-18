@@ -25,7 +25,6 @@
         :customRender="column.customRender"
         :fixed="column.fixed || false"
         :sorter="column.sorter"
-        :sortOrder="column.sortOrder"
       >
         <template #title="scope">
           <div class="header">
