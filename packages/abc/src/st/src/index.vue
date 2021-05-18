@@ -438,13 +438,11 @@ export default defineComponent({
           position: static;
           margin: 0;
         }
-        &.mid-filter {
-          &.active {
-            color: #1890ff;
-          }
-          &:focus {
-            outline: none;
-          }
+        &.active {
+          color: #1890ff;
+        }
+        &:focus {
+          outline: none;
         }
       }
     }
