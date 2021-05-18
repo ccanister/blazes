@@ -68,3 +68,7 @@ export function deepMerge(original: any, ...objects: any[]): any {
 export function toNum(height: string): number {
   return +height.replace(/^([\d.]+)px$/, "$1");
 }
+
+export function objIsEmpty(obj: any) {
+  return obj == null || Object.keys(obj).length === 0;
+}

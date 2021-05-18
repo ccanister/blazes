@@ -3,3 +3,4 @@ export declare function deepCopy(obj: any): any;
 export declare function deepMergeKey(original: any, ingoreArray: boolean, ...objects: any[]): any;
 export declare function deepMerge(original: any, ...objects: any[]): any;
 export declare function toNum(height: string): number;
+export declare function objIsEmpty(obj: any): boolean;
