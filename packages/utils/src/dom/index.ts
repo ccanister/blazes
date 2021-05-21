@@ -22,3 +22,19 @@ export function removeClass(el: HTMLElement, className: string) {
 export function prepend(el: HTMLElement, newEl: HTMLElement) {
   el.insertBefore(newEl, el.children[0]);
 }
+
+export function insertAfter<T extends Element>(
+  newChild: T,
+  refChild: Element
+): T {
+  const parent = refChild.parentElement;
+  if (!parent) {
+    throw new Error("没有父节点");
+  }
+  if (parent.lastChild === refChild) {
+    parent.appendChild(newChild);
+  } else {
+    parent.insertBefore(newChild, refChild.nextElementSibling);
+  }
+  return newChild;
+}
