@@ -1,5 +1,4 @@
-import { Modal } from "ant-design-vue";
-import { ModalFuncProps } from "ant-design-vue/lib/modal";
+import Modal, { ModalFuncProps } from "ant-design-vue/lib/modal";
 import { h, isVNode, render, VNode } from "vue";
 
 export interface IModalOption extends ModalFuncProps {
