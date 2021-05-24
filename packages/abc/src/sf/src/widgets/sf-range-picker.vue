@@ -5,7 +5,7 @@
 <script lang="ts">
 import { useModel } from "@blazes/utils";
 import { defineComponent } from "vue";
-import { DatePicker } from "ant-design-vue";
+import DatePicker from "ant-design-vue/lib/date-picker";
 
 export default defineComponent({
   name: "sf-select",

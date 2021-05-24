@@ -204,7 +204,7 @@ import {
   DeleteOutlined,
   FilterOutlined,
 } from "@ant-design/icons-vue";
-import { message } from "ant-design-vue";
+import message from "ant-design-vue/lib/message";
 import { useRouter } from "vue-router";
 
 export default defineComponent({

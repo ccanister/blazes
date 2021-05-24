@@ -16,7 +16,7 @@ import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
 import { getData } from "@blazes/abc";
-import { Select } from "ant-design-vue";
+import Select from "ant-design-vue/lib/select";
 
 export default defineComponent({
   name: "sf-select",

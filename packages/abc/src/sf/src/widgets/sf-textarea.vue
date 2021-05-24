@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useModel } from "@blazes/utils";
-import { Input } from "ant-design-vue";
+import Input from "ant-design-vue/lib/input";
 
 export default defineComponent({
   name: "sf-input",

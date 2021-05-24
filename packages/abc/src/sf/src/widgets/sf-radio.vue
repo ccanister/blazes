@@ -9,7 +9,7 @@ import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
 import { getData } from "@blazes/abc";
-import { Radio } from "ant-design-vue";
+import Radio from "ant-design-vue/lib/radio";
 
 export default defineComponent({
   name: "sf-select",

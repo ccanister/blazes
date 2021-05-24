@@ -69,7 +69,16 @@ module.exports = {
   plugins,
   externals: {
     "vue-router": "vue-router",
-    "ant-design-vue": "ant-design-vue",
+    "ant-design-vue/lib/form": "ant-design-vue/lib/form",
+    "ant-design-vue/lib/row": "ant-design-vue/lib/row",
+    "ant-design-vue/lib/col": "ant-design-vue/lib/col",
+    "ant-design-vue/lib/button": "ant-design-vue/lib/button",
+    "ant-design-vue/lib/input": "ant-design-vue/lib/input",
+    "ant-design-vue/lib/checkbox": "ant-design-vue/lib/checkbox",
+    "ant-design-vue/lib/radio": "ant-design-vue/lib/radio",
+    "ant-design-vue/lib/date-picker": "ant-design-vue/lib/date-picker",
+    "ant-design-vue/lib/select": "ant-design-vue/lib/select",
+    "ant-design-vue/lib/message": "ant-design-vue/lib/message",
     vue: {
       root: "Vue",
       commonjs: "vue",

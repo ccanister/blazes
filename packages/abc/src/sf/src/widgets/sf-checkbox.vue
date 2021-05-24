@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useModel } from "@blazes/utils";
-import { Checkbox } from "ant-design-vue";
+import Checkbox from "ant-design-vue/lib/checkbox";
 
 export default defineComponent({
   name: "sf-checkbox",

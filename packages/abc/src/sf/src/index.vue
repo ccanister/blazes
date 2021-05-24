@@ -53,7 +53,10 @@ import {
   DEFAULT_GUTTER,
   ISFSchemaType,
 } from "./type";
-import { Form, Row, Col, Button } from "ant-design-vue";
+import Form from "ant-design-vue/lib/form";
+import Row from "ant-design-vue/lib/row";
+import Col from "ant-design-vue/lib/col";
+import Button from "ant-design-vue/lib/button";
 import {
   computed,
   defineComponent,
