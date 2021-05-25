@@ -8,4 +8,5 @@ export interface IMenu {
   key?: string;
   children?: IMenu[];
   _parent: IMenu | null;
+  desc?: string;
 }
