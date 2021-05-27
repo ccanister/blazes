@@ -1,44 +1,7 @@
 import * as path from "path";
-import * as fs from "fs";
 import { SiteConfig } from "./type";
 const klawSync = require("klaw-sync");
-const MarkdownIt = require("markdown-it");
-const MarkdownItContainer = require("markdown-it-container");
-
-const md = new MarkdownIt();
-// md.use(MarkdownItContainer, "demo", {
-//     validate: function(params) {
-//         console.log(params);
-//         return true;
-//         // return params.trim().match(//)
-//     },
-//   render: function (tokens, idx) {
-//     console.log(tokens);
-//     console.log(idx);
-//     return "";
-//   },
-// });
-md.use(require("markdown-it-container"), "demo", {
-  validate: function (params) {
-    return params.trim().match(/^demo\s*(.*)$/);
-  },
-
-  render: function (tokens, idx) {
-    const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
-    console.log("m:");
-    console.log(m);
-    if (tokens[idx].nesting === 1) {
-      const content =
-        tokens[idx + 1].type === "fence" ? tokens[idx + 1].content : "";
-      console.log(content);
-      // opening tag
-      return "<code-box>" + "\n";
-    } else {
-      // closing tag
-      return "</code-box>\n";
-    }
-  },
-});
+import { generateDemo } from "./generate-demo";
 
 const rootDir = path.resolve(__dirname, "../../");
 const siteConfig = require(path.join(
@@ -46,22 +9,31 @@ const siteConfig = require(path.join(
   "src/site.config.js"
 )) as SiteConfig;
 
+const files: {
+  [key: string]: { dir: string; content?: string; code?: string };
+} = {};
 for (const m of siteConfig.modules) {
-  const mdFiles = klawSync(m.dir.src, {
+  klawSync(m.dir.src, {
     nodir: false,
     filter: (item) => {
       if (m.dir.hasSubDir && item.stats.isDirectory()) {
         return true;
       }
-      return path.extname(item.path) === ".md";
+      return (
+        path.extname(item.path) === ".md" &&
+        !item.path.includes(`${path.sep}demo${path.sep}`)
+      );
     },
-  }).filter((item) => path.extname(item.path) === ".md");
-  for (const file of mdFiles) {
-    fs.readFile(file.path, "utf8", (_, source) => {
-      console.log(md.render(source));
-      //   md.render(source);
+  })
+    .filter((item) => path.extname(item.path) === ".md")
+    .forEach((item) => {
+      const mdPath = item.path;
+      const parentDir = path.dirname(mdPath);
+      files[path.basename(parentDir)] = { dir: parentDir };
     });
-  }
+  Object.values(files).forEach((file) => {
+    generateDemo(rootDir, file.dir);
+  });
 }
 
 // const codes: any[] = [

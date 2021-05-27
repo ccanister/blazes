@@ -18,3 +18,9 @@ export interface ModuleDirConfig {
   /** 是否包含子目录 */
   hasSubDir: boolean;
 }
+
+export interface Demo {
+  title: string;
+  content: string;
+  code: string;
+}
