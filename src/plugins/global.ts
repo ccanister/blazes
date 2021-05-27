@@ -1,7 +1,8 @@
 import { App } from "vue";
 import CodeBox from "@/components/code-box.vue";
+import Doc from "@/components/doc.vue";
 
-const components = [CodeBox];
+const components = [CodeBox, Doc];
 
 export default (app: App) => {
   components.forEach((component) => {

@@ -1,7 +1,8 @@
 import * as path from "path";
-import { SiteConfig } from "./type";
+import { SiteConfig, File } from "./type";
 const klawSync = require("klaw-sync");
 import { generateDemo } from "./generate-demo";
+import { generateDoc } from "./generate-doc";
 
 const rootDir = path.resolve(__dirname, "../../");
 const siteConfig = require(path.join(
@@ -9,9 +10,7 @@ const siteConfig = require(path.join(
   "src/site.config.js"
 )) as SiteConfig;
 
-const files: {
-  [key: string]: { dir: string; content?: string; code?: string };
-} = {};
+const files: File[] = [];
 for (const m of siteConfig.modules) {
   klawSync(m.dir.src, {
     nodir: false,
@@ -29,10 +28,15 @@ for (const m of siteConfig.modules) {
     .forEach((item) => {
       const mdPath = item.path;
       const parentDir = path.dirname(mdPath);
-      files[path.basename(parentDir)] = { dir: parentDir };
+      files.push({
+        dir: parentDir,
+        docPath: mdPath,
+        name: path.basename(parentDir),
+      });
     });
-  Object.values(files).forEach((file) => {
-    generateDemo(rootDir, file.dir);
+  files.forEach((file) => {
+    const demos = generateDemo(rootDir, file.dir);
+    generateDoc(demos, rootDir, file);
   });
 }
 

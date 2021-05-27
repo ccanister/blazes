@@ -20,7 +20,32 @@ export interface ModuleDirConfig {
 }
 
 export interface Demo {
+  name: string;
   title: string;
   content: string;
   code: string;
+  showCode: string;
+}
+
+export interface Doc {
+  title: string;
+  subtitle: string;
+  content: string;
+  api: string;
+  demo: boolean;
+}
+
+export interface DocMeta {
+  title: string;
+  subtitle: string;
+  type: string;
+  order: number;
+}
+
+export interface File {
+  name: string;
+  dir: string;
+  docPath: string;
+  content?: string;
+  code?: string;
 }
