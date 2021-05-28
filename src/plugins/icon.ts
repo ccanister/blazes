@@ -38,7 +38,8 @@ import {
   OneToOneOutlined,
   CodeSandboxOutlined,
   CopyOutlined,
-  FullscreenOutlined
+  FullscreenOutlined,
+  FullscreenExitOutlined
 } from "@ant-design/icons-vue";
 import { App } from "vue";
 
@@ -82,7 +83,8 @@ const components = [
   OneToOneOutlined,
   CodeSandboxOutlined,
   CopyOutlined,
-  FullscreenOutlined
+  FullscreenOutlined,
+  FullscreenExitOutlined
 ];
 
 export default (app: App) => {

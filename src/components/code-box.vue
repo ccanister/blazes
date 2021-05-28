@@ -18,7 +18,7 @@
         <component :is="action.icon" />
       </a-tooltip>
     </div>
-    <div class="code">
+    <div class="code" v-if="showCode">
       <div v-highlight="item.showCode"><code></code></div>
     </div>
   </div>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { object } from "vue-types";
-import { defineComponent } from "vue";
+import { defineComponent, Ref, ref } from "vue";
 import { copy } from "@blazes/utils";
 import { escape2Html } from "@/utils/common";
 import { message } from "ant-design-vue";
@@ -37,11 +37,14 @@ export default defineComponent({
     item: object().isRequired,
   },
   setup(props) {
-    const actions = [
+    const showCode = ref(false);
+    const originActions = [
       {
         icon: "CodeSandboxOutlined",
         tooltip: "在 CodeSandbox 上打开",
-        // click: () => {},
+        click: () => {
+          message.warn("仍在开发中");
+        },
       },
       {
         icon: "CopyOutlined",
@@ -55,10 +58,30 @@ export default defineComponent({
       {
         icon: "FullscreenOutlined",
         tooltip: "Show Code",
-        // click: () => {},
+        click: () => {
+          showCode.value = true;
+          resetActions();
+        },
+        iif: () => !showCode.value,
+      },
+      {
+        icon: "FullscreenExitOutlined",
+        tooltip: "hide Code",
+        click: () => {
+          showCode.value = false;
+          resetActions();
+        },
+        iif: () => showCode.value,
       },
     ];
-    return { actions };
+    const actions: Ref<any[]> = ref([]);
+    const resetActions = () => {
+      actions.value = originActions.filter((action) =>
+        action.iif ? action.iif() : true
+      );
+    };
+    resetActions();
+    return { actions, showCode };
   },
 });
 </script>
