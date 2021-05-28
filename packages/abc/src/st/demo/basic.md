@@ -1,6 +1,7 @@
 ---
 order: 1
 title: 基本
+subtitle: basic
 ---
 
 快速生成表格；利用 `res` 可以适配后端数据格式。

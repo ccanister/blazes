@@ -22,6 +22,7 @@ export interface ModuleDirConfig {
 export interface Demo {
   name: string;
   title: string;
+  subtitle: string;
   content: string;
   code: string;
   showCode: string;
@@ -32,6 +33,7 @@ export interface DemoMeta {
   order: number;
   subTitle: string;
   title: string;
+  subtitle: string;
 }
 
 export interface Doc {

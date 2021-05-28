@@ -1,5 +1,15 @@
 <template>
   <div class="doc-wrapper markdown">
+    <a-affix class="anchor-wrapper">
+      <a-anchor>
+        <a-anchor-link
+          v-for="anchor in anchors"
+          :href="'#' + anchor.value"
+          :key="anchor.value"
+          :title="anchor.label"
+        />
+      </a-anchor>
+    </a-affix>
     <a-row>
       <a-col :md="6" :lg="6" :xl="5" :xxl="4">
         <a-affix>
@@ -17,7 +27,7 @@
             <slot></slot>
           </div>
           <div class="markdown api-container">
-            <div v-html="item.api"></div>
+            <div v-html="item.api" id="Api"></div>
           </div>
         </div>
       </a-col>
@@ -27,12 +37,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { object } from "vue-types";
+import { array, object } from "vue-types";
 
 export default defineComponent({
   name: "doc",
   props: {
     item: object().isRequired,
+    anchors: array().isRequired,
   },
 });
 </script>
@@ -40,6 +51,7 @@ export default defineComponent({
 <style scoped lang="less">
 @import "./markdown.less";
 .doc-wrapper {
+  position: relative;
   padding: 40px 0 0;
   .main-container {
     min-height: 500px;
@@ -47,6 +59,11 @@ export default defineComponent({
     .demo-title {
       padding: 32px 0 24px 0;
     }
+  }
+  .anchor-wrapper {
+    position: absolute;
+    top: 8px;
+    right: 30px;
   }
 }
 </style>

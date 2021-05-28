@@ -62,6 +62,7 @@ export function generateDemo(rootDir: string, file: File, config: ModuleConfig):
     const componentIndex = markdownData.indexOf("<pre>");
     const demo = {
       name,
+      subtitle: meta.subtitle,
       title: meta.title,
       content: markdownData.slice(0, componentIndex),
       code: html2Escape(code),
