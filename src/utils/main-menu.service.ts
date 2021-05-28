@@ -1,8 +1,9 @@
 import { meta as ComponentsMeta } from "@/views/components/meta";
+import { meta as DocsMeta } from "@/views/docs/meta";
 import { watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-const ALL_METAS = [ComponentsMeta];
+const ALL_METAS = [ComponentsMeta, DocsMeta];
 
 interface MenuSub {
   title: string;
@@ -30,7 +31,7 @@ export class MainMenuService {
         () => route.path,
         (url) => {
           this.genMenus(url);
-        },
+        }
       );
     });
   }

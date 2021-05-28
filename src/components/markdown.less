@@ -43,6 +43,18 @@
       border: 1px solid #f0f0f0;
     }
   }
+  :deep(pre) {
+    margin: 1.2em 0;
+    padding: 1em;
+    overflow: auto;
+  }
+  :deep(pre > code),
+  :deep(pre) {
+    background: #f7f7f7;
+  }
+  :deep(pre > code) {
+    border-color: transparent;
+  }
   &.api-container {
     :deep(table) {
       min-width: 720px;

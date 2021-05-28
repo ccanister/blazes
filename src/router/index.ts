@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "@/layout/index.vue";
+import { Menu } from "../../scripts/site/type";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,20 +11,27 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-const docsModules = require.context("../views", true, /[^(\.vue|\.ts)]$/);
-docsModules.keys().forEach((docPath) => {
-  const paths = docPath.split("/");
-  if (paths.length !== 4) {
-    return;
-  }
-  const lastName = paths[2];
-  if (lastName === "meta") {
-    return;
-  }
+const metaModules = require.context("../views", true, /\.ts$/);
+metaModules.keys().forEach((metaPath) => {
+  const absolutePath = metaPath.replace("./", "");
+  const { meta } = require(`../views/${absolutePath}`) as { meta: Menu };
+  let firstRedirectPath = "";
+  meta.items.forEach((item) => {
+    item.subs.forEach((sub) => {
+      const { title, path } = sub;
+      if (!firstRedirectPath) {
+        firstRedirectPath = path;
+      }
+      routes[0].children!.push({
+        path,
+        name: title,
+        component: () => import(`@/views${path}/index.vue`),
+      });
+    });
+  });
   routes[0].children!.push({
-    path: `${paths[1]}/${paths[2]}`,
-    name: lastName,
-    component: () => import(`@/views/${paths[1]}/${paths[2]}/index.vue`),
+    path: meta.name,
+    redirect: firstRedirectPath,
   });
 });
 

@@ -9,5 +9,13 @@ module.exports = {
         hasSubDir: true,
       },
     },
+    {
+      name: "docs",
+      types: ["入门"],
+      dir: {
+        src: "./docs",
+        hasSubDir: false,
+      },
+    },
   ],
 };

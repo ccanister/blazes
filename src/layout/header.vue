@@ -18,28 +18,42 @@
     </a-col>
     <a-col :xs="0" :sm="0" :md="0" :lg="0" :xl="19" :xxl="20">
       <div class="right">
-        <a-menu class="navs" v-model:selectedKeys="selectedKeys" mode="horizontal">
-          <a-menu-item key="component"> 组件 </a-menu-item>
+        <a-menu
+          class="navs"
+          v-model:selectedKeys="selectedKeys"
+          mode="horizontal"
+        >
+          <a-menu-item v-for="nav in navs" :key="nav.value">
+            <router-link :to="'/' + nav.value">{{ nav.label }}</router-link>
+          </a-menu-item>
         </a-menu>
-        <!-- <ul class="navs">
-          <li>
-            <router-link active-class="active" to="/component">
-              组件
-            </router-link>
-          </li>
-        </ul> -->
       </div>
     </a-col>
   </a-row>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
+import { defineComponent, ref, Ref, watch } from "vue";
+
+const navs = [
+  { label: "文档", value: "docs" },
+  { label: "组件", value: "components" },
+];
 
 export default defineComponent({
   setup() {
-    const selectedKeys = ["component"];
-    return {selectedKeys};
+    const selectedKeys: Ref<string[]> = ref([]);
+    const route = useRoute();
+    watch(
+      () => route.path,
+      (url) => {
+        const suffix = url.split("/")[1];
+        selectedKeys.value = [navs.find((nav) => nav.value === suffix)!.value];
+      },
+      { immediate: true }
+    );
+    return { selectedKeys, navs };
   },
 });
 </script>
@@ -85,7 +99,13 @@ export default defineComponent({
         height: 64px;
         line-height: 64px;
         border-top: 2px solid transparent;
-        &.ant-menu-item-selected {
+        margin-right: 24px;
+        transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+          border-top-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+          background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+          padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+        &.ant-menu-item-selected,
+        &:hover {
           border-top: 2px solid #1890ff;
           border-bottom: 0;
         }

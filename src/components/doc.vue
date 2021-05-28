@@ -8,8 +8,10 @@
       </a-col>
       <a-col :md="18" :lg="18" :xl="19" :xxl="20">
         <div class="main-container">
-          <h1 class="title markdown">{{ item.subtitle }}</h1>
-          <div v-html="item.content"></div>
+          <h1 class="title markdown">{{ item.subtitle || item.title }}</h1>
+          <div class="content markdown">
+            <div v-html="item.content"></div>
+          </div>
           <div v-if="item.demo">
             <h2 class="demo-title">代码演示</h2>
             <slot></slot>
@@ -32,9 +34,6 @@ export default defineComponent({
   props: {
     item: object().isRequired,
   },
-  //   setup() {
-  //     return {}
-  //   }
 });
 </script>
 

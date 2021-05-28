@@ -11,8 +11,8 @@ const siteConfig = require(path.join(
   "src/site.config.js"
 )) as SiteConfig;
 
-const files: File[] = [];
 for (const m of siteConfig.modules) {
+  const files: File[] = [];
   klawSync(m.dir.src, {
     nodir: false,
     filter: (item) => {
@@ -29,10 +29,11 @@ for (const m of siteConfig.modules) {
     .forEach((item) => {
       const mdPath = item.path;
       const parentDir = path.dirname(mdPath);
+      const mdName = path.basename(mdPath, ".md");
       files.push({
         dir: parentDir,
         docPath: mdPath,
-        name: path.basename(parentDir),
+        name: mdName === "index" ? path.basename(parentDir) : mdName,
       });
     });
   files.forEach((file) => {

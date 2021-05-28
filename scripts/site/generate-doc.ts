@@ -30,7 +30,7 @@ export default defineComponent({
 </script>
 `);
 
-const meta: DocMeta = {} as DocMeta;
+let meta: DocMeta = {} as DocMeta;
 
 const md = MarkIt({
   html: true,
@@ -54,6 +54,7 @@ export function generateDoc(
     ...meta,
     demo: demos.length > 0,
   } as Doc;
+  console.log(meta);
   if (apiStartIndex > 0) {
     doc.content = markData.slice(0, apiStartIndex);
     doc.api = markData.slice(apiStartIndex);
@@ -73,6 +74,13 @@ export function generateDoc(
     `${rootDir}/src/views/${config.name}/${file.name}/index.vue`,
     fileContent
   );
+  clearMeta();
 
   return doc;
+}
+
+function clearMeta() {
+  Object.keys(meta).forEach((key) => {
+    meta[key] = "";
+  });
 }
