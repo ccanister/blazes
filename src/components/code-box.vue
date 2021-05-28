@@ -29,7 +29,7 @@ import { object } from "vue-types";
 import { defineComponent } from "vue";
 import { copy } from "@blazes/utils";
 import { escape2Html } from "@/utils/common";
-import { message } from "ant-design-vue/lib";
+import { message } from "ant-design-vue";
 
 export default defineComponent({
   name: "code-box",
