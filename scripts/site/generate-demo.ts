@@ -3,8 +3,8 @@ import * as fs from "fs";
 const MarkIt = require("markdown-it");
 import MetaDataBlock from "./meta-block";
 import { parse } from "yaml";
-import { Demo } from "./type";
-import { html2Escape } from "./util";
+import { Demo, ModuleConfig, File, DemoMeta } from "./type";
+import { html2Escape, writeFileRecursive } from "./util";
 const klawSync = require("klaw-sync");
 const hljs = require("highlight.js");
 
@@ -21,7 +21,7 @@ const md = MarkIt({
   highlight,
 });
 
-const meta: { title: string; order: number } = {} as any;
+const meta: DemoMeta = {} as DemoMeta;
 md.use(MetaDataBlock, {
   parseMetadata: parse,
   meta,
@@ -50,8 +50,8 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   return defaultFenceRender(tokens, idx, options, env, self);
 };
 
-export function generateDemo(rootDir: string, dir: string): Demo[] {
-  const demoPath = path.join(dir, "demo");
+export function generateDemo(rootDir: string, file: File, config: ModuleConfig): Demo[] {
+  const demoPath = path.join(file.dir, "demo");
   if (!fs.existsSync(demoPath)) {
     return [];
   }
@@ -68,8 +68,8 @@ export function generateDemo(rootDir: string, dir: string): Demo[] {
       showCode: markdownData.slice(componentIndex)
     };
     demos.push(demo);
-    fs.writeFileSync(
-      `${rootDir}/src/views/${name}.vue`,
+    writeFileRecursive(
+      `${rootDir}/src/views/${config.name}/${file.name}/${name}.vue`,
       writeFileCode.replace(setupReg, (_, p1) => {
         return `setup()${p1}\ndata(){\nreturn {item: ${JSON.stringify(
           demo

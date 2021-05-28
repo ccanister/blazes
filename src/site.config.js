@@ -2,7 +2,7 @@ module.exports = {
   modules: [
     {
       name: "components",
-      types: ["CURD", "基础"],
+      types: ["CURD", "布局"],
       defaultRoute: "st",
       dir: {
         src: "./packages/abc",

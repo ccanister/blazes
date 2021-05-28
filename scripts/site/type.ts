@@ -27,12 +27,21 @@ export interface Demo {
   showCode: string;
 }
 
+export interface DemoMeta {
+  type: string;
+  order: number;
+  subTitle: string;
+  title: string;
+}
+
 export interface Doc {
   title: string;
   subtitle: string;
   content: string;
   api: string;
   demo: boolean;
+  type: string;
+  order: number;
 }
 
 export interface DocMeta {
@@ -48,4 +57,22 @@ export interface File {
   docPath: string;
   content?: string;
   code?: string;
+  doc?: Doc;
+}
+
+export interface MenuSub {
+  title: string;
+  subtitle: string;
+  path: string;
+  order: number;
+}
+
+export interface MenuItem {
+  type: string;
+  subs: MenuSub[];
+}
+
+export interface Menu {
+  name: string;
+  items: MenuItem[];
 }

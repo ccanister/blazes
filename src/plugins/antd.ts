@@ -28,6 +28,7 @@ import {
   Collapse,
   Popconfirm,
   InputNumber,
+  Affix
 } from "ant-design-vue";
 
 import "ant-design-vue/dist/antd.css";
@@ -62,6 +63,7 @@ const components = [
   Collapse,
   Popconfirm,
   InputNumber,
+  Affix
 ];
 
 import { App } from "vue";

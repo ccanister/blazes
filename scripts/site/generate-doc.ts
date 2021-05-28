@@ -1,9 +1,10 @@
-import { Demo, Doc, DocMeta, File } from "./type";
+import { Demo, Doc, DocMeta, File, ModuleConfig } from "./type";
 const MarkIt = require("markdown-it");
 import MetaDataBlock from "./meta-block";
 import { parse } from "yaml";
 import * as fs from "fs";
-import _ from "underscore";
+import { writeFileRecursive } from "./util";
+const _ = require("underscore");
 
 const template = _.template(`
 <template>
@@ -40,22 +41,25 @@ md.use(MetaDataBlock, {
   meta,
 });
 
-export function generateDoc(demos: Demo[], rootDir: string, file: File) {
+export function generateDoc(
+  demos: Demo[],
+  rootDir: string,
+  file: File,
+  config: ModuleConfig
+) {
   const source = fs.readFileSync(file.docPath, "utf8");
   const markData: string = md.render(source);
   const apiStartIndex = markData.match(/<h2>API<\/h2>/)?.index;
-  const doc: Doc = ({
+  const doc: Doc = {
     ...meta,
     demo: demos.length > 0,
-  } as unknown) as Doc;
+  } as Doc;
   if (apiStartIndex > 0) {
     doc.content = markData.slice(0, apiStartIndex);
     doc.api = markData.slice(apiStartIndex);
   } else {
     doc.content = markData;
-    _.com;
   }
-  _.com;
   const fileContent = template({
     name: file.name,
     item: JSON.stringify(doc),
@@ -65,5 +69,10 @@ export function generateDoc(demos: Demo[], rootDir: string, file: File) {
       (demo) => `import ${demo.name} from "./${demo.name}.vue";`
     ),
   });
-  fs.writeFileSync(`${rootDir}/src/views/index.vue`, fileContent);
+  writeFileRecursive(
+    `${rootDir}/src/views/${config.name}/${file.name}/index.vue`,
+    fileContent
+  );
+
+  return doc;
 }

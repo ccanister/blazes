@@ -3,6 +3,7 @@ import { SiteConfig, File } from "./type";
 const klawSync = require("klaw-sync");
 import { generateDemo } from "./generate-demo";
 import { generateDoc } from "./generate-doc";
+import { generateMenu } from "./generate-menu";
 
 const rootDir = path.resolve(__dirname, "../../");
 const siteConfig = require(path.join(
@@ -35,9 +36,10 @@ for (const m of siteConfig.modules) {
       });
     });
   files.forEach((file) => {
-    const demos = generateDemo(rootDir, file.dir);
-    generateDoc(demos, rootDir, file);
+    const demos = generateDemo(rootDir, file, m);
+    file.doc = generateDoc(demos, rootDir, file, m);
   });
+  generateMenu(rootDir, files, m);
 }
 
 // const codes: any[] = [

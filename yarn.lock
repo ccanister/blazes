@@ -1187,6 +1187,11 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/underscore@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.11.2.tgz#9441e0f6402bbcb72dbee771582fa57c5a1dedd3"
+  integrity sha512-Ls2ylbo7++ITrWk2Yc3G/jijwSq5V3GT0tlgVXEl2kKYXY3ImrtmTCoE2uyTWFRI5owMBriloZFWbE1SXOsE7w==
+
 "@types/webpack-dev-server@^3.11.0":
   version "3.11.3"
   resolved "https://registry.npm.taobao.org/@types/webpack-dev-server/download/@types/webpack-dev-server-3.11.3.tgz?cache=0&sync_timestamp=1616706643140&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fwebpack-dev-server%2Fdownload%2F%40types%2Fwebpack-dev-server-3.11.3.tgz#237e26d87651cf95490dcd356f568c8c84016177"
