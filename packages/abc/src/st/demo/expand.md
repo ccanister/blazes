@@ -1,19 +1,23 @@
 ---
-order: 1
-title: 基本
-subtitle: basic
+order: 6
+title: 可展开
+subtitle: expand
 ---
 
-快速生成表格；利用 `res` 可以适配后端数据格式。
+使用 `#expand` 模板实现可展开，允许接收 `item`、`index`、`column` 三个值。附加可实现：嵌套子表格。
 
-```html
+```ts
 <template>
-    <st :data="url" :columns="columns" rowKey="id"></st>
+    <st :data="url" :columns="columns" rowKey="id">
+        <template #expandedRowRender="{ record }">
+            My Name is {{record.user.name}}
+        </template>
+    </st>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-    name: "basic",
+    name: "expand",
     setup() {
     return {
         url: [

@@ -71,11 +71,11 @@ export function generateDoc(
   const fileContent = template({
     name: file.name,
     item: JSON.stringify(doc),
-    demoComponents: demos.map((demo) => `<${demo.name} id="${demo.name}" />`),
+    demoComponents: demos.map((demo) => `<${demo.name} id="${demo.name}" />`).join("\n"),
     demoComponentNames: demos.map((demo) => demo.name),
     importComponentNames: demos.map(
       (demo) => `import ${demo.name} from "./${demo.name}.vue";`
-    ),
+    ).join("\n"),
     anchors: JSON.stringify(anchors),
   });
 
