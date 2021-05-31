@@ -1,5 +1,5 @@
 import Modal, { ModalFuncProps } from "ant-design-vue/lib/modal";
-import { h, isVNode, render, VNode } from "vue";
+import { AppContext, h, isVNode, render, VNode } from "vue";
 
 export interface IModalOption extends ModalFuncProps {
   component: any;
@@ -16,6 +16,14 @@ export interface IDialogRef<T = any> {
 let seed = 1;
 
 export class ModalHelper {
+  private static _appContext: AppContext | null = null;
+  static set appContext(appContext: AppContext | null) {
+    this._appContext = appContext;
+  }
+  static get appContext() {
+    return this._appContext;
+  }
+
   static open<T>(config: IModalOption): { dialogRef: IDialogRef<T> } {
     const container = document.createElement("div");
     const id = "dialog_" + seed++;
@@ -43,6 +51,7 @@ export class ModalHelper {
         default: () => content,
       }
     );
+    instance.appContext = this.appContext;
     render(instance, container);
 
     let resolveAfterClose: (value: any) => void;
