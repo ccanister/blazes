@@ -178,6 +178,16 @@ export default defineComponent({
       { immediate: true }
     );
 
+    watch(
+      () => props.formData as any,
+      (data) => {
+       data = data || {};
+        Object.keys(form).forEach((key) => {
+          form[key] = data[key] || "";
+        });
+      }
+    );
+
     const button$ = computed(() => {
       if (props.button === null) {
         return null;
