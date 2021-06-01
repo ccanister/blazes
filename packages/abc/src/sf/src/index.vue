@@ -181,6 +181,7 @@ export default defineComponent({
     watch(
       () => props.formData as any,
       (data) => {
+        console.log(data);
        data = data || {};
         Object.keys(form).forEach((key) => {
           form[key] = data[key] || "";
