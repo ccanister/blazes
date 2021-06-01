@@ -5,6 +5,7 @@ import { parse } from "yaml";
 import * as fs from "fs";
 import { writeFileRecursive } from "./util";
 const _ = require("underscore");
+const MarkdownItSize = require("markdown-it-imsize");
 
 const template = _.template(`
 <template>
@@ -35,12 +36,16 @@ let meta: DocMeta = {} as DocMeta;
 
 const md = MarkIt({
   html: true,
+  linkify: true,
+  typography: true,
 });
 
 md.use(MetaDataBlock, {
   parseMetadata: parse,
   meta,
 });
+
+md.use(MarkdownItSize);
 
 export function generateDoc(
   demos: Demo[],
@@ -71,11 +76,13 @@ export function generateDoc(
   const fileContent = template({
     name: file.name,
     item: JSON.stringify(doc),
-    demoComponents: demos.map((demo) => `<${demo.name} id="${demo.name}" />`).join("\n"),
+    demoComponents: demos
+      .map((demo) => `<${demo.name} id="${demo.name}" />`)
+      .join("\n"),
     demoComponentNames: demos.map((demo) => demo.name),
-    importComponentNames: demos.map(
-      (demo) => `import ${demo.name} from "./${demo.name}.vue";`
-    ).join("\n"),
+    importComponentNames: demos
+      .map((demo) => `import ${demo.name} from "./${demo.name}.vue";`)
+      .join("\n"),
     anchors: JSON.stringify(anchors),
   });
 

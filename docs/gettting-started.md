@@ -32,7 +32,7 @@ yarn serve
 ```
 启动完成后打开浏览器访问[http://localhost:8081](http://localhost:8081)，如果看到如下页面则代表成功。
 
-![开始](./assets/images/screenshot/start.png)
+![开始](/resource/images/screenshot/start.png =700x300)
 
 至此可以开始着手开发。
 

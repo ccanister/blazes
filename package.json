@@ -45,6 +45,7 @@
     "markdown-it": "^12.0.6",
     "markdown-it-chain": "^1.3.0",
     "markdown-it-container": "^3.0.0",
+    "markdown-it-imsize": "^2.0.1",
     "markdown-it-metadata-block": "^1.0.2",
     "prettier": "^2.2.1",
     "typescript": "~4.1.5",

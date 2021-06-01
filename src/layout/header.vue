@@ -49,7 +49,7 @@ export default defineComponent({
       () => route.path,
       (url) => {
         const suffix = url.split("/")[1];
-        selectedKeys.value = [navs.find((nav) => nav.value === suffix)!.value];
+        selectedKeys.value = [navs.find((nav) => nav.value === suffix)?.value || "docs"];
       },
       { immediate: true }
     );
