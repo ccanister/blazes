@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-form :model="form" ref="formRef">
+    <a-form :model="form" ref="formRef" :layout="layout">
       <a-row>
         <a-col v-for="item in items" :key="item.ui.prop" :span="item.gutter.span">
           <a-form-item
@@ -92,6 +92,7 @@ export default defineComponent({
     width: String,
     button: Object,
     formData: Object,
+    layout: String
   },
   emits: {
     formSubmit: null,
