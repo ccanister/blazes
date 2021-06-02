@@ -28,6 +28,7 @@ export interface ISFUISchemaItem {
         span?: number;
     };
     hidden?: boolean;
+    layout?: "horizontal" | "vertical";
     [key: string]: any;
 }
 export declare type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";

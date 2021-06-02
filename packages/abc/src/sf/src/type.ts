@@ -31,6 +31,7 @@ export interface ISFUISchemaItem {
     span?: number;
   };
   hidden?: boolean;
+  layout?: "horizontal" | "vertical";
   [key: string]: any;
 }
 
@@ -65,5 +66,5 @@ export const DEFAULT_GUTTER = {
   controlWidth: "auto",
   spanLabel: 5,
   spanControl: 17,
-  span: 24
+  span: 24,
 };
