@@ -1,31 +1,33 @@
 <template>
   <div>
     <a-form :model="form" ref="formRef">
-      <a-form-item
-        v-for="item in items"
-        :key="item.ui.prop"
-        :label="item.title"
-        :name="item.ui.prop"
-        :rules="item.ui.rules"
-        :class="item.class"
-        :style="{ width: item.ui.gutter.controlWidth }"
-        :wrapperCol="{
-          span: item.ui.gutter.spanControl,
-          offset: item.ui.gutter.controlffset,
-        }"
-        :labelCol="{
-          span: item.ui.gutter.spanLabel,
-          offset: item.ui.gutter.spanOffset,
-        }"
-      >
-        <component
-          :ui="item.ui"
-          :schema="item"
-          v-model="form[item.ui.prop]"
-          :is="item.ui.widget"
-          :ref="addItem(item.ui.prop)"
-        ></component>
-      </a-form-item>
+      <a-row>
+        <a-col v-for="item in items" :key="item.ui.prop" :span="item.gutter.span">
+          <a-form-item
+            :label="item.title"
+            :name="item.ui.prop"
+            :rules="item.ui.rules"
+            :class="item.class"
+            :style="{ width: item.ui.gutter.controlWidth }"
+            :wrapperCol="{
+              span: item.ui.gutter.spanControl,
+              offset: item.ui.gutter.controlffset,
+            }"
+            :labelCol="{
+              span: item.ui.gutter.spanLabel,
+              offset: item.ui.gutter.spanOffset,
+            }"
+          >
+            <component
+              :ui="item.ui"
+              :schema="item"
+              v-model="form[item.ui.prop]"
+              :is="item.ui.widget"
+              :ref="addItem(item.ui.prop)"
+            ></component>
+          </a-form-item>
+        </a-col>
+      </a-row>
     </a-form>
     <div v-if="button$" :class="button$.className">
       <a-row type="flex" :justify="button$.span ? 'start' : 'end'">
@@ -189,7 +191,6 @@ export default defineComponent({
         Array.from(keySet).forEach((key) => {
           form[key] = data[key] || form[key];
         });
-        console.log(form);
       }
     );
 

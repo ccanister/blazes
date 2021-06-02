@@ -49,15 +49,15 @@ declare const _default: import("vue").DefineComponent<{
     pagination: boolean;
     bordered: boolean;
 } & {
-    total?: number | undefined;
-    req?: Record<string, any> | undefined;
+    columns?: unknown[] | undefined;
+    pageVo?: Record<string, any> | undefined;
+    data?: unknown;
     pi?: number | undefined;
     ps?: number | undefined;
-    columns?: unknown[] | undefined;
-    data?: unknown;
+    total?: number | undefined;
     res?: Record<string, any> | undefined;
+    req?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
-    pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
     scroll?: Record<string, any> | undefined;
 }>, {

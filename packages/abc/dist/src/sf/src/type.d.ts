@@ -25,6 +25,7 @@ export interface ISFUISchemaItem {
         controlWidth?: string;
         spanLabel?: number;
         spanControl?: number;
+        span?: number;
     };
     hidden?: boolean;
     [key: string]: any;
@@ -57,4 +58,5 @@ export declare const DEFAULT_GUTTER: {
     controlWidth: string;
     spanLabel: number;
     spanControl: number;
+    span: number;
 };
