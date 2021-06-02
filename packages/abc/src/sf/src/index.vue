@@ -2,7 +2,7 @@
   <div>
     <a-form :model="form" ref="formRef" :layout="layout">
       <a-row>
-        <a-col v-for="item in items" :key="item.ui.prop" :span="item.gutter.span">
+        <a-col v-for="item in items" :key="item.ui.prop" :span="item.ui.gutter.span">
           <a-form-item
             :label="item.title"
             :name="item.ui.prop"
