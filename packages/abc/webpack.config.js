@@ -3,6 +3,7 @@ const { VueLoaderPlugin } = require("vue-loader-v16");
 const WebpackBundleAnalyzer = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const plugins = [
   new VueLoaderPlugin(),
@@ -17,6 +18,7 @@ const plugins = [
       },
     ],
   }),
+  new OptimizeCssAssetsPlugin()
 ];
 if (process.env.npm_lifecycle_event === "analyze") {
   plugins.push(
