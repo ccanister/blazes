@@ -36,7 +36,7 @@ declare const _default: import("vue").DefineComponent<{
                 onFinish: (...args: any[]) => any;
                 onFinishFailed: (...args: any[]) => any;
             } & {
-                layout?: "vertical" | "horizontal" | "inline" | undefined;
+                layout?: "horizontal" | "vertical" | "inline" | undefined;
                 colon?: boolean | undefined;
                 validateTrigger?: string | string[] | undefined;
                 labelCol?: unknown;
@@ -75,7 +75,7 @@ declare const _default: import("vue").DefineComponent<{
                 onFinish: (...args: any[]) => any;
                 onFinishFailed: (...args: any[]) => any;
             } & {
-                layout?: "vertical" | "horizontal" | "inline" | undefined;
+                layout?: "horizontal" | "vertical" | "inline" | undefined;
                 colon?: boolean | undefined;
                 validateTrigger?: string | string[] | undefined;
                 labelCol?: unknown;
@@ -135,7 +135,7 @@ declare const _default: import("vue").DefineComponent<{
             onFinish: (...args: any[]) => any;
             onFinishFailed: (...args: any[]) => any;
         } & {
-            layout?: "vertical" | "horizontal" | "inline" | undefined;
+            layout?: "horizontal" | "vertical" | "inline" | undefined;
             colon?: boolean | undefined;
             validateTrigger?: string | string[] | undefined;
             labelCol?: unknown;
@@ -183,7 +183,7 @@ declare const _default: import("vue").DefineComponent<{
         onFinish: (...args: any[]) => any;
         onFinishFailed: (...args: any[]) => any;
     } & {
-        layout?: "vertical" | "horizontal" | "inline" | undefined;
+        layout?: "horizontal" | "vertical" | "inline" | undefined;
         colon?: boolean | undefined;
         validateTrigger?: string | string[] | undefined;
         labelCol?: unknown;
@@ -493,7 +493,7 @@ declare const _default: import("vue").DefineComponent<{
                 onFinish: (...args: any[]) => any;
                 onFinishFailed: (...args: any[]) => any;
             } & {
-                layout?: "vertical" | "horizontal" | "inline" | undefined;
+                layout?: "horizontal" | "vertical" | "inline" | undefined;
                 colon?: boolean | undefined;
                 validateTrigger?: string | string[] | undefined;
                 labelCol?: unknown;
@@ -532,7 +532,7 @@ declare const _default: import("vue").DefineComponent<{
                 onFinish: (...args: any[]) => any;
                 onFinishFailed: (...args: any[]) => any;
             } & {
-                layout?: "vertical" | "horizontal" | "inline" | undefined;
+                layout?: "horizontal" | "vertical" | "inline" | undefined;
                 colon?: boolean | undefined;
                 validateTrigger?: string | string[] | undefined;
                 labelCol?: unknown;
@@ -592,7 +592,7 @@ declare const _default: import("vue").DefineComponent<{
             onFinish: (...args: any[]) => any;
             onFinishFailed: (...args: any[]) => any;
         } & {
-            layout?: "vertical" | "horizontal" | "inline" | undefined;
+            layout?: "horizontal" | "vertical" | "inline" | undefined;
             colon?: boolean | undefined;
             validateTrigger?: string | string[] | undefined;
             labelCol?: unknown;
@@ -640,7 +640,7 @@ declare const _default: import("vue").DefineComponent<{
         onFinish: (...args: any[]) => any;
         onFinishFailed: (...args: any[]) => any;
     } & {
-        layout?: "vertical" | "horizontal" | "inline" | undefined;
+        layout?: "horizontal" | "vertical" | "inline" | undefined;
         colon?: boolean | undefined;
         validateTrigger?: string | string[] | undefined;
         labelCol?: unknown;

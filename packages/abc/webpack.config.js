@@ -85,4 +85,5 @@ module.exports = {
     },
     /^ant-design-vue\/lib/,
   ],
+  devtool: "source-map"
 };
