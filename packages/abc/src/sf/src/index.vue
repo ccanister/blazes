@@ -71,6 +71,7 @@ import {
   reactive,
   ref,
   Ref,
+  shallowRef,
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
@@ -79,7 +80,6 @@ import StringModel from "./model/string";
 import AnyModel from "./model/any";
 import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
-import BaseModel from "./model/base";
 import { BtnLoading } from "@blazes/theme";
 
 const typeModels = {
@@ -114,8 +114,8 @@ export default defineComponent({
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: any[] = reactive([]);
-    const form: { [key: string]: BaseModel<any> } = reactive({
+    const items: Ref<any[]> = shallowRef([]);
+    const form: { [key: string]: any } = reactive({
       ...(props.formData || {}),
     });
     provide(formSymbol, form);
@@ -177,15 +177,19 @@ export default defineComponent({
             });
           }
           if (!item.ui.hidden) {
-            items.push(item);
+            items.value.push(item);
           }
           item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
         });
-        items.forEach((item) => {
+        items.value.forEach((item) => {
           if (item.ui.visibleIf) {
-            const watchKeys = Object.keys(item.ui.visibleIf).map(
-              (key) => form[key]
-            );
+            const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
+              if (!form.hasOwnProperty(key)) {
+                form[key] = null;
+              }
+              return form[key];
+            });
+            console.log(watchKeys);
             watch(
               watchKeys,
               (values) => {
