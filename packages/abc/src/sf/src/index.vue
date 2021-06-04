@@ -2,8 +2,13 @@
   <div>
     <a-form :model="form" ref="formRef" :layout="schema?.ui?.layout">
       <a-row>
-        <a-col v-for="item in items" :key="item.ui.prop" :span="item.ui.gutter.span">
+        <a-col
+          v-for="item in items"
+          :key="item.ui.prop"
+          :span="item.ui.gutter.span"
+        >
           <a-form-item
+            v-if="item.show"
             :label="item.title"
             :name="item.ui.prop"
             :rules="item.ui.rules"
@@ -109,7 +114,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: any[] = [];
+    const items: any[] = reactive([]);
     const form: { [key: string]: BaseModel<any> } = reactive({
       ...(props.formData || {}),
     });
@@ -175,6 +180,33 @@ export default defineComponent({
             items.push(item);
           }
           item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
+        });
+        items.forEach((item) => {
+          if (item.ui.visibleIf) {
+            const watchKeys = Object.keys(item.ui.visibleIf).map(
+              (key) => form[key]
+            );
+            watch(
+              watchKeys,
+              (values) => {
+                let flag = true;
+                values.forEach((value, index) => {
+                  const visibleIfFns = Object.values(item.ui.visibleIf) as (
+                    | any[]
+                    | ((value: any) => boolean)
+                  )[];
+                  const fn = Array.from(visibleIfFns[index])
+                    ? () => (visibleIfFns[index] as any[]).includes(value)
+                    : (visibleIfFns[index] as (value: any) => boolean);
+                  flag = flag && fn(value);
+                });
+                item.show = flag;
+              },
+              { immediate: true }
+            );
+          } else {
+            item.show = true;
+          }
         });
       },
       { immediate: true }

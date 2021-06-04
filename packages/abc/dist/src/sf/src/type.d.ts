@@ -29,6 +29,9 @@ export interface ISFUISchemaItem {
     };
     hidden?: boolean;
     layout?: "horizontal" | "vertical";
+    visibleIf?: {
+        [key: string]: any[] | ((value: any) => boolean);
+    };
     [key: string]: any;
 }
 export declare type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";
