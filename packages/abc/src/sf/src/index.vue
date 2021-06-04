@@ -72,6 +72,7 @@ import {
   ref,
   Ref,
   shallowRef,
+  toRef,
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
@@ -187,9 +188,8 @@ export default defineComponent({
               if (!form.hasOwnProperty(key)) {
                 form[key] = null;
               }
-              return form[key];
+              return toRef(form, key);
             });
-            console.log(watchKeys);
             watch(
               watchKeys,
               (values) => {
