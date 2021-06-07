@@ -49,7 +49,6 @@ declare const _default: import("vue").DefineComponent<{
     pagination: boolean;
     bordered: boolean;
 } & {
-    total?: number | undefined;
     req?: Record<string, any> | undefined;
     pi?: number | undefined;
     ps?: number | undefined;
@@ -57,6 +56,7 @@ declare const _default: import("vue").DefineComponent<{
     data?: unknown;
     res?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
+    total?: number | undefined;
     pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
     scroll?: Record<string, any> | undefined;

@@ -10,3 +10,4 @@ sf.install = (app: App): void => {
 const _sf: SFCWithInstall<typeof sf> = sf as any;
 export default _sf;
 export * from "./src/util";
+export { formRefSymbol, formSymbol } from "./src/type";

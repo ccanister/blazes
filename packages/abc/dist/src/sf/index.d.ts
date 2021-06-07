@@ -6,3 +6,4 @@ declare type SFCWithInstall<T> = T & {
 declare const _sf: SFCWithInstall<typeof sf>;
 export default _sf;
 export * from "./src/util";
+export { formRefSymbol, formSymbol } from "./src/type";
