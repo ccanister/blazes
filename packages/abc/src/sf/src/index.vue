@@ -183,7 +183,7 @@ export default defineComponent({
           item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
         });
         items.value.forEach((item) => {
-          if (item.ui.visibleIf) {
+          if (!item.ui.visibleIf) {
             const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
               if (!form.hasOwnProperty(key)) {
                 form[key] = null;
@@ -193,6 +193,7 @@ export default defineComponent({
             watch(
               watchKeys,
               (values) => {
+                console.log(values);
                 let flag = true;
                 values.forEach((value, index) => {
                   const visibleIfFns = Object.values(item.ui.visibleIf) as (
@@ -204,7 +205,9 @@ export default defineComponent({
                     : (visibleIfFns[index] as (value: any) => boolean);
                   flag = flag && fn(value);
                 });
+                console.log(flag);
                 item.show = flag;
+                console.log(item);
               },
               { immediate: true }
             );
