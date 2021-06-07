@@ -67,11 +67,11 @@ import Button from "ant-design-vue/lib/button";
 import {
   computed,
   defineComponent,
+  markRaw,
   provide,
   reactive,
   ref,
   Ref,
-  shallowRef,
   toRef,
   watch,
 } from "vue";
@@ -115,7 +115,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: Ref<any[]> = shallowRef([]);
+    const items: any[] = reactive([]);
     const form: { [key: string]: any } = reactive({
       ...(props.formData || {}),
     });
@@ -153,7 +153,7 @@ export default defineComponent({
         Object.keys(properties).forEach((key: string) => {
           const item: ISFSchema = { ...properties[key] };
           item.ui = { ...(item.ui || {}) };
-          item.ui.widget = item.ui.widget || SfInput;
+          item.ui.widget = markRaw(item.ui.widget || SfInput);
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
           item.ui.prop = key;
           item.ui.rules =
@@ -178,12 +178,12 @@ export default defineComponent({
             });
           }
           if (!item.ui.hidden) {
-            items.value.push(item);
+            items.push(item);
           }
           item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
         });
-        items.value.forEach((item) => {
-          if (!item.ui.visibleIf) {
+        items.forEach((item) => {
+          if (item.ui.visibleIf) {
             const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
               if (!form.hasOwnProperty(key)) {
                 form[key] = null;
@@ -193,7 +193,6 @@ export default defineComponent({
             watch(
               watchKeys,
               (values) => {
-                console.log(values);
                 let flag = true;
                 values.forEach((value, index) => {
                   const visibleIfFns = Object.values(item.ui.visibleIf) as (
@@ -205,9 +204,7 @@ export default defineComponent({
                     : (visibleIfFns[index] as (value: any) => boolean);
                   flag = flag && fn(value);
                 });
-                console.log(flag);
                 item.show = flag;
-                console.log(item);
               },
               { immediate: true }
             );
