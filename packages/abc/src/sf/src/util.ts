@@ -41,7 +41,7 @@ export function getData(schema: ISFSchema, ui: ISFUISchemaItem, formData: any) {
   if (ui.asyncData) {
     return ui
       .asyncData()
-      .then(list => getEnum(list, formData, schema.readOnly as boolean));
+      .then((list) => getEnum(list, formData, schema.readOnly as boolean));
   }
 
   return Promise.resolve(
@@ -51,4 +51,11 @@ export function getData(schema: ISFSchema, ui: ISFUISchemaItem, formData: any) {
       schema.readOnly as boolean
     )
   );
+}
+
+export function transMapToEnum(map: { [key: string]: any }): ISFSchemaEnum[] {
+  return Object.keys(map).map((key) => ({
+    label: map[key],
+    value: key,
+  }));
 }
