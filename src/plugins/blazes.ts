@@ -1,4 +1,7 @@
-import { st, sf, TableWrapper, sv } from "@blazes/abc";
+import sf from "../../packages/abc/src/sf";
+import TableWrapper from "../../packages/abc/src/table-wrapper";
+import st from "../../packages/abc/src/st";
+import sv from "../../packages/abc/src/sv";
 import { App } from "vue";
 
 import "@blazes/abc/dist/style.css";
