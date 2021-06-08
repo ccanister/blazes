@@ -3,7 +3,7 @@ const MarkIt = require("markdown-it");
 import MetaDataBlock from "./meta-block";
 import { parse } from "yaml";
 import * as fs from "fs";
-import { writeFileRecursive } from "./util";
+import { toHump, writeFileRecursive } from "./util";
 const _ = require("underscore");
 const MarkdownItSize = require("markdown-it-imsize");
 
@@ -79,9 +79,9 @@ export function generateDoc(
     demoComponents: demos
       .map((demo) => `<${demo.name} id="${demo.name}" />`)
       .join("\n"),
-    demoComponentNames: demos.map((demo) => demo.name),
+    demoComponentNames: demos.map((demo) => toHump(demo.name)),
     importComponentNames: demos
-      .map((demo) => `import ${demo.name} from "./${demo.name}.vue";`)
+      .map((demo) => `import ${toHump(demo.name)} from "./${demo.name}.vue";`)
       .join("\n"),
     anchors: JSON.stringify(anchors),
   });

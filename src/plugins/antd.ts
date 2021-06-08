@@ -29,10 +29,11 @@ import {
   Popconfirm,
   InputNumber,
   Affix,
-  Anchor
+  Anchor,
 } from "ant-design-vue";
 
-import "ant-design-vue/dist/antd.css";
+import "ant-design-vue/dist/antd.less";
+import "../../packages/theme/dist/index.less";
 
 const components = [
   Form,
@@ -65,7 +66,7 @@ const components = [
   Popconfirm,
   InputNumber,
   Affix,
-  Anchor
+  Anchor,
 ];
 
 import { App } from "vue";

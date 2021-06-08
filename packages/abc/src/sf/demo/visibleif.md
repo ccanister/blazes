@@ -23,7 +23,7 @@ subtitle: visibleif
             login_type: {
               type: "string",
               title: "登录方式",
-              enum: [
+              enums: [
                 { label: "手机", value: "mobile" },
                 { label: "账密", value: "account" },
               ],
@@ -32,6 +32,7 @@ subtitle: visibleif
               },
             },
             mobile: {
+              title: "手机",
               type: "string",
               ui: {
                 visibleIf: {
@@ -40,6 +41,7 @@ subtitle: visibleif
               },
             },
             name: {
+              title: "账密",
               type: "string",
               ui: {
                 visibleIf: {

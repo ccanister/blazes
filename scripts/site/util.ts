@@ -12,3 +12,9 @@ export function writeFileRecursive(filePath: string, content: string) {
   fs.mkdirSync(lastPath, { recursive: true });
   fs.writeFileSync(filePath, content);
 }
+
+export function toHump(name: string) {
+  return name.replace(/\-(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  });
+}

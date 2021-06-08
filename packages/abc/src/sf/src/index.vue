@@ -1,6 +1,10 @@
 <template>
   <div>
-    <a-form :model="form" ref="formRef" :layout="schema?.ui?.layout">
+    <a-form
+      :model="form"
+      ref="formRef"
+      :layout="schema?.ui?.layout || 'horizontal'"
+    >
       <a-row>
         <a-col
           v-for="item in items"
@@ -9,7 +13,7 @@
         >
           <a-form-item
             v-if="item.show"
-            :label="item.title"
+            :label="$slots[item.ui.prop] ? undefined : item.title"
             :name="item.ui.prop"
             :rules="item.ui.rules"
             :class="item.class"
@@ -23,6 +27,9 @@
               offset: item.ui.gutter.spanOffset,
             }"
           >
+            <template v-if="$slots[item.ui.prop]" #label>
+              <slot :name="item.ui.prop" :schema="item"></slot>
+            </template>
             <component
               :ui="item.ui"
               :schema="item"
