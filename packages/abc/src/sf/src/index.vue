@@ -199,7 +199,7 @@ export default defineComponent({
                     | any[]
                     | ((value: any) => boolean)
                   )[];
-                  const fn = Array.from(visibleIfFns[index])
+                  const fn = Array.isArray(visibleIfFns[index])
                     ? () => (visibleIfFns[index] as any[]).includes(value)
                     : (visibleIfFns[index] as (value: any) => boolean);
                   flag = flag && fn(value);
