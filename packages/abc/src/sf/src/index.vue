@@ -232,7 +232,7 @@ export default defineComponent({
           keySet.add(key);
         });
         Array.from(keySet).forEach((key) => {
-          form[key] = data[key] || form[key];
+          form[key] = data[key] !== undefined ? data[key] : form[key];
         });
       }
     );
