@@ -10,4 +10,12 @@ export class ArrayService {
   static clear<T>(arr: T[]) {
     arr.splice(0, arr.length);
   }
+
+  static flattern<T = any[]>(arr: any[]): T[] {
+    return arr.reduce(
+      (result: T[], cur) =>
+        result.concat(Array.isArray(cur) ? this.flattern(cur) : cur),
+      []
+    );
+  }
 }
