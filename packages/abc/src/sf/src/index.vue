@@ -172,7 +172,7 @@ export default defineComponent({
           const type = (item.type = item.type || "string");
           if (item.required) {
             const requiredRule = item.ui.rules.find(
-              (r: any) => r.ruquired === true
+              (r: any) => r.required === true
             );
             if (!requiredRule) {
               item.ui.rules.push(addReuiqredRule(item, type));
