@@ -3,11 +3,13 @@
     v-if="ui.showPassword"
     v-model:value="model$"
     :placeholder="ui.placeholder"
+    :disabled="schema.readOnly"
   />
   <a-input
     v-else
     :placeholder="ui.placeholder"
     v-model:value="model$"
+    :disabled="schema.readOnly"
   ></a-input>
 </template>
 
@@ -20,7 +22,8 @@ export default defineComponent({
   name: "sf-input",
   props: {
     modelValue: [String, Number, Boolean],
-    ui: Object
+    ui: Object,
+    schema: Object
   },
   components: {
     [Input.name]: Input,
