@@ -1,5 +1,5 @@
 <template>
-  <a-input :placeholder="placeholder" v-model="model" @keyup.enter="search">
+  <a-input :placeholder="placeholder" v-model:value="model" @keyup.enter="search">
     <template #suffix>
       <CloseOutlined v-if="model" @click="clear" />
       <SearchOutlined v-else @click="search" />

@@ -1,10 +1,10 @@
 <template>
   <div class="table-wrapper">
-    <div class="fx mb-md">
+    <div class="d-flex">
       <div>
         <slot name="left"></slot>
       </div>
-      <div class="m-auto-left">
+      <div class="right">
         <slot name="right"></slot>
       </div>
     </div>
@@ -19,3 +19,11 @@ export default defineComponent({
   name: "table-wrapper"
 });
 </script>
+
+<style lang="less" scoped>
+.table-wrapper {
+  .right {
+    margin-left: auto;
+  }
+}
+</style>

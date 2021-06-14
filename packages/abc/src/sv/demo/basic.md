@@ -8,7 +8,7 @@ subtitle: basic
 
 ```ts
 <template>
-    <sv :data="data" :isv="isv" rowKey="id">
+    <sv :data="data" :isv="isv">
         <template #status="{ value }">
             我觉得{{value}}的状态不错
         </template>

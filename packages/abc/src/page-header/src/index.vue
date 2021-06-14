@@ -1,7 +1,10 @@
 <template>
   <div class="page-header">
     <div class="breadcrumb">
-      <a-breadcrumb separator="/">
+      <template v-if="$slots.breadcrumb">
+        <slot name="breadcrumb"></slot>
+      </template>
+      <a-breadcrumb v-else separator="/">
         <a-breadcrumb-item v-for="path in paths" :key="path.text">
           <router-link v-if="path.link" :to="path.link">
             {{ path.text }}

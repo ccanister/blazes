@@ -137,11 +137,13 @@ export interface ISTColumnButton {
   iif?: (record: ISTData, column: ISTColumn) => boolean;
   iifBehavior?: "hide" | "disabled"; // iif返回false时候的表现
   type?: "popconfirm";
-  popconfirm?: {
-    title: string;
-    confirm: (record: ISTData) => void;
-  };
+  popconfirm?: ISTColumnPopConfirm;
   [key: string]: any;
+}
+
+export interface ISTColumnPopConfirm {
+  title: string;
+  confirm: (record: ISTData) => void;
 }
 
 export interface ISTResetColumnsOption {
