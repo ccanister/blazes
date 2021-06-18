@@ -126,11 +126,12 @@ export interface ISTColumnButton {
     iif?: (record: ISTData, column: ISTColumn) => boolean;
     iifBehavior?: "hide" | "disabled";
     type?: "popconfirm";
-    popconfirm?: {
-        title: string;
-        confirm: (record: ISTData) => void;
-    };
+    popconfirm?: ISTColumnPopConfirm;
     [key: string]: any;
+}
+export interface ISTColumnPopConfirm {
+    title: string;
+    confirm: (record: ISTData) => void;
 }
 export interface ISTResetColumnsOption {
     pi?: number;

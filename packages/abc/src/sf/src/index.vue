@@ -16,7 +16,7 @@
             :label="$slots[item.ui.prop] ? undefined : item.title"
             :name="item.ui.prop"
             :rules="item.ui.rules"
-            :class="item.class"
+            :class="item.ui.class"
             :style="{ width: item.ui.gutter.controlWidth }"
             :wrapperCol="{
               span: item.ui.gutter.spanControl,
