@@ -1,8 +1,5 @@
 .DS_Store
 node_modules
-/dist
-/blazes
-
 
 # local env files
 .env.local
@@ -24,3 +21,6 @@ pnpm-debug.log*
 *.sw?
 
 /src/views
+
+**/dist
+**/lib
