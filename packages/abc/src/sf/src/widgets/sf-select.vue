@@ -15,7 +15,7 @@
 import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
-import { getData } from "@blazes/abc";
+import { getData } from "@blazes/abc/lib/sf";
 import Select from "ant-design-vue/lib/select";
 
 export default defineComponent({
@@ -46,7 +46,7 @@ export default defineComponent({
     // todo 需要重写
     const resetList = (result: any) => {
       list.value = result;
-    }
+    };
 
     return { model$, list, mode, setValue, resetList };
   },
