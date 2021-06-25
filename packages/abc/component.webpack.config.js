@@ -1,38 +1,27 @@
 const path = require("path");
+const fs = require("fs");
 const { VueLoaderPlugin } = require("vue-loader-v16");
-const WebpackBundleAnalyzer = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+const files = fs.readdirSync(path.join(__dirname, "src"));
+
+const resolvePath = (name) => path.join(__dirname, name);
 
 const plugins = [
   new VueLoaderPlugin(),
   new MiniCssExtractPlugin({
-    filename: "style.css",
+    filename: "[name].css",
   }),
-  new CopyWebpackPlugin({
-    patterns: [
-      {
-        from: path.join(__dirname, "src/sf/src/widgets"),
-        to: path.join(__dirname, "./lib/src/sf/src/widgets"),
-      },
-    ],
-  }),
-  new OptimizeCssAssetsPlugin()
+  new OptimizeCssAssetsPlugin(),
 ];
-if (process.env.npm_lifecycle_event === "analyze") {
-  plugins.push(
-    new WebpackBundleAnalyzer.BundleAnalyzerPlugin({
-      analyzerPort: 8902,
-    })
-  );
-}
 
 module.exports = {
   mode: "production",
-  entry: {
-    index: "./index.ts",
-  },
+  entry: files.reduce((result, cur) => {
+    result[`${cur}/index`] = resolvePath(`src/${cur}`);
+    return result;
+  }, {}),
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./lib"),
@@ -85,5 +74,5 @@ module.exports = {
     },
     /^ant-design-vue\/lib/,
   ],
-  devtool: "source-map"
+  devtool: "source-map",
 };

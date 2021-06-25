@@ -1,17 +1,19 @@
 {
   "name": "@blazes/abc",
-  "version": "0.1.40-alpha.0",
-  "main": "dist/index.js",
+  "version": "0.1.42-alpha.0",
+  "main": "lib/index.js",
   "license": "MIT",
-  "types": "dist/index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
   },
   "scripts": {
-    "build": "rm -rf ./dist && webpack --mode=production && cp -R ./dist/abc/* ./dist && rm -rf ./dist/theme ./dist/abc ./dist/utils ",
+    "build": "rm -rf ./lib && webpack --mode=production && yarn build:component && yarn build:type",
+    "build:component": "webpack --mode=production --config component.webpack.config.js",
+    "build:type": "node ./build/gen-type.js",
     "analyze": "webpack --mode=production"
   },
   "publishConfig": {
