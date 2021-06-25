@@ -7,6 +7,6 @@ export interface IMenu {
     acl?: string;
     key?: string;
     children?: IMenu[];
-    _parent: IMenu | null;
+    _parent?: IMenu | null;
     desc?: string;
 }

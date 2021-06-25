@@ -4,7 +4,7 @@ import { IApp, ILayout, IUser, IProject } from "./type";
 const APP_KEY = "app";
 const LAYOUT_KEY = "layout";
 const USER_KEY = "user";
-const PROJECT_KEY = "user";
+const PROJECT_KEY = "project";
 export class SettingService {
   private _app: IApp | null = null;
   private _layout: ILayout | null = null;
