@@ -1,5 +1,10 @@
 <template>
-  <a-select v-model:value="model$" :placeholder="ui.placeholder" :mode="mode">
+  <a-select
+    v-model:value="model$"
+    :placeholder="ui.placeholder"
+    :mode="mode"
+    :disabled="schema.readOnly"
+  >
     <a-select-option
       v-for="item in list"
       :key="item.value"
