@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.1.45-alpha.0",
+  "version": "0.1.46-alpha.0",
   "main": "lib/index.js",
   "license": "MIT",
   "types": "lib/index.d.ts",
