@@ -64,7 +64,7 @@ export interface ISTColumn {
     }) => Record<string, any>;
     sorter?: (o1: ISTData, o2: ISTData) => number;
     sortOrder?: "descend" | "ascend";
-    ellipsis: boolean;
+    ellipsis?: boolean;
     [key: string]: any;
 }
 export interface ISTReqReNameType {
