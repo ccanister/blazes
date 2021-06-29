@@ -56,7 +56,7 @@ export interface ISTColumn {
   indexKey?: string;
   fixed?: "left" | "right"; // 用来固定列
   buttons?: ISTColumnButton[];
-  type?: "tag" | "ellipsis" | "link";
+  type?: "tag" | "link";
   tag?: ISTColumnTag;
   filter?: ISTColumnFilter | null;
   click?: (data: ISTData) => any;

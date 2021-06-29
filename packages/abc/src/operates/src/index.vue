@@ -61,7 +61,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { IOperate } from "./type";
-import { DownOutlined } from "@ant-design/icons-vue";
+import DownOutlined from "@ant-design/icons-vue/DownOutlined";
 import { ArrayService } from "@blazes/utils";
 
 export default defineComponent({

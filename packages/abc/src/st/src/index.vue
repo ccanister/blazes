@@ -108,10 +108,6 @@
                 :color="record._values[index].color"
                 >{{ record._values[index].text }}</a-tag
               >
-              <Ellipsis
-                v-else-if="column.type === 'ellipsis'"
-                :text="record._values[index].text"
-              ></Ellipsis>
               <a
                 @click.stop.prevent="click(record, column)"
                 v-else-if="column.type === 'link'"
@@ -201,14 +197,11 @@ import {
   ISTLoadOptions,
   ISTResetColumnsOption,
 } from "./type";
-import Ellipsis from "../../ellipsis/src/index.vue";
-import {
-  LoadingOutlined,
-  DownOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  FilterOutlined,
-} from "@ant-design/icons-vue";
+import LoadingOutlined from "@ant-design/icons-vue/LoadingOutlined";
+import DownOutlined from "@ant-design/icons-vue/DownOutlined";
+import EditOutlined from "@ant-design/icons-vue/EditOutlined";
+import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
+import FilterOutlined from "@ant-design/icons-vue/FilterOutlined";
 import message from "ant-design-vue/lib/message";
 import { useRouter } from "vue-router";
 
@@ -233,7 +226,6 @@ export default defineComponent({
     bordered: Boolean,
   },
   components: {
-    Ellipsis,
     LoadingOutlined,
     DownOutlined,
     EditOutlined,

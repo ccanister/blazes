@@ -53,7 +53,7 @@ export interface ISTColumn {
     indexKey?: string;
     fixed?: "left" | "right";
     buttons?: ISTColumnButton[];
-    type?: "tag" | "ellipsis" | "link";
+    type?: "tag" | "link";
     tag?: ISTColumnTag;
     filter?: ISTColumnFilter | null;
     click?: (data: ISTData) => any;

@@ -10,7 +10,8 @@
 <script lang="ts">
 import { useModel } from "@blazes/utils";
 import { defineComponent } from "vue";
-import { CloseOutlined, SearchOutlined } from "@ant-design/icons-vue";
+import SearchOutlined from "@ant-design/icons-vue/SearchOutlined";
+import CloseOutlined from "@ant-design/icons-vue/CloseOutlined";
 
 export default defineComponent({
   name: "search-input",
