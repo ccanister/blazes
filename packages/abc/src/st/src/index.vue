@@ -25,6 +25,7 @@
         :customRender="column.customRender"
         :fixed="column.fixed || false"
         :sorter="column.sorter"
+        :ellipsis="column.ellipsis"
       >
         <!-- :sortOrder="column.sortOrder" -->
         <template #title="scope">
@@ -117,7 +118,10 @@
               >
                 {{ record._values[index].text }}
               </a>
-              <span v-else>{{ record._values[index].text }}</span>
+              <span
+                :title="column.ellipsis ? record._values[index].text : ''"
+                >{{ record._values[index].text }}</span
+              >
             </template>
             <span
               v-for="btn in validBtns(column.buttons, record, column)"
