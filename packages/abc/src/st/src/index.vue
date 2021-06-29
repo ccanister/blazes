@@ -119,6 +119,7 @@
                 {{ record._values[index].text }}
               </a>
               <span
+                v-else
                 :title="column.ellipsis ? record._values[index].text : ''"
                 >{{ record._values[index].text }}</span
               >
