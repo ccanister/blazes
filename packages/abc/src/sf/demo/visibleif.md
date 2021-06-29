@@ -12,7 +12,7 @@ subtitle: visibleif
 </template>
 <script lang="ts">
   import { defineComponent } from "vue";
-  import SfRadio from "@blazes/abc/dist/src/sf/src/widgets/sf-radio.vue";
+  import SfRadio from "@blazes/abc/lib/sf/src/widgets/sf-radio.vue";
 
   export default defineComponent({
     name: "visibleif",

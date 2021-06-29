@@ -7,7 +7,7 @@ import Tags from "../../packages/abc/src/tags";
 import SearchInput from "../../packages/abc/src/search-input";
 import { App } from "vue";
 
-import "@blazes/abc/dist/style.css";
+import "@blazes/abc/lib/style.css";
 
 const components = [st, sf, TableWrapper, sv, PageHeader, Tags, SearchInput];
 
