@@ -70,6 +70,13 @@
     }
   },
   "gitHooks": {
-    "commit-msg": "commitlint -E GIT_PARAMS"
+    "commit-msg": "commitlint -E GIT_PARAMS",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }
