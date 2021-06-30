@@ -17,10 +17,6 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/interface-name-prefix": [
-      "error",
-      { prefixWithI: "always" },
-    ],
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/camelcase": 0,
     "vue/valid-v-slot": [

@@ -1,5 +1,3 @@
-import { UnwrapRef } from "vue";
-
 export interface ISTData {
   checked?: boolean;
   disabled?: boolean;
@@ -32,9 +30,9 @@ export interface ISTColumnFilter {
   reName?: (list: ISTColumnFilterMenu[], col: ISTColumn) => Record<string, any>;
   _default?: any;
   _menus?: { value: ISTColumnFilterMenu[] };
-  indeterminate?: UnwrapRef<{ value: boolean }>;
-  checkAll?: UnwrapRef<{ value: boolean }>;
-  _visible?: UnwrapRef<{ value: boolean }>;
+  indeterminate?: { value: boolean };
+  checkAll?: { value: boolean };
+  _visible?: { value: boolean };
   fn?: (filter: ISTColumnFilterMenu, record: ISTData) => boolean; // 本地筛选函数
 }
 
@@ -91,7 +89,7 @@ export interface ISTPage {
   position?: "top" | "bottom" | "both";
   show?: boolean;
   showSize?: boolean;
-  pageSizes?: number[];
+  pageSizes?: string[];
   showQuickJumper?: boolean;
   indexReset?: boolean;
   toTop?: boolean; // 滚动到顶部
@@ -173,7 +171,7 @@ export const DEFAULT_ST_PAGE: ISTPage = {
   position: "bottom",
   show: true,
   showSize: false,
-  pageSizes: [10, 20, 30, 40, 50],
+  pageSizes: ["10", "20", "30", "40", "50"],
   showQuickJumper: false,
   indexReset: true,
   toTop: true,

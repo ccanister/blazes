@@ -5,12 +5,15 @@
       :data-source="data$"
       :loading="loading"
       :pagination="
-        isPagination
+        page$.show
           ? {
               current: pi$,
               pageSize: ps$,
               total: total$,
               'show-total': showTotal,
+              showSizeChanger: page$.showSize,
+              pageSizeOptions: page$.pageSizes,
+              showQuickJumper: page$.showQuickJumper,
             }
           : false
       "
@@ -175,7 +178,6 @@
 </template>
 <script lang="ts">
 import { useRefs } from "@blazes/utils";
-import { deepMerge } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -219,10 +221,6 @@ export default defineComponent({
     page: Object,
     rowKey: String,
     scroll: Object,
-    pagination: {
-      type: Boolean,
-      default: true,
-    },
     bordered: Boolean,
   },
   components: {
@@ -239,13 +237,18 @@ export default defineComponent({
     // 变量
     const loading = ref(false);
     const columns$: Ref<ISTColumn[]> = ref([]);
-    const _req = computed(() => deepMerge(props.req || {}, DEFAULT_ST_REQ));
-    const _res = computed(() => deepMerge(props.res || {}, DEFAULT_ST_RES));
-    const _page = computed(() => deepMerge(props.res || {}, DEFAULT_ST_PAGE));
+    const _req = computed(() =>
+      Object.assign({}, DEFAULT_ST_REQ, props.req || {})
+    );
+    const _res = computed(() =>
+      Object.assign({}, DEFAULT_ST_RES, props.res || {})
+    );
+    const _page = computed(() =>
+      Object.assign({}, DEFAULT_ST_PAGE, props.page || {})
+    );
     const pi$ = ref(props.pi || 1);
     const ps$ = ref(props.ps || 10);
     const total$ = ref(props.total || 0);
-    const isPagination: Ref<boolean> = ref(props.pagination);
     const data$: Ref<ISTData[]> = ref([]);
     const [dropdownRefs, setDropdownRef] = useRefs<any>();
     const router = useRouter(); // works
@@ -276,16 +279,17 @@ export default defineComponent({
           if (typeof result.total !== "undefined") {
             total$.value = result.total;
           }
-          if (typeof result.pageShow !== "undefined" && props.pagination) {
-            isPagination.value = result.pageShow;
-          }
           data$.value = result.list;
         })
         .catch((msg) => {
           message.error(`加载列表失败：${msg}`);
         });
     };
-    const load = (pi: number, extraParams?: {}, options?: ISTLoadOptions) => {
+    const load = (
+      pi: number,
+      extraParams?: Record<string, unknown>,
+      options?: ISTLoadOptions
+    ) => {
       pi$.value = pi;
       if (typeof extraParams !== "undefined") {
         _req.value.params =
@@ -295,7 +299,10 @@ export default defineComponent({
       }
       loadPageData();
     };
-    const reload = (extraParams?: {}, options?: ISTLoadOptions) => {
+    const reload = (
+      extraParams?: Record<string, unknown>,
+      options?: ISTLoadOptions
+    ) => {
       load(1, extraParams, options);
     };
     const reloadCurrent = () => {
@@ -356,7 +363,7 @@ export default defineComponent({
         loadPageData(true);
       }
     });
-    const handleFilter = (col: ISTColumn, index: number) => {
+    const handleFilter = (col: ISTColumn) => {
       col.filter!._visible!.value = false;
       // 过滤表示一种数据的变化应重置页码为 `1`
       pi$.value = 1;
@@ -376,7 +383,7 @@ export default defineComponent({
       columnSource.updateIndeterminate(col.filter!);
     };
     const filterConfirm = (col: ISTColumn, index: number) => {
-      handleFilter(col, index);
+      handleFilter(col);
     };
     // 监听变化
     const { data } = toRefs(props);
@@ -402,7 +409,7 @@ export default defineComponent({
       loading,
       columns$,
       data$,
-      isPagination,
+      page$: _page,
       total$,
       pi$,
       ps$,
