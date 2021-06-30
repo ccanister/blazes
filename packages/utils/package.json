@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
+    "vue": "^3.0.0",
     "extend": "^3.0.2"
   },
   "devDependencies": {
