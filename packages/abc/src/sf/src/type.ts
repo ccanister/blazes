@@ -59,8 +59,8 @@ export interface ISFSchemaButton {
   hideReset?: boolean;
 }
 
-export const formSymbol = Symbol("form");
-export const formRefSymbol = Symbol("formRef");
+export const formSymbol = "sfform";
+export const formRefSymbol = "sfformRef";
 
 export const DEFAULT_GUTTER = {
   offset: 0,
