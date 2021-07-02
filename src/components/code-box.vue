@@ -26,10 +26,27 @@
 
 <script lang="ts">
 import { object } from "vue-types";
-import { defineComponent, Ref, ref } from "vue";
+import { defineComponent, Ref, ref, toRaw } from "vue";
 import { copy } from "@blazes/utils";
-import { escape2Html } from "@/utils/common";
+import {
+  escape2Html,
+  stripTemplateAndRemoveTemplate,
+  stripScript,
+  stripStyle,
+} from "@/utils/common";
 import { message } from "ant-design-vue";
+import sdk from "@stackblitz/sdk";
+import * as pkg from "../../package.json";
+const IndexHtml = require("../../public/resource/template/index-html.js");
+const AppVue = require("../../public/resource/template/App-vue");
+const MainJs = require("../../public/resource/template/main.js");
+
+const dependencies = {
+  "@blazes/abc": "latest",
+  "@blazes/utils": "latest",
+  "@blazes/theme": "latest",
+  "async-validator": "latest",
+};
 
 export default defineComponent({
   name: "code-box",
@@ -37,20 +54,68 @@ export default defineComponent({
     item: object().isRequired,
   },
   setup(props) {
+    const code = (toRaw(props).item as { code: string }).code;
+    const codepen = {
+      html: stripTemplateAndRemoveTemplate(escape2Html(code)),
+      script: stripScript(escape2Html(code)),
+      style: stripStyle(escape2Html(code)),
+    };
     const showCode = ref(false);
     const originActions = [
       {
         icon: "CodeSandboxOutlined",
-        tooltip: "在 CodeSandbox 上打开",
+        tooltip: "在 stackblitz 上打开",
         click: () => {
-          message.warn("仍在开发中");
+          const resourcesTpl =
+            "<scr" +
+            'ipt src="//unpkg.com/vue@next"></scr' +
+            "ipt>" +
+            "\n<scr" +
+            `ipt src="//unpkg.com/@blazes/abc/lib/index.js"></scr` +
+            "ipt>";
+          const htmlTpl = `${resourcesTpl}\n<div id="app">\n${code.trim()}\n</div>`;
+          const cssTpl = `@import url("//unpkg.com/@blazes/abc/lib/style.css");\n${(
+            codepen.style || ""
+          ).trim()}\n`;
+          let jsTpl = codepen.script
+            ? codepen.script
+                .replace(/export default/, "var Main =")
+                .trim()
+                .replace(
+                  /import ({.*}) from 'vue'/g,
+                  (s, s1) => `const ${s1} = Vue`
+                )
+                .replace(
+                  /import ({.*}) from 'element-plus'/g,
+                  (s, s1) => `const ${s1} = ElementPlus`
+                )
+            : "var Main = {}";
+          jsTpl +=
+            '\n;const app = Vue.createApp(Main);\napp.use(ElementPlus);\napp.mount("#app")';
+          const data = {
+            js: jsTpl,
+            css: cssTpl,
+            html: htmlTpl,
+          };
+          sdk.openProject({
+            title: "blazes",
+            description: `${(props.item as any).title}示例`,
+            template: "vue",
+            files: {
+              "src/main.js": MainJs.default,
+              "public/index.html": IndexHtml.default,
+              "src/App.vue": AppVue.default,
+              "src/child.vue": escape2Html(code),
+            },
+            dependencies: { ...pkg.dependencies, ...dependencies },
+          });
         },
       },
       {
         icon: "CopyOutlined",
         tooltip: "复制代码",
         click: () => {
-          copy(escape2Html((props.item as any).code)).then(() => {
+          copy(escape2Html(code)).then(() => {
             message.success("复制成功");
           });
         },
