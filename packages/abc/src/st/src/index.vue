@@ -230,7 +230,8 @@ export default defineComponent({
     DeleteOutlined,
     FilterOutlined,
   },
-  setup(props) {
+  emits: { change: null },
+  setup(props, { emit }) {
     // 依赖
     const columnSource = new STColumnSource();
     const dataSource = new STDataSource();
@@ -369,6 +370,7 @@ export default defineComponent({
       pi$.value = 1;
       columnSource.updateDefault(col.filter!);
       columnSource.updateIndeterminate(col.filter!);
+      emit("change", { type: "filter", menus: col.filter?._menus?.value });
       loadPageData();
     };
     const handleCheckPart = (col: ISTColumn, index: number) => {

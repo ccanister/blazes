@@ -157,6 +157,11 @@ export interface ISTLoadOptions {
   merge: boolean; //是否合并
 }
 
+export interface ISTChange {
+  type: "filter";
+  menus?: ISTColumnFilterMenu[];
+}
+
 export const COLUMN_DEFAULT = "-";
 export const NO_INDEX = 1;
 
