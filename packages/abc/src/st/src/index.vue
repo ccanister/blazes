@@ -374,6 +374,8 @@ export default defineComponent({
         type: "filter",
         menus: col.filter?._menus?.value,
         column: col,
+        pi: pi$.value,
+        ps: ps$.value,
       });
       loadPageData();
     };
