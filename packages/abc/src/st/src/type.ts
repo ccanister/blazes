@@ -159,6 +159,7 @@ export interface ISTLoadOptions {
 
 export interface ISTChange {
   type: "filter";
+  column: ISTColumn;
   menus?: ISTColumnFilterMenu[];
 }
 

@@ -370,7 +370,11 @@ export default defineComponent({
       pi$.value = 1;
       columnSource.updateDefault(col.filter!);
       columnSource.updateIndeterminate(col.filter!);
-      emit("change", { type: "filter", menus: col.filter?._menus?.value });
+      emit("change", {
+        type: "filter",
+        menus: col.filter?._menus?.value,
+        column: col,
+      });
       loadPageData();
     };
     const handleCheckPart = (col: ISTColumn, index: number) => {
