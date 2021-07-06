@@ -63,8 +63,9 @@ export interface ISTColumn {
     record: ISTData;
     index: number;
   }) => Record<string, any>;
-  sorter?: (o1: ISTData, o2: ISTData) => number;
+  sorter?: (o1: ISTData, o2: ISTData, order: "descend" | "ascend") => number;
   sortOrder?: "descend" | "ascend";
+  _order?: "descend" | "ascend" | undefined;
   ellipsis?: boolean;
   [key: string]: any;
 }
@@ -188,3 +189,19 @@ export const DEFAULT_FILTER = {
   filterConfirmText: "确定",
   filterClearText: "重置",
 };
+
+export interface IChangePagination {
+  current: number;
+  pageSize: number;
+  total: number;
+  showSizeChanger: boolean;
+  pageSizeOptions: string[];
+  showQuickJumper: boolean;
+  "show-total": (total: number) => string;
+}
+
+export interface IChangeSort {
+  column?: ISTColumn;
+  columnKey: string;
+  order?: "descend" | "ascend" | undefined;
+}
