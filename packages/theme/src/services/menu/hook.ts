@@ -11,6 +11,16 @@ export function useCollapse(
   const opened: Ref<string[]> = ref([]);
   let preOpenKey: string[] = [];
 
+  watch(
+    () => route.path,
+    (path) => {
+      const menu = menuService.getHit(path, true);
+      if (menu) {
+        active.value = [menu.key || ""];
+      }
+    }
+  );
+
   watch(collapse$, (isCollapse) => {
     if (isCollapse) {
       preOpenKey = opened.value;
