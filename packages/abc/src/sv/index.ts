@@ -9,3 +9,4 @@ Sv.install = (app: App): void => {
 
 const _Sv: SFCWithInstall<typeof Sv> = Sv as any;
 export default _Sv;
+export * from "./src/type";
