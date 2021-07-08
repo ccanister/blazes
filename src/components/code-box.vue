@@ -28,12 +28,7 @@
 import { object } from "vue-types";
 import { defineComponent, Ref, ref, toRaw } from "vue";
 import { copy } from "@blazes/utils";
-import {
-  escape2Html,
-  stripTemplateAndRemoveTemplate,
-  stripScript,
-  stripStyle,
-} from "@/utils/common";
+import { escape2Html } from "@/utils/common";
 import { message } from "ant-design-vue";
 import sdk from "@stackblitz/sdk";
 import * as pkg from "../../package.json";
@@ -55,60 +50,34 @@ export default defineComponent({
   },
   setup(props) {
     const code = (toRaw(props).item as { code: string }).code;
-    const codepen = {
-      html: stripTemplateAndRemoveTemplate(escape2Html(code)),
-      script: stripScript(escape2Html(code)),
-      style: stripStyle(escape2Html(code)),
-    };
     const showCode = ref(false);
     const originActions = [
       {
         icon: "CodeSandboxOutlined",
         tooltip: "在 stackblitz 上打开",
         click: () => {
-          const resourcesTpl =
-            "<scr" +
-            'ipt src="//unpkg.com/vue@next"></scr' +
-            "ipt>" +
-            "\n<scr" +
-            `ipt src="//unpkg.com/@blazes/abc/lib/index.js"></scr` +
-            "ipt>";
-          const htmlTpl = `${resourcesTpl}\n<div id="app">\n${code.trim()}\n</div>`;
-          const cssTpl = `@import url("//unpkg.com/@blazes/abc/lib/style.css");\n${(
-            codepen.style || ""
-          ).trim()}\n`;
-          let jsTpl = codepen.script
-            ? codepen.script
-                .replace(/export default/, "var Main =")
-                .trim()
-                .replace(
-                  /import ({.*}) from 'vue'/g,
-                  (s, s1) => `const ${s1} = Vue`
-                )
-                .replace(
-                  /import ({.*}) from 'element-plus'/g,
-                  (s, s1) => `const ${s1} = ElementPlus`
-                )
-            : "var Main = {}";
-          jsTpl +=
-            '\n;const app = Vue.createApp(Main);\napp.use(ElementPlus);\napp.mount("#app")';
-          const data = {
-            js: jsTpl,
-            css: cssTpl,
-            html: htmlTpl,
-          };
-          sdk.openProject({
-            title: "blazes",
-            description: `${(props.item as any).title}示例`,
-            template: "vue",
-            files: {
-              "src/main.js": MainJs.default,
-              "public/index.html": IndexHtml.default,
-              "src/App.vue": AppVue.default,
-              "src/child.vue": escape2Html(code),
+          sdk.openProject(
+            {
+              title: "blazes",
+              description: `${(props.item as any).title}示例`,
+              template: "vue",
+              files: {
+                "src/main.js": MainJs.default,
+                "public/index.html": IndexHtml.default,
+                "src/App.vue": AppVue.default,
+                "src/child.vue": escape2Html(code),
+              },
+              dependencies: { ...pkg.dependencies, ...dependencies },
+              settings: {
+                compile: {
+                  trigger: "save",
+                },
+              },
             },
-            dependencies: { ...pkg.dependencies, ...dependencies },
-          });
+            {
+              openFile: "src/child.vue",
+            }
+          );
         },
       },
       {
