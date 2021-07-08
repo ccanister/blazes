@@ -80,7 +80,7 @@ module.exports = {
       axios: "axios",
       "async-validator": "async-validator",
       "@blazes/utils": "@blazes/utils",
-      "@blazes/theme": "@blazes/theme",
+      "@blazes/theme": "@blazes/theme/dist/index.jsdelivr.js",
     },
     /^ant-design-vue\/lib/,
     /^@ant-design\/icons-vue/,

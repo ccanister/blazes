@@ -23,7 +23,7 @@
     "build": "rm -rf ./lib && webpack --mode=production && yarn build:component && yarn build:type",
     "build:component": "webpack --mode=production --config component.webpack.config.js",
     "build:type": "node ./build/gen-type.js",
-    "build:jsdeliver": "webpack --mode=production --config jsdelivr.webpack.config.js",
+    "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "analyze": "webpack --mode=production"
   },
   "publishConfig": {
