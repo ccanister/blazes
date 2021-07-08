@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.1.62-alpha.0",
+  "version": "0.1.63-alpha.0",
   "main": "lib/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
