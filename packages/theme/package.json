@@ -19,8 +19,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && webpack",
+    "build": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
+    "build:theme": "webpack --config style.webpack.config.js",
     "analyze": "webpack"
   },
   "publishConfig": {
