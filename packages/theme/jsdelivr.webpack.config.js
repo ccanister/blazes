@@ -26,7 +26,7 @@ module.exports = {
     index: "./index.ts",
   },
   output: {
-    filename: "[name].js",
+    filename: "[name].jsdelivr.js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "/",
     library: "blazeTheme",
@@ -50,6 +50,7 @@ module.exports = {
   },
   plugins,
   externals: {
+    "vue-router": "vue-router/dist/vue-router.esm-bundler",
     "ant-design-vue/lib/modal": "ant-design-vue/lib/modal",
     vue: {
       root: "Vue",
@@ -58,6 +59,5 @@ module.exports = {
     },
     axios: "axios",
     "async-validator": "async-validator",
-    "vue-router": "vue-router",
   },
 };

@@ -2,6 +2,7 @@
   "name": "@blazes/theme",
   "version": "0.1.60-alpha.0",
   "main": "dist/index.js",
+  "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
   "dependencies": {
     "@blazes/utils": "^0.1.51-alpha.0",
@@ -19,6 +20,7 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && webpack",
+    "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "analyze": "webpack"
   },
   "publishConfig": {
