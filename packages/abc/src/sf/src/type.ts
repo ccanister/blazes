@@ -33,6 +33,7 @@ export interface ISFUISchemaItem {
   hidden?: boolean;
   layout?: "horizontal" | "vertical";
   visibleIf?: { [key: string]: any[] | ((value: any) => boolean) };
+  noColon?: boolean;
   [key: string]: any;
 }
 

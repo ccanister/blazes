@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 `);
 
-let meta: DocMeta = {} as DocMeta;
+const meta: DocMeta = {} as DocMeta;
 
 const md = MarkIt({
   html: true,
@@ -47,19 +47,15 @@ md.use(MetaDataBlock, {
 
 md.use(MarkdownItSize);
 
-export function generateDoc(
-  demos: Demo[],
-  rootDir: string,
-  file: File,
-  config: ModuleConfig
-) {
+export function generateDoc(file: File) {
   const source = fs.readFileSync(file.docPath, "utf8");
   const markData: string = md.render(source);
+  if (meta.lib) {
+    return;
+  }
   const apiStartIndex = markData.match(/<h2>API<\/h2>/)?.index;
-  const hasDemo = demos.length > 0;
   const doc: Doc = {
     ...meta,
-    demo: hasDemo,
   } as Doc;
   if (apiStartIndex > 0) {
     doc.content = markData.slice(0, apiStartIndex);
@@ -67,14 +63,27 @@ export function generateDoc(
   } else {
     doc.content = markData;
   }
-  let anchors = [];
-  if (hasDemo) {
-    anchors = demos
-      .map((demo) => ({ label: demo.title, value: demo.subtitle }))
-      .concat({ label: "Api", value: "Api" });
+
+  clearMeta();
+
+  return doc;
+}
+
+export function writeDoc(
+  doc: Doc,
+  demos: Demo[],
+  rootDir: string,
+  config: ModuleConfig
+) {
+  if (doc.lib) {
+    return;
   }
+  const anchors = demos
+    .map((demo) => ({ label: demo.title, value: demo.subtitle }))
+    .concat({ label: "Api", value: "Api" });
+
   const fileContent = template({
-    name: file.name,
+    name: doc.title,
     item: JSON.stringify(doc),
     demoComponents: demos
       .map((demo) => `<${demo.name} id="${demo.name}" />`)
@@ -87,12 +96,9 @@ export function generateDoc(
   });
 
   writeFileRecursive(
-    `${rootDir}/src/views/${config.name}/${file.name}/index.vue`,
+    `${rootDir}/src/views/${config.name}/${doc.title}/index.vue`,
     fileContent
   );
-  clearMeta();
-
-  return doc;
 }
 
 function clearMeta() {

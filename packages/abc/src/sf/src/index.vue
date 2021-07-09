@@ -4,6 +4,7 @@
       :model="form"
       ref="formRef"
       :layout="schema?.ui?.layout || 'horizontal'"
+      :colon="!schema?.ui?.noColon"
     >
       <a-row>
         <a-col
@@ -102,7 +103,6 @@ export default defineComponent({
   name: "sf",
   props: {
     schema: Object,
-    width: String,
     button: Object,
     formData: Object,
   },
@@ -192,7 +192,7 @@ export default defineComponent({
         items.forEach((item) => {
           if (item.ui.visibleIf) {
             const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
-              if (!form.hasOwnProperty(key)) {
+              if (!Object.prototype.hasOwnProperty.call(form, key)) {
                 form[key] = null;
               }
               return toRef(form, key);

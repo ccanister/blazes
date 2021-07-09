@@ -12,7 +12,8 @@ const highlight = (str, lang) => {
   if (!lang || !hljs.getLanguage(lang)) {
     return '<pre><code class="hljs">' + str + "</code></pre>";
   }
-  const html = hljs.highlight(lang, str, true, undefined).value;
+  const html = hljs.highlight(str, { ignoreIllegals: true, language: lang })
+    .value;
   return `<pre><code class="hljs language-${lang}">${html}</code></pre>`;
 };
 
@@ -50,7 +51,11 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   return defaultFenceRender(tokens, idx, options, env, self);
 };
 
-export function generateDemo(rootDir: string, file: File, config: ModuleConfig): Demo[] {
+export function generateDemo(
+  rootDir: string,
+  file: File,
+  config: ModuleConfig
+): Demo[] {
   const demoPath = path.join(file.dir, "demo");
   if (!fs.existsSync(demoPath)) {
     return [];
@@ -66,7 +71,7 @@ export function generateDemo(rootDir: string, file: File, config: ModuleConfig):
       title: meta.title,
       content: markdownData.slice(0, componentIndex),
       code: html2Escape(code),
-      showCode: markdownData.slice(componentIndex)
+      showCode: markdownData.slice(componentIndex),
     };
     demos.push(demo);
     writeFileRecursive(

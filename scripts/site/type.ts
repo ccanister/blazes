@@ -41,9 +41,9 @@ export interface Doc {
   subtitle: string;
   content: string;
   api: string;
-  demo: boolean;
   type: string;
   order: number;
+  lib: boolean;
 }
 
 export interface DocMeta {
@@ -51,6 +51,7 @@ export interface DocMeta {
   subtitle: string;
   type: string;
   order: number;
+  lib: boolean;
 }
 
 export interface File {

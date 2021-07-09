@@ -83,7 +83,13 @@ export default defineComponent({
   .detail {
     .logo {
       margin: 0 16px 16px 0;
-      flex: 1 1 auto;
+      flex: 0 1 auto;
+      :deep(img) {
+        display: block;
+        width: 28px;
+        height: 28px;
+        border-radius: 2px;
+      }
     }
     .main {
       width: 100%;

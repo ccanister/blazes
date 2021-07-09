@@ -12,7 +12,7 @@ subtitle: basic
     <template #logo>
       <img src="https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png" />
     </template>
-    <template #tabs>
+    <template #tab>
       <a-tabs>
         <a-tab-pane key="1" tab="详情"></a-tab-pane>
         <a-tab-pane key="2" tab="规则"></a-tab-pane>
