@@ -15,7 +15,7 @@
         </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
-    <div class="detail fx">
+    <div class="detail">
       <div v-if="$slots.logo" class="logo">
         <slot name="logo"></slot>
       </div>
@@ -81,6 +81,7 @@ export default defineComponent({
     margin-bottom: 16px;
   }
   .detail {
+    display: flex;
     .logo {
       margin: 0 16px 16px 0;
       flex: 0 1 auto;

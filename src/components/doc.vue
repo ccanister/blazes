@@ -22,7 +22,7 @@
           <div class="content markdown">
             <div v-html="item.content"></div>
           </div>
-          <div v-if="item.demo">
+          <div v-if="$slots.default">
             <h2 class="demo-title">代码演示</h2>
             <slot></slot>
           </div>
