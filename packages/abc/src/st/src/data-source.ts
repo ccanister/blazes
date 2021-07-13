@@ -1,4 +1,4 @@
-import { instance } from "../../../../theme";
+import { instance } from "@blazes/theme";
 import { deepCopy, deepGet } from "@blazes/utils";
 import {
   ISTColumn,

@@ -49,15 +49,19 @@ module.exports = {
     ],
   },
   plugins,
-  externals: {
-    "ant-design-vue/lib/modal": "ant-design-vue/lib/modal",
-    vue: {
-      root: "Vue",
-      commonjs: "vue",
-      commonjs2: "vue",
+  externals: [
+    {
+      "ant-design-vue/lib/modal": "ant-design-vue/lib/modal",
+      vue: {
+        root: "Vue",
+        commonjs: "vue",
+        commonjs2: "vue",
+      },
+      axios: "axios",
+      "async-validator": "async-validator",
+      "vue-router": "vue-router",
     },
-    axios: "axios",
-    "async-validator": "async-validator",
-    "vue-router": "vue-router",
-  },
+    /^@blazes\/utils/,
+    /^@ant-design\/icons-vue/,
+  ],
 };

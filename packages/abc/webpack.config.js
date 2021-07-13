@@ -3,7 +3,7 @@ const { VueLoaderPlugin } = require("vue-loader-v16");
 const WebpackBundleAnalyzer = require("webpack-bundle-analyzer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const plugins = [
   new VueLoaderPlugin(),
@@ -18,7 +18,7 @@ const plugins = [
       },
     ],
   }),
-  new OptimizeCssAssetsPlugin()
+  new OptimizeCssAssetsPlugin(),
 ];
 if (process.env.npm_lifecycle_event === "analyze") {
   plugins.push(
@@ -41,7 +41,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js", ".vue"],
-    alias: { "@blazes": path.resolve(__dirname, "../../packages") },
+    // alias: { "@blazes": path.resolve(__dirname, "../../packages") },
   },
   module: {
     rules: [
@@ -79,11 +79,11 @@ module.exports = {
       },
       axios: "axios",
       "async-validator": "async-validator",
-      "@blazes/utils": "@blazes/utils",
-      "@blazes/theme": "@blazes/theme",
     },
+    /^@blazes\/utils/,
+    /^@blazes\/theme/,
     /^ant-design-vue\/lib/,
-    /^@ant-design\/icons-vue/
+    /^@ant-design\/icons-vue/,
   ],
-  devtool: "source-map"
+  devtool: "source-map",
 };
