@@ -7,12 +7,8 @@ export function aclGuard(
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) {
-  const guard = to.meta.guard as string[] | IACLCanType;
-  if (!guard) {
-    next();
-    return;
-  }
-  if (aclService.can(Array.isArray(guard) ? { roles: guard } : guard)) {
+  const guard = to.meta.guard as IACLCanType | null;
+  if (aclService.can(guard)) {
     next();
     return;
   }
