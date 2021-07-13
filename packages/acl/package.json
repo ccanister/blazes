@@ -1,6 +1,6 @@
 {
   "name": "@blazes/acl",
-  "version": "0.1.76-alpha.0",
+  "version": "0.1.77-alpha.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
