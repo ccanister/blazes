@@ -11,9 +11,19 @@ import sf, {
 } from "./src/sf";
 import TableWrapper from "./src/table-wrapper";
 import Tags from "./src/tags";
+import VerificationFailed from "./src/verification-failed";
 import { App } from "vue";
 
-const components = [st, PageHeader, Operates, sv, TableWrapper, sf, Tags];
+const components = [
+  st,
+  PageHeader,
+  Operates,
+  sv,
+  TableWrapper,
+  sf,
+  Tags,
+  VerificationFailed,
+];
 
 const install = (app: App, options: Record<string, unknown>): void => {
   components.forEach((component) => {
@@ -34,6 +44,7 @@ export {
   transMapToEnum,
   formSymbol,
   formRefSymbol,
+  VerificationFailed,
 };
 
 export default { install };
