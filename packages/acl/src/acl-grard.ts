@@ -4,7 +4,10 @@ import { IACLCanType } from "./type";
 
 export function aclGuard(router: Router) {
   router.beforeEach((to, from, next) => {
-    const guard = from.meta.guard as string[] | IACLCanType;
+    const guard = to.meta.guard as string[] | IACLCanType;
+    if (!guard) {
+      return;
+    }
     if (aclService.can(Array.isArray(guard) ? { roles: guard } : guard)) {
       next();
       return;
