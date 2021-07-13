@@ -25,7 +25,11 @@ export class AclService {
     return this.options.guard_url!;
   }
 
-  constructor(config?: IACLConfig) {
+  constructor() {
+    this.options = Object.assign({}, ACL_DEFAULT_CONFIG);
+  }
+
+  resetOptions(config: IACLConfig) {
     this.options = Object.assign({}, ACL_DEFAULT_CONFIG, config);
   }
 

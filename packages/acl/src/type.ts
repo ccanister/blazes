@@ -11,7 +11,7 @@ export interface IACLConfig {
 }
 
 export const ACL_DEFAULT_CONFIG: IACLConfig = {
-  guard_url: "/403",
+  guard_url: "/exception/403",
 };
 
 export interface IACLChange {
