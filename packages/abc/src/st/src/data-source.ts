@@ -25,7 +25,6 @@ export default class STDataSource {
         remote = true;
         data$ = this.getByHttp(data, options)
           .then((result) => {
-            console.log(result);
             rawData = result;
             let ret: ISTData[];
             if (Array.isArray(result)) {
@@ -172,7 +171,6 @@ export default class STDataSource {
       ...(first && req.firstParams ? req.firstParams : {}),
     };
 
-    console.log(instance);
     return instance.get(url, { params, headers: req.headers });
   }
 
