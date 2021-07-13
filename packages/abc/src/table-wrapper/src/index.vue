@@ -16,12 +16,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "table-wrapper"
+  name: "table-wrapper",
 });
 </script>
 
 <style lang="less" scoped>
 .table-wrapper {
+  margin-bottom: 12px;
   .right {
     margin-left: auto;
   }

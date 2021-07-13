@@ -24,6 +24,7 @@ export class RequestService {
 
   constructor(config: IConfig) {
     instance = this.instance = this.genInstance(config);
+    console.log(instance);
     if (config.useCsrf) {
       this.addCsrfToken();
     }
