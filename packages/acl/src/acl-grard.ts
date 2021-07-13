@@ -1,5 +1,5 @@
 import { Router } from "vue-router";
-import aclService from "./acl.service";
+import { aclService } from "./acl.service";
 import { IACLCanType } from "./type";
 
 export function aclGuard(router: Router) {

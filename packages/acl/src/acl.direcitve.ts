@@ -1,4 +1,4 @@
-import aclService from "./acl.service";
+import { aclService } from "./acl.service";
 import { IACLCanType } from "./type";
 
 export class AclDirecitve {

@@ -124,5 +124,4 @@ export class AclService {
   }
 }
 
-const aclService = new AclService();
-export default aclService;
+export const aclService = new AclService();
