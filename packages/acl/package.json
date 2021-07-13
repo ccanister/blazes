@@ -3,7 +3,7 @@
   "version": "0.1.67-alpha.0",
   "license": "MIT",
   "main": "dist/index.js",
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],

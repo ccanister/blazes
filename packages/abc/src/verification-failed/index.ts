@@ -11,4 +11,3 @@ const _verificationFailed: SFCWithInstall<
   typeof VerificationFailed
 > = VerificationFailed as any;
 export default _verificationFailed;
-export { VerificationFailed };
