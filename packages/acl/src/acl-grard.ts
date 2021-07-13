@@ -6,6 +6,7 @@ export function aclGuard(router: Router) {
   router.beforeEach((to, from, next) => {
     const guard = to.meta.guard as string[] | IACLCanType;
     if (!guard) {
+      next();
       return;
     }
     if (aclService.can(Array.isArray(guard) ? { roles: guard } : guard)) {
