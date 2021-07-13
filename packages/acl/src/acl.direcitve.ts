@@ -1,18 +1,18 @@
 import { aclService } from "./acl.service";
 import { IACLCanType } from "./type";
 
+function updateEl(el: HTMLElement, binding: { value: IACLCanType }) {
+  el.style.display = ((aclService.can(binding.value)
+    ? null
+    : "none") as unknown) as string;
+}
+
 export class AclDirecitve {
   beforeMount(el: HTMLElement, binding: { value: IACLCanType }) {
-    this.updateEl(el, binding);
+    updateEl(el, binding);
   }
 
   updated(el: HTMLElement, binding: { value: IACLCanType }) {
-    this.updateEl(el, binding);
-  }
-
-  private updateEl(el: HTMLElement, binding: { value: IACLCanType }) {
-    el.style.display = ((aclService.can(binding.value)
-      ? null
-      : "none") as unknown) as string;
+    updateEl(el, binding);
   }
 }
