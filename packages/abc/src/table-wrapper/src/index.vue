@@ -1,6 +1,6 @@
 <template>
   <div class="table-wrapper">
-    <div class="d-flex">
+    <div class="d-flex header">
       <div>
         <slot name="left"></slot>
       </div>
@@ -22,7 +22,9 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .table-wrapper {
-  margin-bottom: 12px;
+  .header {
+    margin-bottom: 12px;
+  }
   .right {
     margin-left: auto;
   }
