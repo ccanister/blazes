@@ -50,6 +50,7 @@ export interface Doc {
   lib: boolean;
   filename?: string;
   redirect?: string;
+  anchors: string[];
 }
 
 export interface DocMeta {

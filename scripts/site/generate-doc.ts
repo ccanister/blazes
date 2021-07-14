@@ -1,37 +1,11 @@
-import { Demo, Doc, DocMeta, File, ModuleConfig } from "./type";
+import { Doc, DocMeta, File } from "./type";
 const MarkIt = require("markdown-it");
 import MetaDataBlock from "./meta-block";
 import { parse } from "yaml";
 import * as fs from "fs";
 import * as path from "path";
-import { toHump, writeFileRecursive } from "./util";
 const _ = require("underscore");
 const MarkdownItSize = require("markdown-it-imsize");
-
-const template = _.template(`
-<template>
-    <doc :item="item" :anchors="anchors">
-        <%= demoComponents %>
-    </doc>
-</template>
-<script lang="ts">
-import { defineComponent } from "vue";
-<%= importComponentNames %>
-
-export default defineComponent({
-    name: "<%= name %>",
-    components: {
-        <%= demoComponentNames %>
-    },
-    setup() {
-        return {
-            item: <%= item %>,
-            anchors: <%= anchors %>,
-        }
-    }
-});
-</script>
-`);
 
 const meta: DocMeta = {} as DocMeta;
 
@@ -49,11 +23,18 @@ md.use(MetaDataBlock, {
 md.use(MarkdownItSize);
 
 export function generateDoc(file: File) {
+  let id = 0;
+  const anchors: string[] = [];
   const source = fs.readFileSync(file.docPath, "utf8");
-  const markData: string = md.render(source);
-  const apiStartIndex = markData.match(/<h2>API<\/h2>/)?.index;
+  let markData: string = md.render(source);
+  markData = markData.replace(/<h2>(.*)<\/h2>/g, (m, p) => {
+    anchors.push(p);
+    return `<h2 id=${p + id++}>${p}</h2>`;
+  });
+  const apiStartIndex = markData.match(/<h2.+>API<\/h2>/)?.index;
   const doc: Doc = {
     ...meta,
+    anchors,
     filename: path.basename(file.docPath, ".md"),
   } as Doc;
   if (apiStartIndex > 0) {

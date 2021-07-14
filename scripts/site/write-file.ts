@@ -37,7 +37,12 @@ export function writeDoc(doc: Doc, demos: Demo[], config: ModuleConfig) {
   }
   const anchors = demos
     .map((demo) => ({ label: demo.title, value: demo.subtitle }))
-    .concat(doc.api ? { label: "Api", value: "Api" } : []);
+    .concat(
+      doc.anchors.map((label, index) => ({
+        label: label,
+        value: label + index,
+      }))
+    );
 
   const fileContent = fileTemplate({
     name: doc.title,

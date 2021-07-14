@@ -32,7 +32,7 @@ metaModules.keys().forEach((metaPath) => {
       }
       const route = {
         path,
-        name: underlineToHump(title),
+        name: underlineToHump(title) + path,
       } as RouteRecordRaw;
       if (redirect) {
         route.redirect = `/${redirect}`;
