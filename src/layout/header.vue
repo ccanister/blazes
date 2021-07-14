@@ -28,10 +28,10 @@
           </a-menu-item>
           <a-menu-item key="lib">
             <a-dropdown overlayClassName="layout-lib-dropdown">
-              <a class="ant-dropdown-link">
+              <div class="lib">
                 Blazes库
                 <DownOutlined />
-              </a>
+              </div>
               <template #overlay>
                 <a-menu>
                   <a-menu-item v-for="item in meta" :key="item.label">
@@ -117,9 +117,10 @@ export default defineComponent({
       :deep(.ant-menu-item) {
         min-width: 72px;
         height: 64px;
+        padding: 0;
+        margin: -1px 20px 0;
         line-height: 64px;
         border-top: 2px solid transparent;
-        margin-right: 24px;
         transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
           border-top-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
           background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
@@ -128,6 +129,13 @@ export default defineComponent({
         &:hover {
           border-top: 2px solid #1890ff;
           border-bottom: 0;
+        }
+        text-align: center;
+        .lib {
+          text-align: center;
+          .anticon {
+            margin-right: 0;
+          }
         }
       }
     }
