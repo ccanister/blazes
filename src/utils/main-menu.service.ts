@@ -1,10 +1,11 @@
 import { meta as ComponentsMeta } from "@/views/components/meta";
+import { meta as FormMeta } from "@/views/form/meta";
 import { meta as DocsMeta } from "@/views/docs/meta";
 import { meta as AclMeta } from "@/views/acl/meta";
 import { watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-const ALL_METAS = [ComponentsMeta, DocsMeta, AclMeta];
+const ALL_METAS = [ComponentsMeta, DocsMeta, AclMeta, FormMeta];
 
 interface MenuSub {
   title: string;

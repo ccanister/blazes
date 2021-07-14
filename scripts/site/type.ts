@@ -12,11 +12,12 @@ export interface ModuleConfig {
   dir: ModuleDirConfig;
   lib: boolean;
   title: string;
+  componentName: string;
 }
 
 export interface ModuleDirConfig {
   /** 源码位置 */
-  src: string[];
+  src: string;
   /** 是否包含子目录 */
   hasSubDir: boolean;
 }
@@ -48,6 +49,7 @@ export interface Doc {
   order: number;
   lib: boolean;
   filename?: string;
+  redirect?: string;
 }
 
 export interface DocMeta {
@@ -56,6 +58,7 @@ export interface DocMeta {
   type: string;
   order: number;
   lib: boolean;
+  redirect?: string;
 }
 
 export interface File {
@@ -72,6 +75,7 @@ export interface MenuSub {
   subtitle: string;
   path: string;
   order: number;
+  redirect: string;
 }
 
 export interface MenuItem {

@@ -10,6 +10,9 @@
             <router-link :to="sub.path">
               <span class="title">{{ sub.title }}</span>
               <span class="subtitle">{{ sub.subtitle }}</span>
+              <a-tag color="processing" v-if="sub.redirect" class="tag"
+                >Lib</a-tag
+              >
             </router-link>
           </div>
         </a-menu-item>
@@ -90,6 +93,9 @@ export default defineComponent({
         }
       }
     }
+  }
+  .tag {
+    margin-left: 8px;
   }
 }
 </style>

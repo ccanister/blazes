@@ -65,10 +65,7 @@ export function writeDoc(doc: Doc, demos: Demo[], config: ModuleConfig) {
 export function generateMenu(files: File[], config: ModuleConfig) {
   const menus: { [key: string]: MenuItem } = {};
   files.forEach((file) => {
-    const { type, title, subtitle, order, lib } = file.doc!;
-    if (lib) {
-      return;
-    }
+    const { type, title, subtitle, order, redirect } = file.doc!;
     const menuItem: MenuItem =
       menus[type] || (menus[type] = { type, subs: [] });
     menuItem.subs.push({
@@ -76,6 +73,7 @@ export function generateMenu(files: File[], config: ModuleConfig) {
       subtitle,
       path: `/${config.name}/${file.name}`,
       order,
+      redirect,
     });
   });
   Object.keys(menus).forEach((type) => {

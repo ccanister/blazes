@@ -22,7 +22,17 @@ for (const m of siteConfig.modules) {
     nodir: false,
     filter: (item) => {
       if (dir.hasSubDir && item.stats.isDirectory()) {
-        return true;
+        if (item.path.includes("node_modules")) {
+          return false;
+        }
+        if (
+          !siteConfig.modules.find(
+            (em) => em !== m && path.resolve(rootDir, em.dir.src) === item.path
+          )
+        ) {
+          return true;
+        }
+        return false;
       }
       return (
         path.extname(item.path) === ".md" &&
@@ -47,9 +57,6 @@ for (const m of siteConfig.modules) {
     if (!doc.lib) {
       writeDoc(doc, demos, m);
     }
-    // else {
-    //   libs.push({ label: doc.title });
-    // }
   });
   generateMenu(files, m);
 }

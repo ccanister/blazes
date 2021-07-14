@@ -25,16 +25,21 @@ metaModules.keys().forEach((metaPath) => {
     minOrder = Number.MAX_VALUE;
   items.forEach((item) => {
     item.subs.forEach((sub) => {
-      const { title, path, order } = sub;
+      const { title, path, order, redirect } = sub;
       if (order < minOrder) {
         firstRedirectPath = path;
         minOrder = order;
       }
-      routes[0].children!.push({
+      const route = {
         path,
         name: underlineToHump(title),
-        component: () => import(`@/views${path}/index.vue`),
-      });
+      } as RouteRecordRaw;
+      if (redirect) {
+        route.redirect = `/${redirect}`;
+      } else {
+        route.component = () => import(`@/views${path}/index.vue`);
+      }
+      routes[0].children!.push(route);
     });
   });
   routes[0].children!.push({
