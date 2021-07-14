@@ -2,7 +2,7 @@
 type: 基本
 title: verification-failed
 subtitle: 未授权页面
-order: 3
+order: 6
 ---
 
 用户没有权限时候导航到该页面

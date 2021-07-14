@@ -1,22 +1,27 @@
 import * as path from "path";
-import { SiteConfig, File } from "./type";
+import { SiteConfig, File, Lib } from "./type";
 const klawSync = require("klaw-sync");
 import { generateDemo } from "./generate-demo";
-import { generateDoc, writeDoc } from "./generate-doc";
-import { generateMenu } from "./generate-menu";
+import { generateDoc } from "./generate-doc";
+import { writeDoc, generateMenu, writeLibMeta } from "./write-file";
+import { rootDir } from "./util";
 
-const rootDir = path.resolve(__dirname, "../../");
 const siteConfig = require(path.join(
   rootDir,
   "src/site.config.js"
 )) as SiteConfig;
 
+const libs: Lib[] = [];
 for (const m of siteConfig.modules) {
+  const { lib, title, dir, name } = m;
+  if (lib) {
+    libs.push({ label: title, routePrefix: name });
+  }
   const files: File[] = [];
-  klawSync(m.dir.src, {
+  klawSync(dir.src, {
     nodir: false,
     filter: (item) => {
-      if (m.dir.hasSubDir && item.stats.isDirectory()) {
+      if (dir.hasSubDir && item.stats.isDirectory()) {
         return true;
       }
       return (
@@ -37,9 +42,16 @@ for (const m of siteConfig.modules) {
       });
     });
   files.forEach((file) => {
-    const demos = generateDemo(rootDir, file, m);
+    const demos = generateDemo(file);
     const doc = (file.doc = generateDoc(file));
-    writeDoc(doc, demos, rootDir, m);
+    if (!doc.lib) {
+      writeDoc(doc, demos, m);
+    }
+    // else {
+    //   libs.push({ label: doc.title });
+    // }
   });
-  generateMenu(rootDir, files, m);
+  generateMenu(files, m);
 }
+
+writeLibMeta(libs);

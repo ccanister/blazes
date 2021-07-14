@@ -3,8 +3,8 @@ import * as fs from "fs";
 const MarkIt = require("markdown-it");
 import MetaDataBlock from "./meta-block";
 import { parse } from "yaml";
-import { Demo, ModuleConfig, File, DemoMeta } from "./type";
-import { html2Escape, writeFileRecursive } from "./util";
+import { Demo, File, DemoMeta } from "./type";
+import { html2Escape } from "./util";
 const klawSync = require("klaw-sync");
 const hljs = require("highlight.js");
 
@@ -51,11 +51,7 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   return defaultFenceRender(tokens, idx, options, env, self);
 };
 
-export function generateDemo(
-  rootDir: string,
-  file: File,
-  config: ModuleConfig
-): Demo[] {
+export function generateDemo(file: File): Demo[] {
   const demoPath = path.join(file.dir, "demo");
   if (!fs.existsSync(demoPath)) {
     return [];
@@ -72,16 +68,13 @@ export function generateDemo(
       content: markdownData.slice(0, componentIndex),
       code: html2Escape(code),
       showCode: markdownData.slice(componentIndex),
-    };
+    } as Demo;
+    demo.fileContent = writeFileCode.replace(setupReg, (_, p1) => {
+      return `setup()${p1}\ndata(){\nreturn {item: ${JSON.stringify(
+        demo
+      )}}\n}\n});`;
+    });
     demos.push(demo);
-    writeFileRecursive(
-      `${rootDir}/src/views/${config.name}/${file.name}/${name}.vue`,
-      writeFileCode.replace(setupReg, (_, p1) => {
-        return `setup()${p1}\ndata(){\nreturn {item: ${JSON.stringify(
-          demo
-        )}}\n}\n});`;
-      })
-    );
   });
 
   return demos;

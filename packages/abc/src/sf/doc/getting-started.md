@@ -2,6 +2,7 @@
 type: 文档
 title: 开始使用
 order: 1
+lib: true
 ---
 
 `sf`是一个基于[JSON Schema](http://json-schema.org/)标准的动态构建表单。

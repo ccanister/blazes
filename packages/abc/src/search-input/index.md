@@ -2,7 +2,7 @@
 type: 基本
 title: search-input
 subtitle: 搜索框
-order: 1
+order: 5
 ---
 
 常用搜索框，有搜索和删除图标，通常回车键后搜索。

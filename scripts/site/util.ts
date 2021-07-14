@@ -18,3 +18,6 @@ export function toHump(name: string) {
     return letter.toUpperCase();
   });
 }
+
+export const rootDir = path.resolve(__dirname, "../../");
+export const viewDir = `${rootDir}/src/views/`;

@@ -14,31 +14,39 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const metaModules = require.context("../views", true, /\.ts$/);
-metaModules.keys().forEach((metaPath, metaIndex) => {
+metaModules.keys().forEach((metaPath) => {
   const absolutePath = metaPath.replace("./", "");
   const { meta } = require(`../views/${absolutePath}`) as { meta: Menu };
-  let firstRedirectPath = "";
-  meta.items.forEach((item) => {
+  const { items, defaultRoute, name } = meta;
+  if (!items) {
+    return;
+  }
+  let firstRedirectPath = "",
+    minOrder = Number.MAX_VALUE;
+  items.forEach((item) => {
     item.subs.forEach((sub) => {
-      const { title, path } = sub;
+      const { title, path, order } = sub;
+      if (order < minOrder) {
         firstRedirectPath = path;
+        minOrder = order;
+      }
       routes[0].children!.push({
         path,
         name: underlineToHump(title),
         component: () => import(`@/views${path}/index.vue`),
       });
-      if (metaIndex === 0) {
-        routes[0].redirect = path;
-      }
     });
   });
   routes[0].children!.push({
-    path: meta.name,
+    path: name,
     redirect: firstRedirectPath,
   });
+  if (defaultRoute) {
+    routes[0].redirect = firstRedirectPath;
+  }
 });
 
-console.log(routes)
+console.log(routes);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

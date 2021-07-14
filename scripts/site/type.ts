@@ -7,9 +7,11 @@ export interface ModuleConfig {
   name: string;
   /** 分类数据 */
   types: { [key: string]: string }[];
-  /** 默认路由 */
+  /** 是否默认路由 */
   defaultRoute: string;
   dir: ModuleDirConfig;
+  lib: boolean;
+  title: string;
 }
 
 export interface ModuleDirConfig {
@@ -26,6 +28,7 @@ export interface Demo {
   content: string;
   code: string;
   showCode: string;
+  fileContent: string;
 }
 
 export interface DemoMeta {
@@ -44,6 +47,7 @@ export interface Doc {
   type: string;
   order: number;
   lib: boolean;
+  filename?: string;
 }
 
 export interface DocMeta {
@@ -78,4 +82,10 @@ export interface MenuItem {
 export interface Menu {
   name: string;
   items: MenuItem[];
+  defaultRoute: boolean;
+}
+
+export interface Lib {
+  label: string;
+  routePrefix: string;
 }

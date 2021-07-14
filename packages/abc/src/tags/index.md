@@ -2,7 +2,7 @@
 type: 基本
 title: tags
 subtitle: 标签
-order: 2
+order: 6
 ---
 
 简化标签参数传递，常用于状态显示。

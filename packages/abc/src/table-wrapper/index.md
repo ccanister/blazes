@@ -2,7 +2,7 @@
 type: 布局
 title: table-wrapper
 subtitle: 表格布局
-order: 2
+order: 4
 ---
 
 表格常见布局，通常左上角放置添加按钮，右上角放置搜索框，主体是表格。

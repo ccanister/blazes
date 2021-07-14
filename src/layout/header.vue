@@ -12,7 +12,7 @@
       <h1>
         <router-link class="logo" to="/">
           <img src="../assets/images/logo.png" alt="vue-alian" />
-          VUE-ALIAN
+          VUE-BLAZES
         </router-link>
       </h1>
     </a-col>
@@ -26,6 +26,23 @@
           <a-menu-item v-for="nav in navs" :key="nav.value">
             <router-link :to="'/' + nav.value">{{ nav.label }}</router-link>
           </a-menu-item>
+          <a-menu-item key="lib">
+            <a-dropdown overlayClassName="layout-lib-dropdown">
+              <a class="ant-dropdown-link">
+                Blazes库
+                <DownOutlined />
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item v-for="item in meta" :key="item.label">
+                    <router-link :to="'/' + item.routePrefix">{{
+                      item.label
+                    }}</router-link>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+          </a-menu-item>
         </a-menu>
       </div>
     </a-col>
@@ -35,6 +52,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { defineComponent, ref, Ref, watch } from "vue";
+import { meta } from "@/views/meta";
 
 const navs = [
   { label: "文档", value: "docs" },
@@ -49,11 +67,13 @@ export default defineComponent({
       () => route.path,
       (url) => {
         const suffix = url.split("/")[1];
-        selectedKeys.value = [navs.find((nav) => nav.value === suffix)?.value || "docs"];
+        selectedKeys.value = [
+          navs.find((nav) => nav.value === suffix)?.value || "lib",
+        ];
       },
       { immediate: true }
     );
-    return { selectedKeys, navs };
+    return { selectedKeys, navs, meta };
   },
 });
 </script>
@@ -112,5 +132,11 @@ export default defineComponent({
       }
     }
   }
+}
+</style>
+
+<style lang="less">
+.layout-lib-dropdown {
+  min-width: 210px;
 }
 </style>
