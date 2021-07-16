@@ -168,10 +168,27 @@ export default class STDataSource {
       ...params,
       ...req.params,
       ...this.getReqFilterMap(columns),
+      ...this.getReqSortMap(columns),
       ...(first && req.firstParams ? req.firstParams : {}),
     };
 
     return instance.get(url, { params, headers: req.headers });
+  }
+
+  private getReqSortMap(columns: ISTColumn[]): { [key: string]: string } {
+    let ret = {};
+    columns
+      .filter((w) => w.sorter?.compare === true && w.sorter?.default)
+      .forEach((col) => {
+        let obj: { [key: string]: any } = {};
+        if (col.sorter?.reName) {
+          obj = col.sorter.reName!(col, col.sorter.default!);
+        } else {
+          obj[col.index as string] = col.sorter?.default;
+        }
+        ret = { ...ret, ...obj };
+      });
+    return ret;
   }
 
   private getFilteredData(filter: ISTColumnFilter): ISTColumnFilterMenu[] {
@@ -189,7 +206,10 @@ export default class STDataSource {
         if (filter.reName) {
           obj = filter.reName!(filter._menus!.value, col);
         } else {
-          obj[filter.key!] = values.map((i) => i.value).join(",");
+          const keys = values.map((i) => i.value).join(",");
+          if (keys) {
+            obj[filter.key!] = keys;
+          }
         }
         ret = { ...ret, ...obj };
       });

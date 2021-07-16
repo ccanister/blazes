@@ -30,6 +30,7 @@ export interface Demo {
   code: string;
   showCode: string;
   fileContent: string;
+  order: number;
 }
 
 export interface DemoMeta {

@@ -9,7 +9,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "site:build": "rm -rf ./src/views && ts-node ./scripts/site/index.ts",
+    "site:build": "ts-node ./scripts/site/index.ts",
     "cm": "git-cz"
   },
   "dependencies": {

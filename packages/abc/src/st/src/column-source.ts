@@ -4,7 +4,7 @@ import {
   ISTColumn,
   ISTColumnButton,
   ISTColumnFilter,
-  ISTColumnFilterMenu
+  ISTColumnFilterMenu,
 } from "./type";
 import { ArrayService, deepCopy } from "@blazes/utils";
 import { reactive } from "vue";
@@ -20,7 +20,7 @@ export default class STColumnSource {
     const columns: ISTColumn[] = [];
     const copyColumens = deepCopy(list) as ISTColumn[];
     for (const item of copyColumens) {
-      if (item.iif && item.iif(item)) {
+      if (item.iif && !item.iif(item)) {
         continue;
       }
       if (item.index) {
@@ -33,6 +33,9 @@ export default class STColumnSource {
       item.width = item.width || "auto";
       item.default = item.default || "";
       item.filter = this.filterCoerce(item);
+      item.key =
+        item.key ||
+        `${item.index}` + `${item.render}` + item.title + item.renderTitle;
       columns.push(item);
     }
 
@@ -46,7 +49,10 @@ export default class STColumnSource {
       return null;
     }
     const res: ISTColumnFilter = item.filter;
-    if (!res?.menus && ArrayService.arrIsEmpty(res?.menus as ISTColumnFilterMenu[])) {
+    if (
+      !res?.menus &&
+      ArrayService.arrIsEmpty(res?.menus as ISTColumnFilterMenu[])
+    ) {
       return null;
     }
 
@@ -73,14 +79,14 @@ export default class STColumnSource {
       a + +b.width!.toString().replace("px", "");
     // left width
     list
-      .filter(w => w.fixed && w.fixed === "left" && w.width)
+      .filter((w) => w.fixed && w.fixed === "left" && w.width)
       .forEach(
         (item, idx) =>
           (item._left = list.slice(0, idx).reduce(countReduce, 0) + "px")
       );
     // right width
     list
-      .filter(w => w.fixed && w.fixed === "right" && w.width)
+      .filter((w) => w.fixed && w.fixed === "right" && w.width)
       .reverse()
       .forEach(
         (item, idx) =>
@@ -119,22 +125,22 @@ export default class STColumnSource {
 
   cleanFilter(col: ISTColumn) {
     const f = col.filter!;
-    f._menus!.value.forEach(i => (i.checked = false));
+    f._menus!.value.forEach((i) => (i.checked = false));
   }
 
   checkAllFilter(checked: boolean, col: ISTColumn) {
     const f = col.filter!;
-    f._menus!.value.forEach(i => (i.checked = checked));
+    f._menus!.value.forEach((i) => (i.checked = checked));
   }
 
   updateDefault(filter: ISTColumnFilter) {
     (filter._default as any).value =
-      filter._menus!.value.findIndex(w => w.checked!) !== -1;
+      filter._menus!.value.findIndex((w) => w.checked!) !== -1;
   }
 
   updateIndeterminate(filter: ISTColumnFilter) {
     const menus = filter._menus!;
-    const checkedCount = menus.value.filter(w => w.checked).length;
+    const checkedCount = menus.value.filter((w) => w.checked).length;
     filter.indeterminate!.value =
       checkedCount > 0 && checkedCount !== menus.value.length;
     filter.checkAll!.value = checkedCount === menus.value.length;

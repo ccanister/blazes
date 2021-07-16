@@ -36,6 +36,14 @@ export interface ISTColumnFilter {
   fn?: (filter: ISTColumnFilterMenu, record: ISTData) => boolean; // 本地筛选函数
 }
 
+export type Sort = "descend" | "ascend";
+
+export interface ISTColumnsSort {
+  default?: Sort | undefined;
+  compare: ((o1: ISTData, o2: ISTData, order: Sort) => number) | true;
+  reName?: (col: ISTColumn, sort: Sort) => Record<string, any>;
+}
+
 export interface ISTColumn {
   title?: string;
   renderTitle?: string | ((column: ISTColumn, index: number) => void);
@@ -52,6 +60,7 @@ export interface ISTColumn {
   iif?: (column: ISTColumn) => boolean;
   noIndex?: number;
   indexKey?: string;
+  key?: string;
   fixed?: "left" | "right"; // 用来固定列
   buttons?: ISTColumnButton[];
   type?: "tag" | "link";
@@ -63,10 +72,9 @@ export interface ISTColumn {
     record: ISTData;
     index: number;
   }) => Record<string, any>;
-  sorter?: (o1: ISTData, o2: ISTData, order: "descend" | "ascend") => number;
-  sortOrder?: "descend" | "ascend";
-  _order?: "descend" | "ascend" | undefined;
+  sorter?: ISTColumnsSort | null;
   ellipsis?: boolean;
+  colSpan?: number;
   [key: string]: any;
 }
 
@@ -158,10 +166,25 @@ export interface ISTLoadOptions {
   merge: boolean; //是否合并
 }
 
-export interface ISTChange {
-  type: "filter";
+export interface ISTChangeFilter {
   column: ISTColumn;
-  menus?: ISTColumnFilterMenu[];
+  menus: ISTColumnFilterMenu[];
+}
+
+export interface ISTChangeSort {
+  column?: ISTColumn;
+  order: Sort | undefined;
+}
+
+export type ISTChangeType = "filter" | "pi" | "ps" | "sort";
+
+export interface ISTChange {
+  type: ISTChangeType;
+  pi?: number;
+  ps?: number;
+  total?: number;
+  sort?: ISTChangeSort;
+  filter?: ISTChangeFilter;
 }
 
 export const COLUMN_DEFAULT = "-";
@@ -203,5 +226,25 @@ export interface IChangePagination {
 export interface IChangeSort {
   column?: ISTColumn;
   columnKey: string;
-  order?: "descend" | "ascend" | undefined;
+  order?: Sort | undefined;
+}
+
+export interface ISTRowSelection {
+  type: "checkbox" | "radio";
+  selectedRowKeys:
+    | unknown[]
+    | (((props: Record<string, unknown>) => unknown[]) &
+        (() => unknown[]) &
+        (() => unknown[]));
+  getCheckboxProps: any;
+  selections: boolean | unknown[] | (() => unknown[]);
+  hideDefaultSelections: (
+    | boolean
+    | ((props: Record<string, unknown>) => boolean)
+  ) &
+    boolean;
+  fixed: (boolean | ((props: Record<string, unknown>) => boolean)) & boolean;
+  columnWidth: string | number;
+  selectWay: "onSelect" | "onSelectMultiple" | "onSelectAll" | "onSelectInvert";
+  columnTitle: any;
 }

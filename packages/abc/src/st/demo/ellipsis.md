@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 title: 单元格自动省略
 subtitle: ellipsis
 ---

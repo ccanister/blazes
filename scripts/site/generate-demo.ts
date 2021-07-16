@@ -68,6 +68,7 @@ export function generateDemo(file: File): Demo[] {
       content: markdownData.slice(0, componentIndex),
       code: html2Escape(code),
       showCode: markdownData.slice(componentIndex),
+      order: meta.order,
     } as Demo;
     demo.fileContent = writeFileCode.replace(setupReg, (_, p1) => {
       return `setup()${p1}\ndata(){\nreturn {item: ${JSON.stringify(
@@ -77,5 +78,5 @@ export function generateDemo(file: File): Demo[] {
     demos.push(demo);
   });
 
-  return demos;
+  return demos.sort((d1, d2) => d1.order - d2.order);
 }

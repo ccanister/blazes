@@ -1,5 +1,5 @@
 <template>
-  <div class="doc-wrapper markdown">
+  <div class="doc-wrapper">
     <a-affix class="anchor-wrapper" v-if="anchors.length">
       <a-anchor>
         <a-anchor-link

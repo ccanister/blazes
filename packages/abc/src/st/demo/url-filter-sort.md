@@ -1,19 +1,13 @@
 ---
-order: 2
-title: url加载
-subtitle: url
+order: 12
+title: 远程数据筛选和排序
+subtitle: url-filter-sort
 ---
 
-通过 url 加载数据；利用 `res` 可以适配后端数据格式。
-
+url 加载数据的筛选和排序。
 ```html
 <template>
-  <st
-    :data="url"
-    :columns="columns"
-    rowKey="id"
-    :page="{pageSizes: ['10', '30'], showSize: true}"
-  ></st>
+  <st :data="url" :columns="columns" rowKey="id"></st>
 </template>
 <script lang="ts">
   import { message } from "ant-design-vue";
@@ -21,7 +15,7 @@ subtitle: url
   import { RequestService } from "@blazes/theme";
 
   export default defineComponent({
-    name: "url",
+    name: "url-filter-sort",
     setup() {
       const instance = new RequestService({}).instance;
       instance.interceptors.response.use((response) =>
