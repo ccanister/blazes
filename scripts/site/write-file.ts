@@ -31,18 +31,32 @@ export default defineComponent({
 </script>
 `);
 
+function demoToAnchors(demos: Demo[]) {
+  return demos.map((demo) => ({ label: demo.title, value: demo.subtitle }));
+}
+
+function blockToAnchors(blocks: string[]) {
+  return blocks.map((label, index) => ({
+    label: label,
+    value: label + index,
+  }));
+}
+
 export function writeDoc(doc: Doc, demos: Demo[], config: ModuleConfig) {
   if (doc.lib) {
     return;
   }
-  const anchors = demos
-    .map((demo) => ({ label: demo.title, value: demo.subtitle }))
-    .concat(
-      doc.anchors.map((label, index) => ({
-        label: label,
-        value: label + index,
-      }))
-    );
+  let anchors = [];
+  if (
+    doc.anchors.length > 0 &&
+    doc.anchors[doc.anchors.length - 1].toUpperCase() === "API"
+  ) {
+    anchors = blockToAnchors(doc.anchors.slice(0, doc.anchors.length - 1))
+      .concat(demoToAnchors(demos))
+      .concat({ label: "API", value: "API" });
+  } else {
+    anchors = demoToAnchors(demos).concat(blockToAnchors(doc.anchors));
+  }
 
   const fileContent = fileTemplate({
     name: doc.title,
