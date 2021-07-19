@@ -48,6 +48,7 @@ export interface ISFSchema {
   enums?: ISFSchemaEnumType[];
   ui?: ISFUISchemaItem;
   readOnly?: boolean;
+  default?: any; // 默认值
   properties?: { [key: string]: ISFSchema };
 }
 

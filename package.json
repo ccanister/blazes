@@ -57,6 +57,7 @@
     "mockjs": "^1.1.0",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
     "typescript": "~4.1.5",
     "underscore": "^1.13.1",
     "vue-types": "^2.0.3",

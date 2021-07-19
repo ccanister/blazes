@@ -7,8 +7,6 @@ function copyFile(srcPath, tarPath) {
 
 // 复制文件夹所有
 function copyDir(srcDir, tarDir) {
-  const srcDirStat = fs.statSync(srcDir);
- 
   if (fs.existsSync(tarDir)) {
     const files = fs.readdirSync(srcDir);
 

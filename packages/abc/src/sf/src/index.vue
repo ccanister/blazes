@@ -109,6 +109,7 @@ export default defineComponent({
   emits: {
     formSubmit: null,
     formReset: null,
+    formChange: null,
   },
   components: {
     [Form.name]: Form,
@@ -159,6 +160,7 @@ export default defineComponent({
         const properties = schema.properties as { [key: string]: ISFSchema };
         Object.keys(properties).forEach((key: string) => {
           const item: ISFSchema = { ...properties[key] };
+          form[key] = item.default || form[key] || null;
           item.ui = { ...(item.ui || {}) };
           item.ui.widget = markRaw(item.ui.widget || SfInput);
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
@@ -192,9 +194,6 @@ export default defineComponent({
         items.forEach((item) => {
           if (item.ui.visibleIf) {
             const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
-              if (!Object.prototype.hasOwnProperty.call(form, key)) {
-                form[key] = null;
-              }
               return toRef(form, key);
             });
             watch(
@@ -236,6 +235,16 @@ export default defineComponent({
         });
       }
     );
+
+    watch(form, (value, preValue) => {
+      let path = "";
+      Object.keys(preValue).forEach((key) => {
+        if (value[key] !== preValue[key]) {
+          path = key;
+        }
+      });
+      context.emit("formChange", { value, path, pathValue: value[path] });
+    });
 
     const button$ = computed(() => {
       if (props.button === null) {
