@@ -1,5 +1,4 @@
 const rimraf = require("rimraf");
-const path = require("path");
 const { resolvePath } = require("./util");
 
 function clean(dirs) {

@@ -14,7 +14,7 @@ const plugins = [
     patterns: [
       {
         from: path.join(__dirname, "src/sf/src/widgets"),
-        to: path.join(__dirname, "./lib/src/sf/src/widgets"),
+        to: path.join(__dirname, "./lib/sf/src/widgets"),
       },
     ],
   }),

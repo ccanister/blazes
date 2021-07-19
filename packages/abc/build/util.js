@@ -6,7 +6,10 @@ function copyFile(srcPath, tarPath) {
 }
 
 // 复制文件夹所有
-function copyDir(srcDir, tarDir) {
+function copyDir(srcDir, tarDir, forbiddenCopy) {
+  if (forbiddenCopy && forbiddenCopy(tarDir, srcDir)) {
+    return;
+  }
   if (fs.existsSync(tarDir)) {
     const files = fs.readdirSync(srcDir);
 
@@ -19,14 +22,14 @@ function copyDir(srcDir, tarDir) {
         if (!fs.existsSync(tarDir)) {
           fs.mkdirSync(tarDir);
         }
-        copyDir(srcPath, tarPath);
+        copyDir(srcPath, tarPath, forbiddenCopy);
       } else {
         copyFile(srcPath, tarPath);
       }
     });
   } else {
     fs.mkdirSync(tarDir);
-    copyDir(srcDir, tarDir);
+    copyDir(srcDir, tarDir, forbiddenCopy);
   }
 }
 
