@@ -1,6 +1,22 @@
 <template>
   <div>
-    <a-radio-group :options="list" v-model:value="model$" @change="change" />
+    <a-radio-group
+      v-if="ui.type === 'button'"
+      v-model:value="model$"
+      :disabled="schema.readOnly"
+      @change="change"
+    >
+      <a-radio-button v-if="item in list" :value="item.value">{{
+        item.label
+      }}</a-radio-button>
+    </a-radio-group>
+    <a-radio-group
+      v-else
+      :options="list"
+      v-model:value="model$"
+      :disabled="schema.readOnly"
+      @change="change"
+    />
   </div>
 </template>
 
