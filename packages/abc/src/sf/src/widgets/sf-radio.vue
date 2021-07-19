@@ -6,9 +6,12 @@
       :disabled="schema.readOnly"
       @change="change"
     >
-      <a-radio-button v-if="item in list" :value="item.value">{{
-        item.label
-      }}</a-radio-button>
+      <a-radio-button
+        v-for="item in list"
+        :key="item.value"
+        :value="item.value"
+        >{{ item.label }}</a-radio-button
+      >
     </a-radio-group>
     <a-radio-group
       v-else
