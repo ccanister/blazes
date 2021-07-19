@@ -20,8 +20,8 @@ export default defineComponent({
   components: { [Slider.name]: Slider },
   props: {
     modelValue: {
-      default: "0",
-      type: String,
+      default: 0,
+      type: [Number, String],
     },
     ui: Object,
     schema: Object,
