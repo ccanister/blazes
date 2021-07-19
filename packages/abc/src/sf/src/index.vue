@@ -160,7 +160,12 @@ export default defineComponent({
         const properties = schema.properties as { [key: string]: ISFSchema };
         Object.keys(properties).forEach((key: string) => {
           const item: ISFSchema = { ...properties[key] };
-          form[key] = item.default || form[key] || null;
+          form[key] =
+            item.default != null
+              ? item.default
+              : form[key] != null
+              ? form[key]
+              : null;
           item.ui = { ...(item.ui || {}) };
           item.ui.widget = markRaw(item.ui.widget || SfInput);
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;

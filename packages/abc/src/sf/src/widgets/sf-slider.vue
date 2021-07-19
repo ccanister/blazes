@@ -19,7 +19,10 @@ export default defineComponent({
   name: "sf-slider",
   components: { [Slider.name]: Slider },
   props: {
-    modelValue: [String, Number, Boolean],
+    modelValue: {
+      default: 0,
+      type: Number,
+    },
     ui: Object,
     schema: Object,
   },

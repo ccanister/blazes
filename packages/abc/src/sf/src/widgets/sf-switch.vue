@@ -11,7 +11,7 @@ import { useModel } from "@blazes/utils";
 
 export default defineComponent({
   name: "sf-switch",
-  omponents: { [Switch.name]: Switch },
+  components: { [Switch.name]: Switch },
   props: {
     modelValue: [String, Number, Boolean],
     ui: Object,

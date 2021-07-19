@@ -20,7 +20,7 @@
     "copy-webpack-plugin": "^6.0.4"
   },
   "scripts": {
-    "build": "rm -rf ./lib && webpack --mode=production && yarn build:component && yarn build:type && yarn build:jsdelivr",
+    "build": "rm -rf ./lib && yarn build:jsdelivr && yarn build:component && webpack --mode=production && yarn build:type ",
     "build:component": "webpack --mode=production --config component.webpack.config.js",
     "build:type": "node ./build/gen-type.js",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
