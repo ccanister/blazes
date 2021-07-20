@@ -38,6 +38,9 @@
               :is="item.ui.widget"
               :ref="addItem(item.ui.prop)"
             ></component>
+            <template v-if="$slots.item">
+              <slot name="item"></slot>
+            </template>
           </a-form-item>
         </a-col>
       </a-row>
