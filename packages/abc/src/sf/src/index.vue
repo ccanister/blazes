@@ -90,6 +90,7 @@ import AnyModel from "./model/any";
 import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
 import { BtnLoading } from "@blazes/theme";
+import { ArrayService } from "@blazes/utils/dist";
 
 const typeModels = {
   string: StringModel,
@@ -152,6 +153,7 @@ export default defineComponent({
     watch(
       () => props.schema as ISFSchema,
       (schema) => {
+        ArrayService.clear(items);
         itemProperties = {};
         const parentGutter = {
           ...DEFAULT_GUTTER,
@@ -280,13 +282,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="less" scoped>
-.icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -24px;
-  color: #57b425;
-  font-size: 20px;
-}
-</style>
