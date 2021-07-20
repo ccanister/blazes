@@ -88,6 +88,7 @@ import {
   ref,
   Ref,
   shallowReactive,
+  toRaw,
   toRef,
   watch,
 } from "vue";
@@ -177,7 +178,7 @@ export default defineComponent({
               ? form[key]
               : null;
           item.ui = { ...(item.ui || {}) };
-          item.ui.widget = markRaw(item.ui.widget || SfInput);
+          item.ui.widget = markRaw(toRaw(item.ui.widget || SfInput));
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
           item.ui.prop = key;
           item.ui.rules =
@@ -278,6 +279,7 @@ export default defineComponent({
     const reset = () => {
       context.emit("formReset", form);
     };
+    console.log(items);
 
     return {
       items,
