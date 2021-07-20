@@ -12,7 +12,6 @@ export type ISFSchemaEnumType = ISFSchemaEnum | number | string | boolean;
 export interface ISFUISchemaItem {
   class?: string;
   placeholder?: string;
-  optional?: string;
   optionalHelp?: string;
   widget?: any;
   rules?: any;

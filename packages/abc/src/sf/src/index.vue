@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sf-wrapper">
     <a-form
       :model="form"
       ref="formRef"
@@ -15,7 +15,6 @@
         >
           <template v-if="item.show">
             <a-form-item
-              :label="$slots[item.ui.prop] ? undefined : item.title"
               :name="item.ui.prop"
               :rules="item.ui.rules"
               :class="item.ui.class"
@@ -30,9 +29,23 @@
               }"
               :labelAlign="item.ui.labelAlign"
               :colon="!schema?.ui?.noColon"
+              :extra="item.description"
             >
-              <template v-if="$slots[item.ui.prop]" #label>
-                <slot :name="item.ui.prop" :schema="item"></slot>
+              <template #label>
+                <slot
+                  v-if="$slots[item.ui.prop]"
+                  :name="item.ui.prop"
+                  :schema="item"
+                ></slot>
+                <template v-else>
+                  <span class="title">
+                    {{ item.title }}
+                    <a-tooltip v-if="item.ui.optionalHelp">
+                      <template #title>{{ item.ui.optionalHelp }} </template>
+                      <QuestionCircleOutlined class="help" />
+                    </a-tooltip>
+                  </span>
+                </template>
               </template>
               <component
                 :ui="item.ui"
@@ -100,6 +113,7 @@ import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
 import { BtnLoading } from "@blazes/theme";
 import { ArrayService, deepCopy } from "@blazes/utils/dist";
+import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
 
 const typeModels = {
   string: StringModel,
@@ -127,6 +141,7 @@ export default defineComponent({
     [Row.name]: Row,
     [Col.name]: Col,
     [Button.name]: Button,
+    QuestionCircleOutlined,
   },
   directives: {
     btnLoading: new BtnLoading(),
@@ -279,7 +294,6 @@ export default defineComponent({
     const reset = () => {
       context.emit("formReset", form);
     };
-    console.log(items);
 
     return {
       items,
@@ -294,3 +308,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="less" scoped>
+.sf-wrapper {
+  .title {
+    .help {
+      cursor: pointer;
+    }
+  }
+}
+</style>
