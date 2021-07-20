@@ -12,36 +12,37 @@
           :key="item.ui.prop"
           :span="item.ui.gutter.span"
         >
-          <a-form-item
-            v-if="item.show"
-            :label="$slots[item.ui.prop] ? undefined : item.title"
-            :name="item.ui.prop"
-            :rules="item.ui.rules"
-            :class="item.ui.class"
-            :style="{ width: item.ui.gutter.controlWidth }"
-            :wrapperCol="{
-              span: item.ui.gutter.spanControl,
-              offset: item.ui.gutter.controlffset,
-            }"
-            :labelCol="{
-              span: item.ui.gutter.spanLabel,
-              offset: item.ui.gutter.spanOffset,
-            }"
-          >
-            <template v-if="$slots[item.ui.prop]" #label>
-              <slot :name="item.ui.prop" :schema="item"></slot>
-            </template>
-            <component
-              :ui="item.ui"
-              :schema="item"
-              v-model="form[item.ui.prop]"
-              :is="item.ui.widget"
-              :ref="addItem(item.ui.prop)"
-            ></component>
+          <template v-if="item.show">
+            <a-form-item
+              :label="$slots[item.ui.prop] ? undefined : item.title"
+              :name="item.ui.prop"
+              :rules="item.ui.rules"
+              :class="item.ui.class"
+              :style="{ width: item.ui.gutter.controlWidth }"
+              :wrapperCol="{
+                span: item.ui.gutter.spanControl,
+                offset: item.ui.gutter.controlffset,
+              }"
+              :labelCol="{
+                span: item.ui.gutter.spanLabel,
+                offset: item.ui.gutter.spanOffset,
+              }"
+            >
+              <template v-if="$slots[item.ui.prop]" #label>
+                <slot :name="item.ui.prop" :schema="item"></slot>
+              </template>
+              <component
+                :ui="item.ui"
+                :schema="item"
+                v-model="form[item.ui.prop]"
+                :is="item.ui.widget"
+                :ref="addItem(item.ui.prop)"
+              ></component>
+            </a-form-item>
             <template v-if="$slots.item">
               <slot name="item" :schema="item" :index="index"></slot>
             </template>
-          </a-form-item>
+          </template>
         </a-col>
       </a-row>
     </a-form>
