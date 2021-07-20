@@ -24,7 +24,7 @@ export interface ISFUISchemaItem {
   asyncData?: () => Promise<ISFSchemaEnumType[]>;
   gutter?: {
     spanOffset?: number;
-    controlffset?: number;
+    controlOffset?: number;
     controlWidth?: string;
     spanLabel?: number;
     spanControl?: number;
@@ -34,6 +34,7 @@ export interface ISFUISchemaItem {
   layout?: "horizontal" | "vertical";
   visibleIf?: { [key: string]: any[] | ((value: any) => boolean) };
   noColon?: boolean;
+  labelAlign?: "left" | "right";
   [key: string]: any;
 }
 

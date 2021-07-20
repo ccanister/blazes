@@ -4,6 +4,7 @@
       :model="form"
       ref="formRef"
       :layout="schema?.ui?.layout || 'horizontal'"
+      :labelAlign="schema?.ui?.labelAlign"
       :colon="!schema?.ui?.noColon"
     >
       <a-row>
@@ -21,12 +22,14 @@
               :style="{ width: item.ui.gutter.controlWidth }"
               :wrapperCol="{
                 span: item.ui.gutter.spanControl,
-                offset: item.ui.gutter.controlffset,
+                offset: item.ui.gutter.controlOffset,
               }"
               :labelCol="{
                 span: item.ui.gutter.spanLabel,
                 offset: item.ui.gutter.spanOffset,
               }"
+              :labelAlign="item.ui.labelAlign"
+              :colon="!schema?.ui?.noColon"
             >
               <template v-if="$slots[item.ui.prop]" #label>
                 <slot :name="item.ui.prop" :schema="item"></slot>
