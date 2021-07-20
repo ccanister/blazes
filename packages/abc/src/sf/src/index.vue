@@ -90,7 +90,7 @@ import AnyModel from "./model/any";
 import NumberModel from "./model/number";
 import BoolModel from "./model/boolean";
 import { BtnLoading } from "@blazes/theme";
-import { ArrayService } from "@blazes/utils/dist";
+import { ArrayService, deepCopy } from "@blazes/utils/dist";
 
 const typeModels = {
   string: StringModel,
@@ -243,13 +243,15 @@ export default defineComponent({
       }
     );
 
-    watch(form, (value, preValue) => {
+    let preForm = deepCopy(form);
+    watch(form, (value) => {
       let path = "";
-      Object.keys(preValue).forEach((key) => {
-        if (value[key] !== preValue[key]) {
+      Object.keys(preForm).forEach((key) => {
+        if (value[key] !== preForm[key]) {
           path = key;
         }
       });
+      preForm = deepCopy(value);
       context.emit("formChange", { value, path, pathValue: value[path] });
     });
 
