@@ -8,7 +8,7 @@
     >
       <a-row>
         <a-col
-          v-for="item in items"
+          v-for="(item, index) in items"
           :key="item.ui.prop"
           :span="item.ui.gutter.span"
         >
@@ -39,7 +39,7 @@
               :ref="addItem(item.ui.prop)"
             ></component>
             <template v-if="$slots.item">
-              <slot name="item"></slot>
+              <slot name="item" :schema="item" :index="index"></slot>
             </template>
           </a-form-item>
         </a-col>
