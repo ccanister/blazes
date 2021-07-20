@@ -75,11 +75,11 @@ import Button from "ant-design-vue/lib/button";
 import {
   computed,
   defineComponent,
-  markRaw,
   provide,
   reactive,
   ref,
   Ref,
+  toRaw,
   toRef,
   watch,
 } from "vue";
@@ -169,7 +169,7 @@ export default defineComponent({
               ? form[key]
               : null;
           item.ui = { ...(item.ui || {}) };
-          item.ui.widget = markRaw(item.ui.widget || SfInput);
+          item.ui.widget = toRaw(item.ui.widget || SfInput);
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
           item.ui.prop = key;
           item.ui.rules =
