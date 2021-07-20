@@ -87,6 +87,7 @@ import {
   reactive,
   ref,
   Ref,
+  shallowReactive,
   toRef,
   watch,
 } from "vue";
@@ -131,7 +132,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: any[] = reactive([]);
+    const items: any[] = shallowReactive([]);
     const form: { [key: string]: any } = reactive({
       ...(props.formData || {}),
     });
