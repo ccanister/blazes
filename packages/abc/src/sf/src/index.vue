@@ -268,7 +268,7 @@ export default defineComponent({
       }
     );
 
-    let preForm = deepCopy(form);
+    let preForm = { ...form };
     watch(form, (value) => {
       let path = "";
       Object.keys(preForm).forEach((key) => {
@@ -276,7 +276,7 @@ export default defineComponent({
           path = key;
         }
       });
-      preForm = deepCopy(value);
+      preForm = { ...form };
       context.emit("formChange", { value, path, pathValue: value[path] });
     });
 
