@@ -31,7 +31,7 @@ export function deepMergeKey(
 
   const isObject = (v: any) => typeof v === "object" || typeof v === "function";
 
-  const merge = (target: any, obj: {}) => {
+  const merge = (target: any, obj: Record<string, unknown>) => {
     Object.keys(obj)
       .filter(
         (key) =>
@@ -94,5 +94,11 @@ export function copy(value: string): Promise<string> {
         copyTextArea.parentNode.removeChild(copyTextArea);
       }
     }
+  });
+}
+
+export function underlineToHump(name: string) {
+  return name.replace(/\-(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
   });
 }
