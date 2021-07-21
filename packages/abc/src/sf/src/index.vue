@@ -100,6 +100,8 @@ import {
   reactive,
   ref,
   Ref,
+  shallowReactive,
+  shallowRef,
   toRaw,
   toRef,
   watch,
@@ -191,7 +193,7 @@ export default defineComponent({
               : form[key] != null
               ? form[key]
               : null;
-          item.ui = { ...(item.ui || {}) };
+          item.ui = shallowReactive({ ...(item.ui || {}) });
           item.ui.widget = markRaw(toRaw(item.ui.widget || SfInput));
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
           item.ui.prop = key;
