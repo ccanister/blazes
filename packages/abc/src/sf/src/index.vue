@@ -100,7 +100,6 @@ import {
   reactive,
   ref,
   Ref,
-  shallowReactive,
   toRaw,
   toRef,
   watch,
@@ -148,7 +147,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: any[] = shallowReactive([]);
+    const items: any[] = reactive([]);
     const form: { [key: string]: any } = reactive({
       ...(props.formData || {}),
     });
