@@ -4,6 +4,7 @@
     v-model:value="model$"
     :rows="ui.rows"
     :autosize="ui.autosize"
+    :disabled="schema.readOnly"
   ></a-textarea>
 </template>
 
