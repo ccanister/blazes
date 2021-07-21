@@ -3,7 +3,7 @@
     :placeholder="ui.placeholder"
     v-model:value="model$"
     :rows="ui.rows"
-    :autoSize="ui.autosize"
+    :autosize="ui.autosize"
   ></a-textarea>
 </template>
 
@@ -16,15 +16,15 @@ export default defineComponent({
   name: "sf-input",
   props: {
     modelValue: [String, Number, Boolean],
-    ui: Object
+    ui: Object,
   },
   components: {
-    [Input.TextArea.name]: Input.TextArea
+    [Input.TextArea.name]: Input.TextArea,
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
 
     return { model$ };
-  }
+  },
 });
 </script>

@@ -4,12 +4,19 @@
     v-model:value="model$"
     :placeholder="ui.placeholder"
     :disabled="schema.readOnly"
+    :maxLength="schema.maxLength"
   />
   <a-input
     v-else
     :placeholder="ui.placeholder"
     v-model:value="model$"
     :disabled="schema.readOnly"
+    :maxLength="schema.maxLength"
+    :type="ui.type"
+    :addonAfter="ui.addonAfter"
+    :addonBefore="ui.addonBefore"
+    :prefix="ui.prefix"
+    :suffix="ui.suffix"
   ></a-input>
 </template>
 
@@ -23,16 +30,16 @@ export default defineComponent({
   props: {
     modelValue: [String, Number, Boolean],
     ui: Object,
-    schema: Object
+    schema: Object,
   },
   components: {
     [Input.name]: Input,
-    [Input.Password.name]: Input.Password
+    [Input.Password.name]: Input.Password,
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
 
     return { model$ };
-  }
+  },
 });
 </script>
