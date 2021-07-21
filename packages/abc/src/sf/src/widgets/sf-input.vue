@@ -4,14 +4,14 @@
     v-model:value="model$"
     :placeholder="ui.placeholder"
     :disabled="schema.readOnly"
-    :maxLength="schema.maxLength"
+    :maxlength="schema.maxlength"
   />
   <a-input
     v-else
     :placeholder="ui.placeholder"
     v-model:value="model$"
     :disabled="schema.readOnly"
-    :maxLength="schema.maxLength"
+    :maxlength="schema.maxlength"
     :type="ui.type"
     :addonAfter="ui.addonAfter"
     :addonBefore="ui.addonBefore"

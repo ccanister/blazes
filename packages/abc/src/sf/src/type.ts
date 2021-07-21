@@ -49,7 +49,7 @@ export interface ISFSchema {
   ui?: ISFUISchemaItem;
   readOnly?: boolean;
   default?: any; // 默认值
-  maxLength?: number;
+  maxlength?: number;
   properties?: { [key: string]: ISFSchema };
 }
 
