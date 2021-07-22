@@ -1,26 +1,28 @@
 <template>
   <a-input-number
-    v-model:value="value"
+    v-model:value="model$"
     :min="schema.minimum"
     :max="schema.maximum"
     :step="schema.multipleOf"
-    :precision="ui.precision"
-    :parser="ui.parser"
-    :formatter="ui.formatter"
+    :precision="transUI.precision"
+    :parser="transUI.parser"
+    :formatter="transUI.formatter"
     :disabled="schema.readOnly"
   />
 </template>
 
 <script lang="ts">
-import { defineComponent, toRaw } from "vue";
+import { defineComponent, Ref, toRefs, ref, watch } from "vue";
 import { useModel } from "@blazes/utils";
 import InputNumber from "ant-design-vue/lib/input-number";
+import { object } from "vue-types";
+import { ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 
 export default defineComponent({
   name: "sf-input",
   props: {
     modelValue: [String, Number, Boolean],
-    ui: Object,
+    ui: object<ISFUISchemaItem>().isRequired,
     schema: Object,
   },
   components: {
@@ -28,19 +30,32 @@ export default defineComponent({
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
-    const ui = toRaw(props.ui)!;
-    if (ui.prefix != null) {
-      ui.formatter = (value: number | string) =>
-        value == null ? "" : `${ui.prefix} ${value}`;
-      ui.parser = (value: string) => value.replace(`${ui.prefix} `, "");
-    }
-    if (ui.unit != null) {
-      ui.formatter = (value: number | string) =>
-        value == null ? "" : `${value} ${ui.unit}`;
-      ui.parser = (value: string) => value.replace(` ${ui.unit}`, "");
-    }
+    const transUI = ref(props.ui) as Ref<ISFUISchemaItem>;
 
-    return { model$ };
+    watch(
+      () => props.ui as ISFUISchemaItem,
+      (ui) => {
+        if (ui.prefix != null) {
+          transUI.value = {
+            ...ui,
+            formatter: (value: number | string) =>
+              value == null ? "" : `${ui.prefix} ${value}`,
+            parser: (value: string) => value.replace(`${ui.prefix} `, ""),
+          };
+        }
+        if (ui.unit != null) {
+          transUI.value = {
+            ...ui,
+            formatter: (value: number | string) =>
+              value == null ? "" : `${value} ${ui.unit}`,
+            parser: (value: string) => value.replace(` ${ui.unit}`, ""),
+          };
+        }
+      },
+      { immediate: true }
+    );
+
+    return { model$, transUI };
   },
 });
 </script>

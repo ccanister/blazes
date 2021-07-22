@@ -9,7 +9,7 @@
   <a-input
     v-else
     :placeholder="ui.placeholder"
-    v-model:value="model$"
+    :defaultValue="model$"
     :disabled="schema.readOnly"
     :maxlength="schema.maxlength"
     :type="ui.type"
@@ -17,13 +17,14 @@
     :addonBefore="ui.addonBefore"
     :prefix="ui.prefix"
     :suffix="ui.suffix"
+    @change="changeText"
   ></a-input>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useModel } from "@blazes/utils";
+import { defineComponent, ref, watch } from "vue";
 import Input from "ant-design-vue/lib/input";
+import { typeModels } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
   name: "sf-input",
@@ -36,10 +37,21 @@ export default defineComponent({
     [Input.name]: Input,
     [Input.Password.name]: Input.Password,
   },
-  setup(props, context) {
-    const model$ = useModel<any>(props, context);
+  setup(props) {
+    const model$ = ref(props.modelValue);
+    watch(
+      () => props.modelValue,
+      (value) => {
+        model$.value = value;
+      }
+    );
+    const changeText = (text: string) => {
+      model$.value = new typeModels[props.schema!.type as string]().getValue(
+        text
+      );
+    };
 
-    return { model$ };
+    return { model$, changeText };
   },
 });
 </script>

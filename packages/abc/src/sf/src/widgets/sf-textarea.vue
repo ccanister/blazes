@@ -18,6 +18,7 @@ export default defineComponent({
   props: {
     modelValue: [String, Number, Boolean],
     ui: Object,
+    schema: Object,
   },
   components: {
     [Input.TextArea.name]: Input.TextArea,

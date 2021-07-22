@@ -101,28 +101,16 @@ import {
   ref,
   Ref,
   shallowReactive,
-  shallowRef,
   toRaw,
   toRef,
   watch,
 } from "vue";
 import SfInput from "./widgets/sf-input.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
-import StringModel from "./model/string";
-import AnyModel from "./model/any";
-import NumberModel from "./model/number";
-import BoolModel from "./model/boolean";
+import { typeModels } from "./model/context";
 import { BtnLoading } from "@blazes/theme";
-import { ArrayService, deepCopy } from "@blazes/utils/dist";
+import { ArrayService } from "@blazes/utils/dist";
 import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
-
-const typeModels = {
-  string: StringModel,
-  regexp: StringModel,
-  any: AnyModel,
-  number: NumberModel,
-  boolean: BoolModel,
-};
 
 export default defineComponent({
   name: "sf",
