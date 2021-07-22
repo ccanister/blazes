@@ -26,10 +26,10 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
 import Input from "ant-design-vue/lib/input";
-import { typeModels } from "@blazes/abc/lib/sf";
+import { typeModels } from "../model/context";
 
 export default defineComponent({
-  name: "sf-input",
+  name: "sf-default",
   props: {
     modelValue: [String, Number, Boolean],
     ui: Object,

@@ -105,7 +105,7 @@ import {
   toRef,
   watch,
 } from "vue";
-import SfInput from "./widgets/sf-input.vue";
+import SfDefault from "./widgets/sf-default.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
 import { typeModels } from "./model/context";
 import { BtnLoading } from "@blazes/theme";
@@ -182,7 +182,7 @@ export default defineComponent({
               ? form[key]
               : null;
           item.ui = shallowReactive({ ...(item.ui || {}) });
-          item.ui.widget = markRaw(toRaw(item.ui.widget || SfInput));
+          item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
           item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
           item.ui.prop = key;
           item.ui.rules =
