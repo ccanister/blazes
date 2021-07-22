@@ -13,9 +13,6 @@
         </div>
         <a-checkbox-group v-model:value="model$" class="checkbox-wrapper">
           <a-row>
-            <a-col :span="girdSpan">
-              <a-checkbox :value="item.value">{{ item.label }}</a-checkbox>
-            </a-col>
             <a-col :span="girdSpan" v-for="item in list" :key="item">
               <a-checkbox :value="item.value">{{ item.label }}</a-checkbox>
             </a-col>
@@ -27,14 +24,18 @@
           v-if="checkAll"
           v-model:checked="all.checked.all"
           :indeterminate="all.checked.indeterminate"
+          @change="all.checkAll"
         >
           {{ checkAllText }}
         </a-checkbox>
-        <a-checkbox-group
-          v-model:value="model$"
-          :options="list"
-          class="checkbox-wrapper"
-        />
+        <a-checkbox
+          v-model:checked="item.checked"
+          v-for="item in list"
+          :key="item"
+          @change="checkApart(item)"
+        >
+          {{ item.label }}</a-checkbox
+        >
       </template>
     </template>
   </div>
@@ -72,14 +73,24 @@ export default defineComponent({
       props.ui as ISFUISchemaItem,
       model$.value
     ).then((result) => {
-      if (checkAll && !girdSpan) {
-        result = result.concat({ label: checkAllText, value: "all" });
-      }
       list.value = result;
       all.resetItems(result);
     });
 
-    return { model$, label, girdSpan, list, checkAllText, checkAll, all };
+    const checkApart = (item: ISFSchemaEnum) => {
+      console.log(item);
+    };
+
+    return {
+      model$,
+      label,
+      girdSpan,
+      list,
+      checkAllText,
+      checkAll,
+      all,
+      checkApart,
+    };
   },
 });
 </script>

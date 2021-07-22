@@ -66,5 +66,5 @@ export function useChecked<T extends { checked?: boolean }>(
 
   updateChecked();
 
-  return { checkAll, checkApart, checked, resetItems };
+  return { checkAll, checkApart, checked, resetItems, updateChecked };
 }
