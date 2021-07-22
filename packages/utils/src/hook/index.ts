@@ -1,4 +1,4 @@
-import { ref, SetupContext, watch } from "vue";
+import { reactive, ref, SetupContext, watch } from "vue";
 
 // 没有监听props的变化
 export function useModel<T>(
@@ -20,11 +20,51 @@ export function useModel<T>(
   return modelValue$;
 }
 
-export function useRefs<T>(): [T[], Function] {
+export function useRefs<T>(): [T[], (index: number) => (value: T) => void] {
   const refs: T[] = [];
   const setRef = (index: number) => (value: T) => {
     refs[index] = value;
   };
 
   return [refs, setRef];
+}
+
+export function useChecked<T extends { checked?: boolean }>(
+  items: T[],
+  same = true
+) {
+  let innerItems = items;
+  const checked = reactive({
+    all: true,
+    indeterminate: false,
+  });
+
+  const updateChecked = () => {
+    checked.all = innerItems.every(isChecked);
+    checked.indeterminate = checked.all ? false : innerItems.some(isChecked);
+  };
+
+  const checkAll = () => {
+    innerItems.forEach(
+      (item: T) => (item.checked = same ? checked.all : !checked.all)
+    );
+    updateChecked();
+  };
+
+  const isChecked = (item: T) =>
+    (same && item.checked) || (!same && !item.checked);
+
+  const checkApart = (item: T) => {
+    item.checked = !item.checked;
+    updateChecked();
+  };
+
+  const resetItems = (newItems: T[]) => {
+    innerItems = newItems;
+    updateChecked();
+  };
+
+  updateChecked();
+
+  return { checkAll, checkApart, checked, resetItems };
 }

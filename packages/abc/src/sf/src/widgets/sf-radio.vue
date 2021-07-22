@@ -4,6 +4,7 @@
       v-if="ui.type === 'button'"
       v-model:value="model$"
       :disabled="schema.readOnly"
+      :buttonStyle="ui.buttonStyle"
       @change="change"
     >
       <a-radio-button

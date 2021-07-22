@@ -1,6 +1,12 @@
 <template>
   <div>
-    <a-switch v-model:checked="model$" :disabled="schema.readOnly" />
+    <a-switch
+      v-model:checked="model$"
+      :disabled="schema.readOnly"
+      :checked-children="ui.checkedChildren"
+      :un-checked-children="ui.unCheckedChildren"
+      @change="change"
+    />
   </div>
 </template>
 
@@ -20,7 +26,11 @@ export default defineComponent({
   setup(props, context) {
     const model$ = useModel<any>(props, context);
 
-    return { model$ };
+    const change = () => {
+      props.ui?.change && props.ui.change(model$.value);
+    };
+
+    return { model$, change };
   },
 });
 </script>
