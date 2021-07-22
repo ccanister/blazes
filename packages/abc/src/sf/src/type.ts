@@ -50,6 +50,9 @@ export interface ISFSchema {
   readOnly?: boolean;
   default?: any; // 默认值
   maxlength?: number;
+  minimum?: number;
+  maximum?: number;
+  multipleOf?: number;
   properties?: { [key: string]: ISFSchema };
 }
 
