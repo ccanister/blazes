@@ -1,5 +1,5 @@
 import AnyModel from "./any";
-import NumberModel from "./boolean";
+import NumberModel from "./number";
 import StringModel from "./string";
 import BoolModel from "./boolean";
 
