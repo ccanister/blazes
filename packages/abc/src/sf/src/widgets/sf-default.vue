@@ -29,7 +29,7 @@ import Input from "ant-design-vue/lib/input";
 import { typeModels } from "../model/context";
 
 export default defineComponent({
-  name: "sf-default",
+  name: "sf-input",
   props: {
     modelValue: [String, Number, Boolean],
     ui: Object,
@@ -39,7 +39,10 @@ export default defineComponent({
     [Input.name]: Input,
     [Input.Password.name]: Input.Password,
   },
-  setup(props) {
+  emits: {
+    "update:modelValue": null,
+  },
+  setup(props, { emit }) {
     const model$ = ref(props.modelValue);
     watch(
       () => props.modelValue,
@@ -51,6 +54,7 @@ export default defineComponent({
       model$.value = new typeModels[props.schema!.type as string]().getValue(
         text
       );
+      emit("update:modelValue", model$.value);
     };
 
     return { model$, changeText };
