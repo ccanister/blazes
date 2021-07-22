@@ -10,7 +10,7 @@
     <a-input
       v-else
       :placeholder="ui.placeholder"
-      :defaultValue="model$"
+      v-model:value="model$"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
       :type="ui.type"
@@ -50,9 +50,9 @@ export default defineComponent({
         model$.value = value;
       }
     );
-    const changeText = (text: string) => {
+    const changeText = () => {
       model$.value = new typeModels[props.schema!.type as string]().getValue(
-        text
+        model$.value
       );
       emit("update:modelValue", model$.value);
     };
