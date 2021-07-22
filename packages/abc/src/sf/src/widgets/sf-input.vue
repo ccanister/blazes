@@ -51,10 +51,10 @@ export default defineComponent({
       }
     );
     const changeText = () => {
-      model$.value = new typeModels[props.schema!.type as string]().getValue(
+      const value = new typeModels[props.schema!.type as string]().getValue(
         model$.value
       );
-      emit("update:modelValue", model$.value);
+      emit("update:modelValue", value);
     };
 
     return { model$, changeText };
