@@ -3,28 +3,31 @@
     <a-checkbox v-if="label" v-model:checked="model$"> {{ label }} </a-checkbox>
     <template v-else>
       <template v-if="girdSpan">
-        <div v-if="checkAll">
-          <a-checkbox
-            v-model:checked="all.checked.all"
-            :indeterminate="all.checked.indeterminate"
-          >
-            {{ checkAllText }}
-          </a-checkbox>
-        </div>
-        <a-checkbox-group v-model:value="model$" class="checkbox-wrapper">
-          <a-row>
-            <a-col :span="girdSpan" v-for="item in list" :key="item">
-              <a-checkbox :value="item.value">{{ item.label }}</a-checkbox>
-            </a-col>
-          </a-row>
-        </a-checkbox-group>
+        <a-row>
+          <a-col v-if="checkAll" :span="girdSpan">
+            <a-checkbox
+              v-model:checked="all.checked.all"
+              :indeterminate="all.checked.indeterminate"
+              @change="changeCheckAll"
+            >
+              {{ checkAllText }}
+            </a-checkbox>
+          </a-col>
+          <a-col :span="girdSpan" v-for="item in list" :key="item">
+            <a-checkbox
+              v-model:checked="item.checked"
+              @change="checkApart(item)"
+              >{{ item.label }}</a-checkbox
+            >
+          </a-col>
+        </a-row>
       </template>
       <template v-else>
         <a-checkbox
           v-if="checkAll"
           v-model:checked="all.checked.all"
           :indeterminate="all.checked.indeterminate"
-          @change="all.checkAll"
+          @change="changeCheckAll"
         >
           {{ checkAllText }}
         </a-checkbox>
@@ -77,8 +80,18 @@ export default defineComponent({
       all.resetItems(result);
     });
 
+    const updateModel = () => {
+      model$.value = list.value.filter((l) => l.checked).map((l) => l.label);
+    };
+
     const checkApart = (item: ISFSchemaEnum) => {
-      console.log(item);
+      all.updateChecked();
+      updateModel();
+    };
+
+    const changeCheckAll = () => {
+      all.checkAll();
+      updateModel();
     };
 
     return {
@@ -90,13 +103,10 @@ export default defineComponent({
       checkAll,
       all,
       checkApart,
+      changeCheckAll,
     };
   },
 });
 </script>
 
-<style scoped lang="less">
-.checkbox-wrapper {
-  width: 100%;
-}
-</style>
+<style scoped lang="less"></style>

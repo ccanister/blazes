@@ -10,7 +10,7 @@
       <a-row>
         <a-col
           v-for="(item, index) in items"
-          :key="item"
+          :key="item.ui.prop"
           :span="item.ui.gutter.span"
         >
           <template v-if="item.show">
