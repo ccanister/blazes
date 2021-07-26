@@ -21,7 +21,6 @@ import { useModel } from "@blazes/utils";
 import { defineComponent, Ref, ref } from "vue";
 import { ISFSchema, ISFUISchemaItem } from "../type";
 import { getData } from "@blazes/abc/lib/sf";
-import Select from "ant-design-vue/lib/select";
 
 export default defineComponent({
   name: "sf-select",
@@ -29,10 +28,6 @@ export default defineComponent({
     modelValue: [String, Boolean, Number, Array],
     ui: Object,
     schema: Object,
-  },
-  components: {
-    [Select.name]: Select,
-    [Select.Option.displayName as string]: Select.Option,
   },
   setup(props, context) {
     const model$ = useModel<any>(props, context);
