@@ -3,9 +3,10 @@
     <a-slider
       v-model:value="model$"
       :disabled="schema.readOnly"
-      :min="ui.min"
-      :max="ui.max"
-      :step="ui.step"
+      :min="schema.minimum"
+      :max="schema.maximum"
+      :step="schema.multipleOf"
+      :range="ui.range"
     />
   </div>
 </template>
@@ -21,7 +22,7 @@ export default defineComponent({
   props: {
     modelValue: {
       default: 0,
-      type: [Number, String],
+      type: [Number, String, Array],
     },
     ui: Object,
     schema: Object,

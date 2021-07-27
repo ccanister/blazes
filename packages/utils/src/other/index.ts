@@ -97,8 +97,13 @@ export function copy(value: string): Promise<string> {
   });
 }
 
-export function underlineToHump(name: string) {
-  return name.replace(/\-(\w)/g, function (all, letter) {
+export function underlineToHump(str: string) {
+  return str.replace(/\-(\w)/g, function (_, letter) {
     return letter.toUpperCase();
   });
+}
+
+export function upperCase(str: string) {
+  const reg = /\b(\w)|\s(\w)/g;
+  return str.replace(reg, (m) => m.toUpperCase());
 }
