@@ -19,7 +19,7 @@ import { object } from "vue-types";
 import { ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 
 export default defineComponent({
-  name: "sf-input",
+  name: "sf-input-number",
   props: {
     modelValue: [String, Number, Boolean],
     ui: object<ISFUISchemaItem>().isRequired,

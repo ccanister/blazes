@@ -8,7 +8,7 @@ import { defineComponent } from "vue";
 import DatePicker from "ant-design-vue/lib/date-picker";
 
 export default defineComponent({
-  name: "sf-select",
+  name: "sf-range-picker",
   props: {
     modelValue: [String, Boolean, Number, Array],
     ui: Object,

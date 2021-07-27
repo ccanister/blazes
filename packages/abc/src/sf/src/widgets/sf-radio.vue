@@ -32,7 +32,7 @@ import { getData } from "@blazes/abc//lib/sf";
 import Radio from "ant-design-vue/lib/radio";
 
 export default defineComponent({
-  name: "sf-select",
+  name: "sf-radio",
   props: {
     modelValue: [String, Boolean, Number, Array],
     ui: Object,
