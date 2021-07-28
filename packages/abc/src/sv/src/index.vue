@@ -1,10 +1,10 @@
 <template>
-  <a-row :gutter="sv.gutter">
+  <a-row :gutter="sv.gutter" class="sv-wrapper">
     <a-col
       v-for="option in sv.options"
       :key="option.label"
       class="item"
-      :class="option.classes"
+      :class="option.class"
     >
       <div class="label">{{ option.label }}</div>
       <div class="detail">
@@ -39,7 +39,9 @@ export default defineComponent({
       ({ isv, data }) => {
         const newSv = new Sv(isv as any, data);
         newSv.options = newSv.options.map((option) => {
-          option.classes = responseService.genClass(option.col);
+          option.class = responseService
+            .genClass(option.col)
+            .concat(option.class);
           return option;
         });
         sv.value = newSv;
@@ -52,27 +54,29 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.item {
-  display: flex !important;
-  .label {
-    padding-bottom: 16px;
-    line-height: 22px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: rgba(0, 0, 0, 0.5);
-    &::after {
-      content: "：";
+.sv-wrapper {
+  .item {
+    display: flex !important;
+    .label {
+      padding-bottom: 16px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(0, 0, 0, 0.5);
+      &::after {
+        content: "：";
+      }
     }
-  }
-  .detail {
-    padding-bottom: 16px;
-    line-height: 22px;
-    color: rgba(0, 0, 0, 0.85);
-  }
-  .label,
-  .detail {
-    display: flex;
-    align-items: center;
+    .detail {
+      padding-bottom: 16px;
+      line-height: 22px;
+      color: rgba(0, 0, 0, 0.85);
+    }
+    .label,
+    .detail {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>

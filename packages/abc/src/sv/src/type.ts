@@ -5,6 +5,7 @@ export interface ISvOption<T> {
   value?: string | ((data: T) => any);
   col?: number;
   renderValue?: string;
+  class?: string;
 }
 
 export class SvOption<T> {
@@ -13,6 +14,7 @@ export class SvOption<T> {
   col = 0;
   [key: string]: any;
   renderValue?: string;
+  class: string[];
 
   constructor(option: ISvOption<T>, data: T, defaultVal = "") {
     const { label, value, renderValue } = option;
@@ -25,6 +27,7 @@ export class SvOption<T> {
         ? value(data)
         : null;
     this.value = result == null ? defaultVal : result;
+    this.class = option.class ? [option.class] : [];
   }
 }
 
