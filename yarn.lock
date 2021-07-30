@@ -11505,14 +11505,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-vue-types@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/vue-types/-/vue-types-2.0.3.tgz#d4d3b124e8ae09e2d58785054451a6eb7e672d6d"
-  integrity sha512-pLTOquc/x5uvVLZBjEKwC8e3eni17wv9M/2XdYbDQ/93pk3vW6eXvoynMw0ACBvHad7GgQ92F+D+C7d7e5msBw==
-  dependencies:
-    is-plain-object "3.0.1"
-
-vue-types@^3.0.0:
+vue-types@3, vue-types@^3.0.0:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/vue-types/download/vue-types-3.0.2.tgz?cache=0&sync_timestamp=1612247605297&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-types%2Fdownload%2Fvue-types-3.0.2.tgz#ec16e05d412c038262fc1efa4ceb9647e7fb601d"
   integrity sha1-7BbgXUEsA4Ji/B76TOuWR+f7YB0=

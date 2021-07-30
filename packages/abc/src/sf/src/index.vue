@@ -9,11 +9,11 @@
     >
       <a-row>
         <a-col
-          v-for="(item, index) in items"
+          v-for="(item, key, index) in rootProperty.properties"
           :key="item"
           :span="item.ui.gutter.span"
         >
-          <template v-if="item.show">
+          <template v-if="item.visible || !item.hidden">
             <a-form-item
               :name="item.ui.prop"
               :rules="item.ui.rules"
@@ -39,7 +39,7 @@
                 ></slot>
                 <template v-else>
                   <span class="title">
-                    {{ item.title }}
+                    {{ item.schema.title }}
                     <a-tooltip v-if="item.ui.optionalHelp">
                       <template #title>{{ item.ui.optionalHelp }} </template>
                       <QuestionCircleOutlined class="help" />
@@ -50,7 +50,7 @@
               <component
                 :ui="item.ui"
                 :schema="item"
-                v-model="form[item.ui.prop]"
+                :property="item"
                 :is="item.ui.widget"
                 :ref="addItem(item.ui.prop)"
               ></component>
@@ -64,17 +64,18 @@
     </a-form>
     <div v-if="button$" :class="button$.className">
       <a-row type="flex" :justify="button$.span ? 'start' : 'end'">
-        <a-col class="text-right" :span="button$.span">
-          <a-button v-if="!button$.hideReset" @click="reset" class="mr-md">{{
-            button$.resetText || "取消"
-          }}</a-button>
+        <a-col :span="button$.span">
+          <a-button v-if="!button$.hideReset" @click="reset" class="mr-md">
+            {{ button$.resetText }}
+          </a-button>
           <a-button
             type="primary"
             @click="submit"
             v-if="!button$.hideSubmit"
             v-btn-loading
-            >{{ button$.submitText || "确定" }}</a-button
           >
+            {{ button$.submitText }}
+          </a-button>
         </a-col>
       </a-row>
     </div>
@@ -87,6 +88,8 @@ import {
   formRefSymbol,
   DEFAULT_GUTTER,
   ISFSchemaType,
+  ISFSchemaButton,
+  DEFAULT_BUTTON,
 } from "./type";
 import Form from "ant-design-vue/lib/form";
 import Row from "ant-design-vue/lib/row";
@@ -111,13 +114,16 @@ import { typeModels } from "./model/context";
 import { BtnLoading } from "@blazes/theme";
 import { ArrayService } from "@blazes/utils/dist";
 import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
+import { object } from "vue-types";
+import { FormPropertyFactory } from "./model/form.property.factory";
+import { FormProperty } from "./model/form.property";
 
 export default defineComponent({
   name: "sf",
   props: {
-    schema: Object,
-    button: Object,
-    formData: Object,
+    schema: object<ISFSchema>().isRequired,
+    button: object<ISFSchemaButton>(),
+    formData: object(),
   },
   emits: {
     formSubmit: null,
@@ -136,6 +142,8 @@ export default defineComponent({
     btnLoading: new BtnLoading(),
   },
   setup(props, context) {
+    const formPropertyFactory = new FormPropertyFactory();
+    const rootProperty: Ref<FormProperty | null> = ref(null);
     const formRef: Ref<typeof Form | null> = ref(null);
     const items: any[] = reactive([]);
     const form: { [key: string]: any } = reactive({
@@ -163,84 +171,124 @@ export default defineComponent({
       return itemProperties[property];
     };
 
+    const fixSchema = (schema: ISFSchema) => {
+      schema.type = "object";
+      const properties = schema.properties!;
+      const parentGutter = Object.assign({}, DEFAULT_GUTTER, schema.ui?.gutter);
+      Object.keys(properties).forEach((key: string) => {
+        const item = properties[key];
+        item.ui = shallowReactive({ ...(item.ui || {}) });
+        item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
+        item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
+        item.ui.prop = key;
+        item.ui.rules =
+          item.ui.rules == null
+            ? []
+            : Array.isArray(item.ui.rules)
+            ? item.ui.rules
+            : [item.ui.rules];
+        const type = (item.type = item.type || "string");
+        if (item.required) {
+          const requiredRule = item.ui.rules.find(
+            (r: any) => r.required === true
+          );
+          if (!requiredRule) {
+            item.ui.rules.push(addReuiqredRule(item, type));
+          }
+        }
+        if (item.ui.validate) {
+          item.ui.rules.push({
+            ...item.ui.validate,
+            validator: item.ui.validate.validator(form),
+          });
+        }
+        if (!item.ui.hidden) {
+          items.push(item);
+        }
+        item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
+        schema.ui![`$${key}`] = item.ui;
+      });
+    };
+
+    const watchFormChange = () => {
+      let preForm = { ...form };
+      watch(form, (value) => {
+        let path = "";
+        Object.keys(preForm).forEach((key) => {
+          if (value[key] !== preForm[key]) {
+            path = key;
+          }
+        });
+        preForm = { ...form };
+        context.emit("formChange", { value, path, pathValue: value[path] });
+      });
+    };
+
+    const refreshSchema = (schema: ISFSchema) => {
+      fixSchema(schema);
+      const property = (rootProperty.value = formPropertyFactory.createProperty(
+        schema,
+        schema.ui!,
+        props.formData || {}
+      ));
+      property.resetValue();
+    };
+
     watch(
       () => props.schema as ISFSchema,
       (schema) => {
-        ArrayService.clear(items);
-        itemProperties = {};
-        const parentGutter = {
-          ...DEFAULT_GUTTER,
-          ...(schema?.ui?.gutter || {}),
-        };
-        const properties = schema.properties as { [key: string]: ISFSchema };
-        Object.keys(properties).forEach((key: string) => {
-          const item: ISFSchema = { ...properties[key] };
-          form[key] =
-            item.default != null
-              ? item.default
-              : form[key] != null
-              ? form[key]
-              : null;
-          item.ui = shallowReactive({ ...(item.ui || {}) });
-          item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
-          item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
-          item.ui.prop = key;
-          item.ui.rules =
-            item.ui.rules == null
-              ? []
-              : Array.isArray(item.ui.rules)
-              ? item.ui.rules
-              : [item.ui.rules];
-          const type = (item.type = item.type || "string");
-          if (item.required) {
-            const requiredRule = item.ui.rules.find(
-              (r: any) => r.required === true
-            );
-            if (!requiredRule) {
-              item.ui.rules.push(addReuiqredRule(item, type));
-            }
-          }
-          if (item.ui.validate) {
-            item.ui.rules.push({
-              ...item.ui.validate,
-              validator: item.ui.validate.validator(form),
-            });
-          }
-          if (!item.ui.hidden) {
-            items.push(item);
-          }
-          item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
-        });
-        items.forEach((item) => {
-          if (item.ui.visibleIf) {
-            const watchKeys = Object.keys(item.ui.visibleIf).map((key) => {
-              return toRef(form, key);
-            });
-            watch(
-              watchKeys,
-              (values) => {
-                let flag = true;
-                values.forEach((value, index) => {
-                  const visibleIfFns = Object.values(item.ui.visibleIf) as (
-                    | any[]
-                    | ((value: any) => boolean)
-                  )[];
-                  const fn = Array.isArray(visibleIfFns[index])
-                    ? () => (visibleIfFns[index] as any[]).includes(value)
-                    : (visibleIfFns[index] as (value: any) => boolean);
-                  flag = flag && fn(value);
-                });
-                item.show = flag;
-              },
-              { immediate: true }
-            );
-          } else {
-            item.show = true;
-          }
-        });
+        refreshSchema(schema);
       },
       { immediate: true }
     );
+    //     ArrayService.clear(items);
+    //     itemProperties = {};
+    //     const parentGutter = {
+    //       ...DEFAULT_GUTTER,
+    //       ...(schema?.ui?.gutter || {}),
+    //     };
+    //     const properties = schema.properties as { [key: string]: ISFSchema };
+    //     Object.keys(properties).forEach((key: string) => {
+    //       const item: ISFSchema = { ...properties[key] };
+    //       form[key] =
+    //         item.default != null
+    //           ? item.default
+    //           : form[key] != null
+    //           ? form[key]
+    //           : null;
+    //       item.ui = shallowReactive({ ...(item.ui || {}) });
+    //       item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
+    //       item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
+    //       item.ui.prop = key;
+    //       item.ui.rules =
+    //         item.ui.rules == null
+    //           ? []
+    //           : Array.isArray(item.ui.rules)
+    //           ? item.ui.rules
+    //           : [item.ui.rules];
+    //       const type = (item.type = item.type || "string");
+    //       if (item.required) {
+    //         const requiredRule = item.ui.rules.find(
+    //           (r: any) => r.required === true
+    //         );
+    //         if (!requiredRule) {
+    //           item.ui.rules.push(addReuiqredRule(item, type));
+    //         }
+    //       }
+    //       if (item.ui.validate) {
+    //         item.ui.rules.push({
+    //           ...item.ui.validate,
+    //           validator: item.ui.validate.validator(form),
+    //         });
+    //       }
+    //       if (!item.ui.hidden) {
+    //         items.push(item);
+    //       }
+    //       item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
+    //     });
+    //   },
+    //   { immediate: true }
+    // );
 
     watch(
       () => props.formData as any,
@@ -256,24 +304,9 @@ export default defineComponent({
       }
     );
 
-    let preForm = { ...form };
-    watch(form, (value) => {
-      let path = "";
-      Object.keys(preForm).forEach((key) => {
-        if (value[key] !== preForm[key]) {
-          path = key;
-        }
-      });
-      preForm = { ...form };
-      context.emit("formChange", { value, path, pathValue: value[path] });
-    });
-
-    const button$ = computed(() => {
-      if (props.button === null) {
-        return null;
-      }
-      return props.button || {};
-    });
+    const button$ = computed(() =>
+      Object.assign({}, props.button, DEFAULT_BUTTON)
+    );
 
     const submit = () => {
       (formRef.value as any).validate().then(() => {
@@ -293,6 +326,7 @@ export default defineComponent({
       button$,
       searchProperty,
       addItem,
+      rootProperty,
     };
   },
 });

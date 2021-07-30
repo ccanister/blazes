@@ -1,6 +1,6 @@
-import BaseModel from "./base";
+import { AtomicProperty } from "./atomic.property";
 
-export default class AnyModel extends BaseModel<any> {
+export default class AnyProperty extends AtomicProperty {
   fallbackValue(value: any): any {
     return value;
   }

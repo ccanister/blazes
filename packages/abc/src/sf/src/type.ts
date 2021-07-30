@@ -37,7 +37,13 @@ export interface ISFUISchemaItem {
   [key: string]: any;
 }
 
-export type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";
+export type ISFSchemaType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "any"
+  | "object"
+  | "array";
 
 // 默认object先
 export interface ISFSchema {
@@ -74,4 +80,27 @@ export const DEFAULT_GUTTER = {
   spanLabel: 5,
   spanControl: 17,
   span: 24,
+};
+
+export type SFValue = any;
+
+export interface ISFFormValueChange {
+  path: string | null;
+  pathValue: SFValue;
+  value: SFValue;
+}
+
+export interface ISFUpdateValueAndValidity {
+  updatePath?: string;
+  updateValue?: SFValue | null;
+}
+
+export const SF_SEQ = "/";
+
+export const DEFAULT_BUTTON: ISFSchemaButton = {
+  submitText: "确定",
+  resetText: "取消",
+  hideSubmit: false,
+  hideReset: false,
+  span: 0,
 };

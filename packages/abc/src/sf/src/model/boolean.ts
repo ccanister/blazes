@@ -1,6 +1,6 @@
-import BaseModel from "./base";
+import { AtomicProperty } from "./atomic.property";
 
-export default class NumberModel extends BaseModel<boolean> {
+export default class BooleanProperty extends AtomicProperty {
   fallbackValue(value: any): boolean {
     return !!value;
   }
