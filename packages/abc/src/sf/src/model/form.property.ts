@@ -18,7 +18,7 @@ export abstract class FormProperty {
   });
   private _root: PropertyGroup;
   private _parent: PropertyGroup | null;
-  private _visibilityChanges = ref<boolean>(true);
+  _visibilityChanges = ref<boolean>(true);
   formData: Record<string, unknown>;
   _value: SFValue = null;
   path: string;
@@ -141,11 +141,7 @@ export abstract class FormProperty {
             if (typeof vi === "function") {
               return vi(res.value);
             }
-            if (vi.indexOf("$ANY$") !== -1) {
-              return res.value.length > 0;
-            } else {
-              return vi.indexOf(res.value) !== -1;
-            }
+            return vi.indexOf(res.value) !== -1;
           });
           propertiesBinding.push(visibleCheck);
         } else {
@@ -156,10 +152,14 @@ export abstract class FormProperty {
       }
     }
 
-    watch(propertiesBinding, (values) => {
-      const visible = values.indexOf(true) !== -1;
-      this.setVisible(visible);
-    });
+    watch(
+      propertiesBinding,
+      (values) => {
+        const visible = values.indexOf(true) !== -1;
+        this.setVisible(visible);
+      },
+      { immediate: true }
+    );
   }
 }
 

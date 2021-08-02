@@ -13,7 +13,7 @@
           :key="item"
           :span="item.ui.gutter.span"
         >
-          <template v-if="item.visible || !item.hidden">
+          <template v-if="item._visibilityChanges && !item.hidden">
             <a-form-item
               :name="item.ui.prop"
               :rules="item.ui.rules"
@@ -101,10 +101,8 @@ import {
   defineComponent,
   markRaw,
   provide,
-  reactive,
   ref,
   Ref,
-  shallowReactive,
   toRaw,
   watch,
 } from "vue";
@@ -170,7 +168,7 @@ export default defineComponent({
       const parentGutter = Object.assign({}, DEFAULT_GUTTER, schema.ui?.gutter);
       Object.keys(properties).forEach((key: string) => {
         const item = properties[key];
-        item.ui = shallowReactive({ ...(item.ui || {}) });
+        item.ui = { ...(item.ui || {}) };
         item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
         item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
         item.ui.prop = key;
