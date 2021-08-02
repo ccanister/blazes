@@ -1,3 +1,4 @@
+import { DefineComponent } from "vue";
 import { computed, ref, Ref, watch } from "vue";
 import {
   ISFFormValueChange,
@@ -10,7 +11,7 @@ import {
 } from "../type";
 
 export abstract class FormProperty {
-  private _valueChanges: Ref<ISFFormValueChange> = ref({
+  _valueChanges: Ref<ISFFormValueChange> = ref({
     path: null,
     pathValue: null,
     value: null,
@@ -18,16 +19,17 @@ export abstract class FormProperty {
   private _root: PropertyGroup;
   private _parent: PropertyGroup | null;
   private _visibilityChanges = ref<boolean>(true);
-  formData: {};
+  formData: Record<string, unknown>;
   _value: SFValue = null;
   path: string;
   schema: ISFSchema;
   ui: ISFUISchemaItem;
+  widget: DefineComponent | null = null;
 
   constructor(
     schema: ISFSchema,
     ui: ISFUISchemaItem,
-    formData: {},
+    formData: Record<string, unknown>,
     parent: PropertyGroup | null,
     path: string
   ) {
@@ -65,13 +67,21 @@ export abstract class FormProperty {
 
   abstract setValue(value: SFValue, onlySelf: boolean): void;
 
+  abstract _updateValue(): void;
+
+  abstract _hasValue(): boolean;
+
   /** 因为没有做【重置】功能，所以现在只会在组件初始化的时候调用 */
-  resetValue() {
-    this.setValue(this.formData, false);
-  }
+  abstract resetValue(value: SFValue, onlySelf: boolean): void;
 
   updateValueAndValidity(options?: ISFUpdateValueAndValidity): void {
-    options = { updatePath: "", updateValue: null, ...options };
+    options = {
+      onlySelf: false,
+      updatePath: "",
+      updateValue: null,
+      ...options,
+    };
+    this._updateValue();
 
     options.updatePath = options.updatePath || this.path;
     options.updateValue =
@@ -82,7 +92,7 @@ export abstract class FormProperty {
       pathValue: options.updateValue,
     };
 
-    if (this.parent) {
+    if (this.parent && !options.onlySelf) {
       this.parent.updateValueAndValidity({ ...options });
     }
   }
@@ -119,7 +129,7 @@ export abstract class FormProperty {
     }
     const propertiesBinding: Array<Ref<boolean>> = [];
     for (const dependencyPath in visibleIf) {
-      if (visibleIf.hasOwnProperty(dependencyPath)) {
+      if (Object.hasOwnProperty.call(visibleIf, dependencyPath)) {
         const property = this.searchProperty(dependencyPath);
         if (property) {
           const visibleCheck = computed(() => {
@@ -176,7 +186,7 @@ export abstract class PropertyGroup extends FormProperty {
 
   forEachChild(fn: (formProperty: FormProperty, str: string) => void): void {
     for (const propertyId in this.properties) {
-      if (this.properties.hasOwnProperty(propertyId)) {
+      if (Object.hasOwnProperty.call(this.properties, propertyId)) {
         const property = (this.properties as { [key: string]: FormProperty })[
           propertyId
         ];

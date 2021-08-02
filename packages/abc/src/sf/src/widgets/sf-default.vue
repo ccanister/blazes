@@ -1,15 +1,17 @@
 <template>
   <div>
-    <!-- <a-input-password
+    <a-input-password
       v-if="ui.showPassword"
-      v-model:value="model$"
+      v-model:value="model"
       :placeholder="ui.placeholder"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
-    /> -->
+      @change="changeText"
+    />
     <a-input
+      v-else
       :placeholder="ui.placeholder"
-      :defaultValue="property.value"
+      v-model:value="model"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
       :type="ui.type"
@@ -23,20 +25,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRaw, watch } from "vue";
+import { defineComponent, ref, toRaw } from "vue";
 import Input from "ant-design-vue/lib/input";
-import { typeModels } from "../model/context";
-import { FormProperty } from "../model/form.property";
 import { object } from "vue-types";
-import { ISFUISchemaItem } from "../type";
-import StringProperty from "../model/string";
+import { ISFUISchemaItem, SFValue, ISFSchema } from "../type";
+import { StringProperty } from "../model/string.property";
 
 export default defineComponent({
   name: "sf-default",
   props: {
     property: object<StringProperty>().isRequired,
     ui: object<ISFUISchemaItem>().isRequired,
-    schema: object<ISFUISchemaItem>().isRequired,
+    schema: object<ISFSchema>().isRequired,
   },
   components: {
     [Input.name]: Input,
@@ -45,18 +45,19 @@ export default defineComponent({
   emits: {
     "update:modelValue": null,
   },
-  setup(props, { emit }) {
+  setup(props) {
     const property = toRaw(props.property);
-    const changeText = (event: InputEvent) => {
-      // const value = new typeModels[props.schema!.type as string]().getValue(
-      //   model$.value
-      // );
-      // emit("update:modelValue", value);
-      const value = (event.target as HTMLInputElement).value;
+    const model = ref(property.value);
+    const changeText = () => {
+      property.setValue(model.value);
+    };
+
+    const reset = (value: SFValue) => {
+      model.value = value;
       property.setValue(value);
     };
 
-    return { changeText };
+    return { changeText, reset, model };
   },
 });
 </script>

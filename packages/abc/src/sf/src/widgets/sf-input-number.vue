@@ -1,6 +1,6 @@
 <template>
   <a-input-number
-    v-model:value="model$"
+    v-model:value="model"
     :min="schema.minimum"
     :max="schema.maximum"
     :step="schema.multipleOf"
@@ -8,29 +8,35 @@
     :parser="transUI.parser"
     :formatter="transUI.formatter"
     :disabled="schema.readOnly"
+    @change="changeValue"
   />
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, toRefs, ref, watch } from "vue";
-import { useModel } from "@blazes/utils";
+import { defineComponent, Ref, ref, watch, toRaw } from "vue";
 import InputNumber from "ant-design-vue/lib/input-number";
 import { object } from "vue-types";
-import { ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import { NumberProperty } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
   name: "sf-input-number",
   props: {
-    modelValue: [String, Number, Boolean],
+    property: object<NumberProperty>().isRequired,
     ui: object<ISFUISchemaItem>().isRequired,
-    schema: Object,
+    schema: object<ISFSchema>().isRequired,
   },
   components: {
     [InputNumber.name]: InputNumber,
   },
-  setup(props, context) {
-    const model$ = useModel<any>(props, context);
+  setup(props) {
+    const property = toRaw(props.property);
+    const model = ref(property.value);
     const transUI = ref(props.ui) as Ref<ISFUISchemaItem>;
+
+    const changeValue = () => {
+      property.setValue(model.value);
+    };
 
     watch(
       () => props.ui as ISFUISchemaItem,
@@ -55,7 +61,7 @@ export default defineComponent({
       { immediate: true }
     );
 
-    return { model$, transUI };
+    return { model, transUI, changeValue };
   },
 });
 </script>

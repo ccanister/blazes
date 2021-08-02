@@ -1,54 +1,64 @@
 <template>
-  <a-select
-    v-model:value="model$"
-    :placeholder="ui.placeholder"
-    :mode="mode"
-    :disabled="schema.readOnly"
-  >
-    <a-select-option
-      v-for="item in list"
-      :key="item.value"
-      :value="item.value"
-      :disabled="list.disabled"
+  <div>
+    <a-select
+      v-model:value="model"
+      :placeholder="ui.placeholder"
+      :mode="mode"
+      :disabled="schema.readOnly"
+      @change="changeSelect"
     >
-      {{ item.label }}
-    </a-select-option>
-  </a-select>
+      <a-select-option
+        v-for="item in list"
+        :key="item.value"
+        :value="item.value"
+        :disabled="list.disabled"
+      >
+        {{ item.label }}
+      </a-select-option>
+    </a-select>
+  </div>
 </template>
 
 <script lang="ts">
-import { useModel } from "@blazes/utils";
-import { defineComponent, Ref, ref } from "vue";
-import { ISFSchema, ISFUISchemaItem } from "../type";
-import { getData } from "@blazes/abc/lib/sf";
+import { defineComponent, Ref, ref, toRaw } from "vue";
+import {
+  ISFSchema,
+  ISFUISchemaItem,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
+import { AtomicProperty, getData } from "@blazes/abc/lib/sf";
+import { object } from "vue-types";
 
 export default defineComponent({
   name: "sf-select",
   props: {
-    modelValue: [String, Boolean, Number, Array],
-    ui: Object,
-    schema: Object,
+    property: object<AtomicProperty>().isRequired,
+    ui: object<ISFUISchemaItem>().isRequired,
+    schema: object<ISFSchema>().isRequired,
   },
-  setup(props, context) {
-    const model$ = useModel<any>(props, context);
+  setup(props) {
+    // 直接解构toRaw是不行的
+    const property = toRaw(props.property);
+    const { ui, schema } = toRaw(props);
+    const model = ref(property.value);
     const list: Ref<any[]> = ref([]);
-    const mode = props.ui?.mode || null;
-    getData(
-      props.schema as ISFSchema,
-      props.ui as ISFUISchemaItem,
-      model$.value
-    ).then((result) => {
+    const mode = ui.mode || null;
+    getData(schema, ui, model.value).then((result) => {
       list.value = result;
     });
-    const setValue = (value: string) => {
-      model$.value = value;
-    };
-    // todo 需要重写
     const resetList = (result: any) => {
       list.value = result;
     };
+    const changeSelect = () => {
+      property.setValue(model.value);
+    };
 
-    return { model$, list, mode, setValue, resetList };
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
+    return { model, list, mode, reset, resetList, changeSelect };
   },
 });
 </script>

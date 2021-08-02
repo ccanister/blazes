@@ -42,7 +42,10 @@ export class ObjectProperty extends PropertyGroup {
   setValue(value: SFValue): void {
     const properties = this.properties as { [key: string]: FormProperty };
     for (const propertyId in value) {
-      if (value.hasOwnProperty(propertyId) && properties[propertyId]) {
+      if (
+        Object.hasOwnProperty.call(value, propertyId) &&
+        properties[propertyId]
+      ) {
         (properties[propertyId] as FormProperty).setValue(
           value[propertyId],
           true
@@ -52,7 +55,27 @@ export class ObjectProperty extends PropertyGroup {
     this.updateValueAndValidity();
   }
 
-  resetValue() {
-    this.setValue(this.formData);
+  resetValue(value: SFValue, onlySelf: boolean): void {
+    value = value || this.schema.default || {};
+    const properties = this.properties as { [key: string]: FormProperty };
+    // tslint:disable-next-line: forin
+    for (const propertyId in this.schema.properties) {
+      properties[propertyId].resetValue(value[propertyId], true);
+    }
+    this.updateValueAndValidity({ onlySelf });
+  }
+
+  _hasValue(): boolean {
+    return this.value != null && !!Object.keys(this.value).length;
+  }
+
+  _updateValue(): void {
+    const value: SFValue = {};
+    this.forEachChild((property, propertyId) => {
+      if (property.visible && property._hasValue()) {
+        value[propertyId] = property.value;
+      }
+    });
+    this._value = value;
   }
 }

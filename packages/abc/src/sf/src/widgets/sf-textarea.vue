@@ -1,7 +1,7 @@
 <template>
   <a-textarea
     :placeholder="ui.placeholder"
-    v-model:value="model$"
+    v-model:value="model"
     :rows="ui.rows"
     :autosize="ui.autosize"
     :disabled="schema.readOnly"
@@ -9,24 +9,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useModel } from "@blazes/utils";
+import { defineComponent, ref, toRaw } from "vue";
 import Input from "ant-design-vue/lib/input";
+import { StringProperty } from "@blazes/abc/lib/sf";
+import {
+  ISFUISchemaItem,
+  ISFSchema,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
+import { object } from "vue-types";
 
 export default defineComponent({
   name: "sf-textarea",
   props: {
-    modelValue: [String, Number, Boolean],
-    ui: Object,
-    schema: Object,
+    property: object<StringProperty>().isRequired,
+    ui: object<ISFUISchemaItem>().isRequired,
+    schema: object<ISFSchema>().isRequired,
   },
   components: {
     [Input.TextArea.name]: Input.TextArea,
   },
-  setup(props, context) {
-    const model$ = useModel<any>(props, context);
+  setup(props) {
+    const property = toRaw(props.property);
+    const model = ref(property.value);
+    const changeText = () => {
+      property.setValue(model.value);
+    };
 
-    return { model$ };
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
+    return { changeText, reset, model };
   },
 });
 </script>

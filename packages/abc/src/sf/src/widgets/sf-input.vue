@@ -2,15 +2,16 @@
   <div>
     <a-input-password
       v-if="ui.showPassword"
-      v-model:value="model$"
+      v-model:value="model"
       :placeholder="ui.placeholder"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
+      @change="changeText"
     />
     <a-input
       v-else
       :placeholder="ui.placeholder"
-      v-model:value="model$"
+      v-model:value="model"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
       :type="ui.type"
@@ -24,16 +25,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, toRaw } from "vue";
 import Input from "ant-design-vue/lib/input";
-import { typeModels } from "@blazes/abc/lib/sf";
+import { object } from "vue-types";
+import { ISFUISchemaItem, SFValue, ISFSchema } from "../type";
+import { StringProperty } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
-  name: "sf-input",
+  name: "sf-default",
   props: {
-    modelValue: [String, Number, Boolean],
-    ui: Object,
-    schema: Object,
+    property: object<StringProperty>().isRequired,
+    ui: object<ISFUISchemaItem>().isRequired,
+    schema: object<ISFSchema>().isRequired,
   },
   components: {
     [Input.name]: Input,
@@ -42,22 +45,19 @@ export default defineComponent({
   emits: {
     "update:modelValue": null,
   },
-  setup(props, { emit }) {
-    const model$ = ref(props.modelValue);
-    watch(
-      () => props.modelValue,
-      (value) => {
-        model$.value = value;
-      }
-    );
+  setup(props) {
+    const property = toRaw(props.property);
+    const model = ref(property.value);
     const changeText = () => {
-      const value = new typeModels[props.schema!.type as string]().getValue(
-        model$.value
-      );
-      emit("update:modelValue", value);
+      property.setValue(model.value);
     };
 
-    return { model$, changeText };
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
+    return { changeText, reset, model };
   },
 });
 </script>

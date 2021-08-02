@@ -93,6 +93,7 @@ export interface ISFFormValueChange {
 export interface ISFUpdateValueAndValidity {
   updatePath?: string;
   updateValue?: SFValue | null;
+  onlySelf?: boolean;
 }
 
 export const SF_SEQ = "/";
@@ -102,5 +103,4 @@ export const DEFAULT_BUTTON: ISFSchemaButton = {
   resetText: "取消",
   hideSubmit: false,
   hideReset: false,
-  span: 0,
 };

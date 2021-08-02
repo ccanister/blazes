@@ -49,7 +49,7 @@
               </template>
               <component
                 :ui="item.ui"
-                :schema="item"
+                :schema="item.schema"
                 :property="item"
                 :is="item.ui.widget"
                 :ref="addItem(item.ui.prop)"
@@ -90,6 +90,7 @@ import {
   ISFSchemaType,
   ISFSchemaButton,
   DEFAULT_BUTTON,
+  ISFFormValueChange,
 } from "./type";
 import Form from "ant-design-vue/lib/form";
 import Row from "ant-design-vue/lib/row";
@@ -105,14 +106,11 @@ import {
   Ref,
   shallowReactive,
   toRaw,
-  toRef,
   watch,
 } from "vue";
 import SfDefault from "./widgets/sf-default.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
-import { typeModels } from "./model/context";
 import { BtnLoading } from "@blazes/theme";
-import { ArrayService } from "@blazes/utils/dist";
 import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
 import { object } from "vue-types";
 import { FormPropertyFactory } from "./model/form.property.factory";
@@ -145,10 +143,7 @@ export default defineComponent({
     const formPropertyFactory = new FormPropertyFactory();
     const rootProperty: Ref<FormProperty | null> = ref(null);
     const formRef: Ref<typeof Form | null> = ref(null);
-    const items: any[] = reactive([]);
-    const form: { [key: string]: any } = reactive({
-      ...(props.formData || {}),
-    });
+    const form: Ref<Record<string, unknown>> = ref({});
     provide(formSymbol, form);
     provide(formRefSymbol, formRef);
     const addReuiqredRule = (item: ISFSchema, type: ISFSchemaType) => {
@@ -157,18 +152,16 @@ export default defineComponent({
         fullField: item.title,
         trigger: CUSTOM_TRIGGER,
         type,
-        transform: (value: any) => new typeModels[type]().getValue(value),
       };
     };
-    let itemProperties: { [key: string]: any } = {};
 
-    // TODO el不知道怎么从模板中传入
-    const addItem = (prop: string) => (el: any) => {
-      itemProperties[prop] = el;
+    const addItem = (prop: string) => (widget: any) => {
+      const formProperty = rootProperty.value!.searchProperty(`/${prop}`)!;
+      formProperty.widget = widget;
     };
 
     const searchProperty = (property: string) => {
-      return itemProperties[property];
+      return rootProperty.value!.searchProperty(property);
     };
 
     const fixSchema = (schema: ISFSchema) => {
@@ -202,26 +195,20 @@ export default defineComponent({
             validator: item.ui.validate.validator(form),
           });
         }
-        if (!item.ui.hidden) {
-          items.push(item);
-        }
         item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
         schema.ui![`$${key}`] = item.ui;
       });
     };
 
     const watchFormChange = () => {
-      let preForm = { ...form };
-      watch(form, (value) => {
-        let path = "";
-        Object.keys(preForm).forEach((key) => {
-          if (value[key] !== preForm[key]) {
-            path = key;
-          }
-        });
-        preForm = { ...form };
-        context.emit("formChange", { value, path, pathValue: value[path] });
-      });
+      watch(
+        () =>
+          (rootProperty.value!._valueChanges as unknown) as ISFFormValueChange,
+        (valueChange) => {
+          form.value = valueChange.value;
+          context.emit("formChange", valueChange);
+        }
+      );
     };
 
     const refreshSchema = (schema: ISFSchema) => {
@@ -231,7 +218,8 @@ export default defineComponent({
         schema.ui!,
         props.formData || {}
       ));
-      property.resetValue();
+      watchFormChange();
+      property.resetValue(props.formData || {}, false);
     };
 
     watch(
@@ -241,65 +229,19 @@ export default defineComponent({
       },
       { immediate: true }
     );
-    //     ArrayService.clear(items);
-    //     itemProperties = {};
-    //     const parentGutter = {
-    //       ...DEFAULT_GUTTER,
-    //       ...(schema?.ui?.gutter || {}),
-    //     };
-    //     const properties = schema.properties as { [key: string]: ISFSchema };
-    //     Object.keys(properties).forEach((key: string) => {
-    //       const item: ISFSchema = { ...properties[key] };
-    //       form[key] =
-    //         item.default != null
-    //           ? item.default
-    //           : form[key] != null
-    //           ? form[key]
-    //           : null;
-    //       item.ui = shallowReactive({ ...(item.ui || {}) });
-    //       item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
-    //       item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
-    //       item.ui.prop = key;
-    //       item.ui.rules =
-    //         item.ui.rules == null
-    //           ? []
-    //           : Array.isArray(item.ui.rules)
-    //           ? item.ui.rules
-    //           : [item.ui.rules];
-    //       const type = (item.type = item.type || "string");
-    //       if (item.required) {
-    //         const requiredRule = item.ui.rules.find(
-    //           (r: any) => r.required === true
-    //         );
-    //         if (!requiredRule) {
-    //           item.ui.rules.push(addReuiqredRule(item, type));
-    //         }
-    //       }
-    //       if (item.ui.validate) {
-    //         item.ui.rules.push({
-    //           ...item.ui.validate,
-    //           validator: item.ui.validate.validator(form),
-    //         });
-    //       }
-    //       if (!item.ui.hidden) {
-    //         items.push(item);
-    //       }
-    //       item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
-    //     });
-    //   },
-    //   { immediate: true }
-    // );
 
     watch(
       () => props.formData as any,
       (data) => {
-        data = data || {};
-        const keySet = new Set(Object.keys(form));
-        Object.keys(data).forEach((key) => {
-          keySet.add(key);
-        });
-        Array.from(keySet).forEach((key) => {
-          form[key] = data[key] !== undefined ? data[key] : form[key];
+        if (!data) {
+          return;
+        }
+        Object.keys(data).forEach((prop) => {
+          const formProperty = rootProperty.value!.searchProperty(`/${prop}`)!;
+          if (!formProperty) {
+            return;
+          }
+          formProperty.widget!.reset(data[prop]);
         });
       }
     );
@@ -310,15 +252,14 @@ export default defineComponent({
 
     const submit = () => {
       (formRef.value as any).validate().then(() => {
-        context.emit("formSubmit", form);
+        context.emit("formSubmit", form.value);
       });
     };
     const reset = () => {
-      context.emit("formReset", form);
+      context.emit("formReset", form.value);
     };
 
     return {
-      items,
       formRef,
       form,
       submit,

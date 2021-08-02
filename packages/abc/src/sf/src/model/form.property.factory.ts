@@ -1,16 +1,16 @@
 import { ISFSchema, ISFUISchemaItem, SF_SEQ } from "../type";
-import AnyProperty from "./any";
-import BooleanProperty from "./boolean";
+import { AnyProperty } from "./any.property";
+import { BooleanProperty } from "./boolean.property";
 import { FormProperty, PropertyGroup } from "./form.property";
-import NumberProperty from "./number";
+import { NumberProperty } from "./number.property";
 import { ObjectProperty } from "./object.property";
-import StringProperty from "./string";
+import { StringProperty } from "./string.property";
 
 export class FormPropertyFactory {
   createProperty(
     schema: ISFSchema,
     ui: ISFUISchemaItem,
-    formData: {},
+    formData: Record<string, unknown>,
     parent: PropertyGroup | null = null,
     propertyId?: string
   ): FormProperty {
