@@ -1,4 +1,4 @@
-import { DefineComponent } from "vue";
+import { DefineComponent, shallowReactive } from "vue";
 import { computed, ref, Ref, watch } from "vue";
 import {
   ISFFormValueChange,
@@ -34,7 +34,7 @@ export abstract class FormProperty {
     path: string
   ) {
     this.schema = schema;
-    this.ui = ui;
+    this.ui = shallowReactive(ui);
     this.formData = formData || schema.default;
     this._parent = parent;
     if (parent) {
