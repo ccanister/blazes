@@ -201,10 +201,15 @@ export default defineComponent({
     };
 
     const watchFormChange = () => {
+      let first = true;
       watch(
         () =>
           (rootProperty.value!._valueChanges as unknown) as ISFFormValueChange,
         (valueChange) => {
+          if (first) {
+            first = false;
+            return;
+          }
           form.value = valueChange.value;
           context.emit("formChange", valueChange);
         }
