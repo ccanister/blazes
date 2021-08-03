@@ -56,7 +56,12 @@
               ></component>
             </a-form-item>
             <template v-if="$slots.item">
-              <slot name="item" :schema="item" :index="index"></slot>
+              <slot
+                name="item"
+                :item="item"
+                :prop="item.ui.prop"
+                :index="index"
+              ></slot>
             </template>
           </template>
         </a-col>
@@ -105,6 +110,7 @@ import {
   Ref,
   toRaw,
   watch,
+  WatchStopHandle,
 } from "vue";
 import SfDefault from "./widgets/sf-default.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
@@ -198,9 +204,11 @@ export default defineComponent({
       });
     };
 
+    let formChangeWatch: WatchStopHandle;
     const watchFormChange = () => {
+      formChangeWatch && formChangeWatch();
       let first = true;
-      watch(
+      formChangeWatch = watch(
         () =>
           (rootProperty.value!._valueChanges as unknown) as ISFFormValueChange,
         (valueChange) => {
@@ -222,7 +230,7 @@ export default defineComponent({
         props.formData || {}
       ));
       watchFormChange();
-      property.resetValue(props.formData || {}, false);
+      property.resetValue(props.formData, false);
     };
 
     watch(
