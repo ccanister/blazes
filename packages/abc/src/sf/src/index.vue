@@ -160,6 +160,10 @@ export default defineComponent({
     };
 
     const addItem = (prop: string) => (widget: any) => {
+      // 卸载时候会调用该方法
+      if (widget == null) {
+        return;
+      }
       const formProperty = rootProperty.value!.searchProperty(`/${prop}`)!;
       formProperty.widget = widget;
     };
@@ -258,7 +262,9 @@ export default defineComponent({
     );
 
     const button$ = computed(() =>
-      Object.assign({}, props.button, DEFAULT_BUTTON)
+      props.button === null
+        ? null
+        : Object.assign({}, props.button, DEFAULT_BUTTON)
     );
 
     const submit = () => {

@@ -3,7 +3,7 @@
     :placeholder="ui.placeholder"
     v-model:value="model"
     :rows="ui.rows"
-    :autosize="ui.autosize"
+    :auto-size="ui.autosize"
     :disabled="schema.readOnly"
   ></a-textarea>
 </template>
