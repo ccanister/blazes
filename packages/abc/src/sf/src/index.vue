@@ -213,12 +213,17 @@ export default defineComponent({
           uiRes[`$${key}`] = ui;
           if (item.items) {
             ui["$items"] = {};
-            inFn(item.items, ui, ui["$items"]);
+            const itemsUI = {
+              ...item.items.ui,
+              gutter: { ...ui.gutter, ...item.items.ui?.gutter },
+            };
+            inFn(item.items, itemsUI, ui["$items"]);
           }
         });
         return properties;
       };
       inFn(schema, schema.ui, schema.ui);
+      console.log(schema);
     };
 
     let formChangeWatch: WatchStopHandle;

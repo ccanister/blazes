@@ -6,7 +6,9 @@
         :key="formData"
         class="sf-array-item"
         :style="{
-          width: ui.gutter.arraySpan ? 24 / ui.gutter.arraySpan : '33%',
+          width: ui.gutter.arraySpan
+            ? (ui.gutter.arraySpan / 24) * 100 + '%'
+            : '33%',
         }"
       >
         <a-row class="sf-array-item-wrapper">
@@ -68,11 +70,13 @@ import { object } from "vue-types";
 import { ArrayProperty } from "../model/array.property";
 import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
+import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
 
 export default defineComponent({
   name: "sf-array",
   components: {
     DeleteOutlined,
+    QuestionCircleOutlined,
   },
   props: {
     property: object<ArrayProperty>().isRequired,
@@ -80,6 +84,7 @@ export default defineComponent({
     schema: object<ISFSchema>().isRequired,
   },
   setup(props) {
+    console.log(props.ui);
     const property = toRaw(props.property);
     const add = () => {
       property.add({});
@@ -87,6 +92,7 @@ export default defineComponent({
     const del = (index: number) => {
       property.remove(index);
     };
+
     return { add, del };
   },
 });
