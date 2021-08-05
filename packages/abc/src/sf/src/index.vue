@@ -96,6 +96,7 @@ import {
   ISFSchemaButton,
   DEFAULT_BUTTON,
   ISFFormValueChange,
+  ISFUISchemaItem,
 } from "./type";
 import Form from "ant-design-vue/lib/form";
 import Row from "ant-design-vue/lib/row";
@@ -173,39 +174,51 @@ export default defineComponent({
     };
 
     const fixSchema = (schema: ISFSchema) => {
-      schema.type = "object";
-      const properties = schema.properties!;
-      const parentGutter = Object.assign({}, DEFAULT_GUTTER, schema.ui?.gutter);
-      Object.keys(properties).forEach((key: string) => {
-        const item = properties[key];
-        item.ui = { ...(item.ui || {}) };
-        item.ui.widget = markRaw(toRaw(item.ui.widget || SfDefault));
-        item.ui.placeholder = item.ui.placeholder || `请填写${item.title}`;
-        item.ui.prop = key;
-        item.ui.rules =
-          item.ui.rules == null
-            ? []
-            : Array.isArray(item.ui.rules)
-            ? item.ui.rules
-            : [item.ui.rules];
-        const type = (item.type = item.type || "string");
-        if (item.required) {
-          const requiredRule = item.ui.rules.find(
-            (r: any) => r.required === true
-          );
-          if (!requiredRule) {
-            item.ui.rules.push(addReuiqredRule(item, type));
+      schema.ui = Object.assign({}, schema.ui);
+      schema.ui!.gutter = Object.assign({}, DEFAULT_GUTTER, schema.ui!.gutter);
+
+      const inFn = (
+        parentSchema: ISFSchema,
+        parentUI: ISFUISchemaItem,
+        uiRes: ISFUISchemaItem
+      ) => {
+        parentSchema.type = "object";
+        const properties = parentSchema.properties!;
+        Object.keys(properties).forEach((key: string) => {
+          const item = properties[key];
+          const ui = (item.ui = { ...(item.ui || {}) });
+          ui.widget = markRaw(toRaw(ui.widget || SfDefault));
+          ui.placeholder = ui.placeholder || `请填写${item.title}`;
+          ui.prop = key;
+          ui.rules =
+            ui.rules == null
+              ? []
+              : Array.isArray(ui.rules)
+              ? ui.rules
+              : [ui.rules];
+          const type = (item.type = item.type || "string");
+          if (item.required) {
+            const requiredRule = ui.rules.find((r: any) => r.required === true);
+            if (!requiredRule) {
+              ui.rules.push(addReuiqredRule(item, type));
+            }
           }
-        }
-        if (item.ui.validate) {
-          item.ui.rules.push({
-            ...item.ui.validate,
-            validator: item.ui.validate.validator(form),
-          });
-        }
-        item.ui.gutter = { ...parentGutter, ...(item.ui.gutter || {}) };
-        schema.ui![`$${key}`] = item.ui;
-      });
+          if (ui.validate) {
+            ui.rules.push({
+              ...ui.validate,
+              validator: ui.validate.validator(form),
+            });
+          }
+          ui.gutter = { ...parentUI.gutter, ...(ui.gutter || {}) };
+          uiRes[`$${key}`] = ui;
+          if (item.items) {
+            ui["$items"] = {};
+            inFn(item.items, ui, ui["$items"]);
+          }
+        });
+        return properties;
+      };
+      inFn(schema, schema.ui, schema.ui);
     };
 
     let formChangeWatch: WatchStopHandle;

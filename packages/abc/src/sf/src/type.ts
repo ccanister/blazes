@@ -21,20 +21,23 @@ export interface ISFUISchemaItem {
     trigger: "blur" | "change" | typeof CUSTOM_TRIGGER;
   };
   asyncData?: () => Promise<ISFSchemaEnumType[]>;
-  gutter?: {
-    spanOffset?: number;
-    controlOffset?: number;
-    controlWidth?: string;
-    spanLabel?: number;
-    spanControl?: number;
-    span?: number;
-  };
+  gutter?: ISFUISchemaItemGutter;
   hidden?: boolean;
   layout?: "horizontal" | "vertical";
   visibleIf?: { [key: string]: any[] | ((value: any) => boolean) };
   noColon?: boolean;
   labelAlign?: "left" | "right";
   [key: string]: any;
+}
+
+export interface ISFUISchemaItemGutter {
+  spanOffset?: number;
+  controlOffset?: number;
+  controlWidth?: string;
+  spanLabel?: number;
+  spanControl?: number;
+  span?: number;
+  arraySpan?: number;
 }
 
 export type ISFSchemaType =
@@ -60,6 +63,7 @@ export interface ISFSchema {
   maximum?: number;
   multipleOf?: number;
   properties?: { [key: string]: ISFSchema };
+  items?: ISFSchema;
 }
 
 export interface ISFSchemaButton {

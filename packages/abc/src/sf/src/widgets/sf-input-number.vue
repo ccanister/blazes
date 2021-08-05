@@ -1,22 +1,28 @@
 <template>
-  <a-input-number
-    v-model:value="model"
-    :min="schema.minimum"
-    :max="schema.maximum"
-    :step="schema.multipleOf"
-    :precision="transUI.precision"
-    :parser="transUI.parser"
-    :formatter="transUI.formatter"
-    :disabled="schema.readOnly"
-    @change="changeValue"
-  />
+  <div>
+    <a-input-number
+      v-model:value="model"
+      :min="schema.minimum"
+      :max="schema.maximum"
+      :step="schema.multipleOf"
+      :precision="transUI.precision"
+      :parser="transUI.parser"
+      :formatter="transUI.formatter"
+      :disabled="schema.readOnly"
+      @change="changeValue"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, Ref, ref, watch, toRaw } from "vue";
 import InputNumber from "ant-design-vue/lib/input-number";
 import { object } from "vue-types";
-import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import {
+  ISFSchema,
+  ISFUISchemaItem,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
 import { NumberProperty } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
@@ -61,7 +67,12 @@ export default defineComponent({
       { immediate: true }
     );
 
-    return { model, transUI, changeValue };
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
+    return { model, transUI, changeValue, reset };
   },
 });
 </script>

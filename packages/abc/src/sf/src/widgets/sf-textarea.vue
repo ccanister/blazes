@@ -1,11 +1,14 @@
 <template>
-  <a-textarea
-    :placeholder="ui.placeholder"
-    v-model:value="model"
-    :rows="ui.rows"
-    :auto-size="ui.autosize"
-    :disabled="schema.readOnly"
-  ></a-textarea>
+  <div>
+    <a-textarea
+      :placeholder="ui.placeholder"
+      v-model:value="model"
+      :rows="ui.rows"
+      :auto-size="ui.autosize"
+      :disabled="schema.readOnly"
+      @change="changeText"
+    ></a-textarea>
+  </div>
 </template>
 
 <script lang="ts">

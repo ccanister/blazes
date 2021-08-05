@@ -1,5 +1,6 @@
 import { ISFSchema, ISFUISchemaItem, SF_SEQ } from "../type";
 import { AnyProperty } from "./any.property";
+import { ArrayProperty } from "./array.property";
 import { BooleanProperty } from "./boolean.property";
 import { FormProperty, PropertyGroup } from "./form.property";
 import { NumberProperty } from "./number.property";
@@ -24,6 +25,10 @@ export class FormPropertyFactory {
       switch (parent.type) {
         case "object":
           path += propertyId;
+          break;
+        case "array":
+          path += ((parent as ArrayProperty).properties as PropertyGroup[])
+            .length;
           break;
         default:
           throw new Error(
@@ -58,9 +63,16 @@ export class FormPropertyFactory {
       case "any":
         newProperty = new AnyProperty(schema, ui, formData, parent, path);
         break;
-      // case 'array':
-      //   newProperty = new ArrayProperty(this, schema, ui, formData, parent, path);
-      //   break;
+      case "array":
+        newProperty = new ArrayProperty(
+          this,
+          schema,
+          ui,
+          formData,
+          parent,
+          path
+        );
+        break;
       default:
         throw new TypeError(`Undefined type ${schema.type}`);
     }
@@ -73,7 +85,6 @@ export class FormPropertyFactory {
   }
 
   private initializeRoot(rootProperty: PropertyGroup): void {
-    // rootProperty.init();
     rootProperty._bindVisibility();
   }
 }
