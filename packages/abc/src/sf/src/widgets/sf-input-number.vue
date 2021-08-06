@@ -9,6 +9,7 @@
       :parser="ui.parser"
       :formatter="ui.formatter"
       :disabled="schema.readOnly"
+      :placeholder="ui.placeholder"
       @change="changeValue"
     />
   </div>
@@ -40,27 +41,20 @@ export default defineComponent({
     const model = ref(property.value);
     const { ui } = toRaw(props);
 
+    if (ui.prefix != null) {
+      ui.formatter = (value: number | string) =>
+        value == null ? "" : `${ui.prefix} ${value}`;
+      ui.parser = (value: string) => value.replace(`${ui.prefix} `, "");
+    }
+    if (ui.unit != null) {
+      ui.formatter = (value: number | string) =>
+        value == null ? "" : `${value} ${ui.unit}`;
+      ui.parser = (value: string) => value.replace(` ${ui.unit}`, "");
+    }
+
     const changeValue = () => {
       property.setValue(model.value);
     };
-
-    if (ui.prefix != null) {
-      ui.value = {
-        ...ui,
-        formatter: (value: number | string) =>
-          value == null ? "" : `${ui.prefix} ${value}`,
-        parser: (value: string) => value.replace(`${ui.prefix} `, ""),
-      };
-    }
-    if (ui.unit != null) {
-      ui.value = {
-        ...ui,
-        formatter: (value: number | string) =>
-          value == null ? "" : `${value} ${ui.unit}`,
-        parser: (value: string) => value.replace(` ${ui.unit}`, ""),
-      };
-    }
-
     const reset = (value: SFValue) => {
       model.value = value;
       property.setValue(value);
