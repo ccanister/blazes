@@ -223,7 +223,6 @@ export default defineComponent({
         return properties;
       };
       inFn(schema, schema.ui, schema.ui);
-      console.log(schema);
     };
 
     let formChangeWatch: WatchStopHandle;
@@ -240,7 +239,8 @@ export default defineComponent({
           }
           form.value = valueChange.value;
           context.emit("formChange", valueChange);
-        }
+        },
+        { immediate: true }
       );
     };
 

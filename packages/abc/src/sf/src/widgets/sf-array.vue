@@ -84,7 +84,6 @@ export default defineComponent({
     schema: object<ISFSchema>().isRequired,
   },
   setup(props) {
-    console.log(props.ui);
     const property = toRaw(props.property);
     const add = () => {
       property.add({});
