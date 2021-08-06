@@ -1,6 +1,8 @@
 <template>
   <div>
-    <a-checkbox v-if="label" v-model:checked="model$"> {{ label }} </a-checkbox>
+    <a-checkbox v-if="label" v-model:checked="model" @change="changeValue">
+      {{ label }}
+    </a-checkbox>
     <template v-else>
       <template v-if="girdSpan">
         <a-row>
@@ -45,46 +47,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from "vue";
-import { useModel, useChecked } from "@blazes/utils";
+import { defineComponent, Ref, ref, toRaw } from "vue";
+import { useChecked } from "@blazes/utils";
 import Checkbox from "ant-design-vue/lib/checkbox";
-import { getData } from "@blazes/abc/lib/sf";
-import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import { AtomicProperty, getData } from "@blazes/abc/lib/sf";
+import {
+  ISFSchema,
+  ISFUISchemaItem,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
 import { ISFSchemaEnum } from "../type";
+import { object } from "vue-types";
 
 export default defineComponent({
   name: "sf-checkbox",
   props: {
-    modelValue: [String, Boolean, Number, Array],
-    ui: Object,
-    schema: Object,
+    property: object<AtomicProperty>().isRequired,
+    ui: object<ISFUISchemaItem>().isRequired,
+    schema: object<ISFSchema>().isRequired,
   },
   components: {
     [Checkbox.name]: Checkbox,
   },
-  setup(props, context) {
-    const model$ = useModel<any>(props, context);
-    const ui = props.ui as ISFUISchemaItem;
+  setup(props) {
+    const property = toRaw(props.property);
+    const model = ref(property.value);
+    const { ui, schema } = toRaw(props);
     const label = ui.label || "";
     const girdSpan = ui.span;
     const checkAll = ui.checkAll;
     const checkAllText = ui.checkAllText || "全选";
     const all = useChecked<ISFSchemaEnum>([]);
     const list: Ref<any[]> = ref([]);
-    getData(
-      props.schema as ISFSchema,
-      props.ui as ISFUISchemaItem,
-      model$.value
-    ).then((result) => {
+    getData(schema, ui, model.value).then((result) => {
       list.value = result;
       all.resetItems(result);
     });
 
+    const changeValue = () => {
+      if (ui.change) {
+        ui.change(model.value);
+      }
+      property.setValue(model.value);
+    };
     const updateModel = () => {
-      model$.value = list.value.filter((l) => l.checked).map((l) => l.label);
+      model.value = list.value.filter((l) => l.checked).map((l) => l.label);
+      changeValue();
     };
 
-    const checkApart = (item: ISFSchemaEnum) => {
+    const checkApart = () => {
       all.updateChecked();
       updateModel();
     };
@@ -94,8 +105,13 @@ export default defineComponent({
       updateModel();
     };
 
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
     return {
-      model$,
+      model,
       label,
       girdSpan,
       list,
@@ -104,6 +120,8 @@ export default defineComponent({
       all,
       checkApart,
       changeCheckAll,
+      changeValue,
+      reset,
     };
   },
 });

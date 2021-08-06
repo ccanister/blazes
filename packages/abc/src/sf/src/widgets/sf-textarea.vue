@@ -6,7 +6,7 @@
       :rows="ui.rows"
       :auto-size="ui.autosize"
       :disabled="schema.readOnly"
-      @change="changeText"
+      @change="changeValue"
     ></a-textarea>
   </div>
 </template>
@@ -35,7 +35,12 @@ export default defineComponent({
   setup(props) {
     const property = toRaw(props.property);
     const model = ref(property.value);
-    const changeText = () => {
+    const { ui } = toRaw(props);
+
+    const changeValue = () => {
+      if (ui.change) {
+        ui.change(model.value);
+      }
       property.setValue(model.value);
     };
 
@@ -44,7 +49,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { changeText, reset, model };
+    return { changeValue, reset, model };
   },
 });
 </script>

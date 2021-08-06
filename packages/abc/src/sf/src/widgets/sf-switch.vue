@@ -5,7 +5,7 @@
       :disabled="schema.readOnly"
       :checked-children="ui.checkedChildren"
       :un-checked-children="ui.unCheckedChildren"
-      @change="change"
+      @change="changeValue"
     />
   </div>
 </template>
@@ -15,7 +15,11 @@ import { defineComponent, ref, toRaw } from "vue";
 import Switch from "ant-design-vue/lib/switch";
 import { BooleanProperty } from "@blazes/abc/lib/sf";
 import { object } from "vue-types";
-import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import {
+  ISFSchema,
+  ISFUISchemaItem,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
 
 export default defineComponent({
   name: "sf-switch",
@@ -28,15 +32,21 @@ export default defineComponent({
   setup(props) {
     const property = toRaw(props.property);
     const model = ref(property.value);
+    const { ui } = toRaw(props);
 
-    const change = () => {
-      if (props.ui.change) {
-        props.ui.change(model.value);
+    const changeValue = () => {
+      if (ui.change) {
+        ui.change(model.value);
       }
       property.setValue(model.value);
     };
 
-    return { model, change };
+    const reset = (value: SFValue) => {
+      model.value = value;
+      property.setValue(value);
+    };
+
+    return { model, changeValue, reset };
   },
 });
 </script>

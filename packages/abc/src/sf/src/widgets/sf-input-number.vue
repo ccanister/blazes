@@ -5,9 +5,9 @@
       :min="schema.minimum"
       :max="schema.maximum"
       :step="schema.multipleOf"
-      :precision="transUI.precision"
-      :parser="transUI.parser"
-      :formatter="transUI.formatter"
+      :precision="ui.precision"
+      :parser="ui.parser"
+      :formatter="ui.formatter"
       :disabled="schema.readOnly"
       @change="changeValue"
     />
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref, watch, toRaw } from "vue";
+import { defineComponent, ref, toRaw } from "vue";
 import InputNumber from "ant-design-vue/lib/input-number";
 import { object } from "vue-types";
 import {
@@ -38,41 +38,35 @@ export default defineComponent({
   setup(props) {
     const property = toRaw(props.property);
     const model = ref(property.value);
-    const transUI = ref(props.ui) as Ref<ISFUISchemaItem>;
+    const { ui } = toRaw(props);
 
     const changeValue = () => {
       property.setValue(model.value);
     };
 
-    watch(
-      () => props.ui as ISFUISchemaItem,
-      (ui) => {
-        if (ui.prefix != null) {
-          transUI.value = {
-            ...ui,
-            formatter: (value: number | string) =>
-              value == null ? "" : `${ui.prefix} ${value}`,
-            parser: (value: string) => value.replace(`${ui.prefix} `, ""),
-          };
-        }
-        if (ui.unit != null) {
-          transUI.value = {
-            ...ui,
-            formatter: (value: number | string) =>
-              value == null ? "" : `${value} ${ui.unit}`,
-            parser: (value: string) => value.replace(` ${ui.unit}`, ""),
-          };
-        }
-      },
-      { immediate: true }
-    );
+    if (ui.prefix != null) {
+      ui.value = {
+        ...ui,
+        formatter: (value: number | string) =>
+          value == null ? "" : `${ui.prefix} ${value}`,
+        parser: (value: string) => value.replace(`${ui.prefix} `, ""),
+      };
+    }
+    if (ui.unit != null) {
+      ui.value = {
+        ...ui,
+        formatter: (value: number | string) =>
+          value == null ? "" : `${value} ${ui.unit}`,
+        parser: (value: string) => value.replace(` ${ui.unit}`, ""),
+      };
+    }
 
     const reset = (value: SFValue) => {
       model.value = value;
       property.setValue(value);
     };
 
-    return { model, transUI, changeValue, reset };
+    return { model, changeValue, reset };
   },
 });
 </script>

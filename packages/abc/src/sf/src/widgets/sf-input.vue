@@ -6,7 +6,7 @@
       :placeholder="ui.placeholder"
       :disabled="schema.readOnly"
       :maxlength="schema.maxlength"
-      @change="changeText"
+      @change="changeValue"
     />
     <a-input
       v-else
@@ -19,7 +19,7 @@
       :addonBefore="ui.addonBefore"
       :prefix="ui.prefix"
       :suffix="ui.suffix"
-      @change="changeText"
+      @change="changeValue"
     ></a-input>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default defineComponent({
     const model = ref(property.value);
     const { ui } = toRaw(props);
 
-    const changeText = () => {
+    const changeValue = () => {
       if (ui.change) {
         ui.change(model.value);
       }
@@ -66,7 +66,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { changeText, reset, model };
+    return { changeValue, reset, model };
   },
 });
 </script>

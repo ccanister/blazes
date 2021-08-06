@@ -196,7 +196,7 @@ export default defineComponent({
               : Array.isArray(ui.rules)
               ? ui.rules
               : [ui.rules];
-          const type = (item.type = item.type || "string");
+          const type = (item.type = item.type || "any");
           if (item.required) {
             const requiredRule = ui.rules.find((r: any) => r.required === true);
             if (!requiredRule) {

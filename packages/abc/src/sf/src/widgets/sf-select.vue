@@ -5,7 +5,7 @@
       :placeholder="ui.placeholder"
       :mode="mode"
       :disabled="schema.readOnly"
-      @change="changeSelect"
+      @change="changeValue"
     >
       <a-select-option
         v-for="item in list"
@@ -49,7 +49,10 @@ export default defineComponent({
     const resetList = (result: any) => {
       list.value = result;
     };
-    const changeSelect = () => {
+    const changeValue = () => {
+      if (ui.change) {
+        ui.change(model.value);
+      }
       property.setValue(model.value);
     };
 
@@ -58,7 +61,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { model, list, mode, reset, resetList, changeSelect };
+    return { model, list, mode, reset, resetList, changeValue };
   },
 });
 </script>
