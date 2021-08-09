@@ -15,7 +15,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && webpack"
+    "build": "rm -rf ./dist && webpack",
+    "build:rollup": "rollup -c"
   },
   "publishConfig": {
     "access": "public"
