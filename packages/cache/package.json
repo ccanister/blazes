@@ -4,7 +4,8 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ./dist && webpack"
+    "build": "rm -rf ./dist && webpack",
+    "build:rollup": "rollup -c"
   },
   "files": [
     "dist"
