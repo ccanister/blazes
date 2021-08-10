@@ -24,7 +24,8 @@
     "build:component": "webpack --mode=production --config component.webpack.config.js",
     "build:type": "node ./build/gen-type.js",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
-    "analyze": "webpack --mode=production"
+    "analyze": "webpack --mode=production",
+    "build:rollup": "rollup -c"
   },
   "publishConfig": {
     "access": "public"
