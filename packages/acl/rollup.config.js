@@ -9,7 +9,7 @@ export default {
   output: {
     file: "dist/index.js",
     name: "blazeAcl",
-    format: "umd",
+    format: "cjs",
     sourcemap: true,
   },
   plugins: [

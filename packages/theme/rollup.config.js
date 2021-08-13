@@ -15,7 +15,7 @@ export default [
     output: {
       file: "dist/index.js",
       name: "blazeTheme",
-      format: "umd",
+      format: "cjs",
       sourcemap: true,
       globals: {
         vue: "vue",

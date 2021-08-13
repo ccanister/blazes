@@ -17,7 +17,7 @@ export default {
   output: {
     file: "lib/index.js",
     name: "blazeAbc",
-    format: "umd",
+    format: "cjs",
     sourcemap: true,
     globals: {
       vue: "vue",

@@ -9,7 +9,7 @@ export default {
   output: {
     file: "dist/index.js",
     name: "blazeUtils",
-    format: "umd",
+    format: "cjs",
     sourcemap: true,
     globals: {
       vue: "vue",

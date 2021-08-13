@@ -19,7 +19,7 @@ export default files.map((file) => ({
   output: {
     file: `lib/${file}/index.js`,
     name: file,
-    format: "umd",
+    format: "cjs",
     sourcemap: true,
     globals: {
       vue: "vue",
