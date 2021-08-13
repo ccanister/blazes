@@ -12,7 +12,6 @@ const fs = require("fs");
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".vue", ".tsx"];
 
 const files = fs.readdirSync(path.join(__dirname, "src"));
-console.log(files);
 
 // 采用了babel插件报错，也不能使用@rollup/plugin-typescript
 export default files.map((file) => ({

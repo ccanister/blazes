@@ -7,6 +7,7 @@ import postcss from "rollup-plugin-postcss";
 import cssnano from "cssnano";
 import vue from "rollup-plugin-vue";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
+import copy from "rollup-plugin-copy";
 
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".vue", ".tsx"];
 
@@ -47,6 +48,9 @@ export default {
       ],
       extract: "style.css",
       plugins: [cssnano()],
+    }),
+    copy({
+      targets: [{ src: "src/sf/src/widgets/*", dest: "lib/sf/src/widgets" }],
     }),
   ],
   external: [
