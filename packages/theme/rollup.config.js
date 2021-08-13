@@ -1,4 +1,4 @@
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
 import clear from "rollup-plugin-clear";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
@@ -30,7 +30,7 @@ export default [
       }),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript(),
       clear({
         targets: ["dist"],
       }),

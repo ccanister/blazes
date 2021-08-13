@@ -8,12 +8,9 @@ export default {
   input: "./index.ts",
   output: {
     file: "dist/index.js",
-    name: "blazeCache",
+    name: "blazeAcl",
     format: "umd",
     sourcemap: true,
-    globals: {
-      moment: "moment",
-    },
   },
   plugins: [
     resolve(),
@@ -24,5 +21,5 @@ export default {
     }),
     terser(),
   ],
-  external: ["moment"],
+  external: ["vue", "vue-router"],
 };
