@@ -64,7 +64,7 @@ export default defineComponent({
       text-overflow: ellipsis;
       color: rgba(0, 0, 0, 0.5);
       &::after {
-        content: "：";
+        content: "\ff1a";
       }
     }
     .detail {
