@@ -6,8 +6,9 @@ import postcss from "rollup-plugin-postcss";
 import cssnano from "cssnano";
 import vue from "rollup-plugin-vue";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
+import { getBabelOutputPlugin } from "@rollup/plugin-babel";
 
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".vue", ".tsx"];
 
@@ -52,6 +53,9 @@ export default files.map((file) => ({
       ],
       extract: "style.css",
       plugins: [cssnano()],
+    }),
+    getBabelOutputPlugin({
+      configFile: path.resolve(__dirname, "babel.config.js"),
     }),
   ],
   external: [
