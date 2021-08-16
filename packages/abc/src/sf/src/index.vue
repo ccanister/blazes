@@ -68,7 +68,7 @@
       </a-row>
     </a-form>
     <div v-if="button$" :class="button$.className">
-      <a-row type="flex" :justify="button$.span ? 'start' : 'end'">
+      <a-row type="flex" justify="end">
         <a-col :span="button$.span">
           <a-button v-if="!button$.hideReset" @click="reset" class="mr-md">
             {{ button$.resetText }}
