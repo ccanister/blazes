@@ -37,7 +37,7 @@ export default [
       copy({
         targets: [{ src: "system/*", dest: "dist" }],
       }),
-      terser(),
+      // terser(),
     ],
     external: [
       "vue",

@@ -40,7 +40,7 @@ export default files.map((file) => ({
     vue({
       target: "browser",
     }),
-    terser(),
+    // terser(),
     postcss({
       use: [
         [
