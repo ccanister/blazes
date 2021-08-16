@@ -41,7 +41,6 @@ export default files.map((file) => ({
     vue({
       target: "browser",
     }),
-    // terser(),
     postcss({
       use: [
         [
@@ -57,6 +56,7 @@ export default files.map((file) => ({
     getBabelOutputPlugin({
       configFile: path.resolve(__dirname, "babel.config.js"),
     }),
+    terser(),
   ],
   external: [
     "vue",

@@ -3,7 +3,6 @@ import clear from "rollup-plugin-clear";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-// import babel from "rollup-plugin-babel";
 import copy from "rollup-plugin-copy";
 import postcss from "rollup-plugin-postcss";
 import NpmImport from "less-plugin-npm-import";
@@ -34,7 +33,7 @@ export default [
       copy({
         targets: [{ src: "system/*", dest: "dist" }],
       }),
-      // terser(),
+      terser(),
     ],
     external: [
       "vue",

@@ -36,7 +36,7 @@ export default {
     clear({
       targets: ["lib"],
     }),
-    // terser(),
+    terser(),
     postcss({
       use: [
         [
