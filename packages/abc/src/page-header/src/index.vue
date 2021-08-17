@@ -23,7 +23,7 @@
         <div class="row">
           <h1 class="title">
             <template v-if="$slots.title">
-              <slot name="title"></slot>
+              <slot name="title" :title="title$"></slot>
             </template>
             <template v-else>
               {{ title$ }}
