@@ -1,6 +1,6 @@
 {
   "name": "@blazes/utils",
-  "version": "0.2.31-alpha.0",
+  "version": "0.0.18-type.0",
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
@@ -15,7 +15,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && webpack"
+    "build": "rm -rf ./dist && webpack",
+    "build:rollup": "rollup -c"
   },
   "publishConfig": {
     "access": "public"

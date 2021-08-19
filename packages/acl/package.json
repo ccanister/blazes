@@ -1,6 +1,6 @@
 {
   "name": "@blazes/acl",
-  "version": "0.1.84-alpha.0",
+  "version": "0.0.18-type.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,7 +15,8 @@
     "url": "git+https://github.com/ccanister/blazes.git"
   },
   "scripts": {
-    "build": "rm -rf ./dist && webpack"
+    "build": "rm -rf ./dist && webpack",
+    "build:rollup": "rollup -c"
   },
   "dependencies": {
     "vue": "^3.0.0",

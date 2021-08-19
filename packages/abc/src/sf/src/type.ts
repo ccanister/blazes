@@ -21,14 +21,7 @@ export interface ISFUISchemaItem {
     trigger: "blur" | "change" | typeof CUSTOM_TRIGGER;
   };
   asyncData?: () => Promise<ISFSchemaEnumType[]>;
-  gutter?: {
-    spanOffset?: number;
-    controlOffset?: number;
-    controlWidth?: string;
-    spanLabel?: number;
-    spanControl?: number;
-    span?: number;
-  };
+  gutter?: ISFUISchemaItemGutter;
   hidden?: boolean;
   layout?: "horizontal" | "vertical";
   visibleIf?: { [key: string]: any[] | ((value: any) => boolean) };
@@ -37,7 +30,23 @@ export interface ISFUISchemaItem {
   [key: string]: any;
 }
 
-export type ISFSchemaType = "string" | "number" | "boolean" | "regexp" | "any";
+export interface ISFUISchemaItemGutter {
+  spanOffset?: number;
+  controlOffset?: number;
+  controlWidth?: string;
+  spanLabel?: number;
+  spanControl?: number;
+  span?: number;
+  arraySpan?: number;
+}
+
+export type ISFSchemaType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "any"
+  | "object"
+  | "array";
 
 // 默认object先
 export interface ISFSchema {
@@ -54,6 +63,7 @@ export interface ISFSchema {
   maximum?: number;
   multipleOf?: number;
   properties?: { [key: string]: ISFSchema };
+  items?: ISFSchema;
 }
 
 export interface ISFSchemaButton {
@@ -74,4 +84,27 @@ export const DEFAULT_GUTTER = {
   spanLabel: 5,
   spanControl: 17,
   span: 24,
+};
+
+export type SFValue = any;
+
+export interface ISFFormValueChange {
+  path: string | null;
+  pathValue: SFValue;
+  value: SFValue;
+}
+
+export interface ISFUpdateValueAndValidity {
+  updatePath?: string;
+  updateValue?: SFValue | null;
+  onlySelf?: boolean;
+}
+
+export const SF_SEQ = "/";
+
+export const DEFAULT_BUTTON: ISFSchemaButton = {
+  submitText: "确定",
+  resetText: "取消",
+  hideSubmit: false,
+  hideReset: false,
 };
