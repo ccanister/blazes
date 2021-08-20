@@ -90,9 +90,9 @@ export class SettingService {
   }
 
   private getData(key: string) {
-    return JSON.parse(localStorage.getItem(key) || "null");
+    const value = localStorage.getItem(key);
+    return JSON.parse(value === "undefined" || !value ? "null" : value);
   }
 }
 
 export const settingService = new SettingService();
-
