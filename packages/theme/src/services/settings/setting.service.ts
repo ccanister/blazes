@@ -89,6 +89,7 @@ export class SettingService {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  // 可能会出现 undefined
   private getData(key: string) {
     const value = localStorage.getItem(key);
     return JSON.parse(value === "undefined" || !value ? "null" : value);
