@@ -54,7 +54,7 @@ export class MenuService {
   getHit(url: string, recursive: boolean): IMenu | null {
     const menus = this.menus.value;
     let item: IMenu | null = null;
-    while (!item) {
+    while (!item && url) {
       this.visit(menus, (menu: IMenu) => {
         if (menu.link != null && menu.link === url) {
           item = menu;
