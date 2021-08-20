@@ -4,7 +4,7 @@ const klawSync = require("klaw-sync");
 import { generateDemo } from "./generate-demo";
 import { generateDoc } from "./generate-doc";
 import { writeDoc, generateMenu, writeLibMeta } from "./write-file";
-import { rootDir } from "./util";
+import { isMd, rootDir } from "./util";
 
 const siteConfig = require(path.join(
   rootDir,
@@ -34,13 +34,17 @@ for (const m of siteConfig.modules) {
         }
         return false;
       }
-      return (
-        path.extname(item.path) === ".md" &&
-        !item.path.includes(`${path.sep}demo${path.sep}`)
-      );
+      if (!isMd(item.path)) {
+        return false;
+      }
+      const notDemoPath = !item.path.includes(`${path.sep}demo${path.sep}`);
+      if (m.lib) {
+        return notDemoPath || path.basename(item.path, ".md") === "demo";
+      }
+      return notDemoPath;
     },
   })
-    .filter((item) => path.extname(item.path) === ".md")
+    .filter((item) => isMd(item.path))
     .forEach((item) => {
       const mdPath = item.path;
       const parentDir = path.dirname(mdPath);

@@ -1,4 +1,5 @@
 import { CUSTOM_TRIGGER } from "@blazes/theme";
+import { Ref } from "vue";
 
 export interface ISFSchemaEnum {
   label?: string;
@@ -16,10 +17,7 @@ export interface ISFUISchemaItem {
   widget?: any;
   rules?: any;
   prop?: string;
-  validate?: {
-    validator: (form: any) => void;
-    trigger: "blur" | "change" | typeof CUSTOM_TRIGGER;
-  };
+  validate?: ISFUISchemaItemValidate;
   asyncData?: () => Promise<ISFSchemaEnumType[]>;
   gutter?: ISFUISchemaItemGutter;
   hidden?: boolean;
@@ -28,6 +26,11 @@ export interface ISFUISchemaItem {
   noColon?: boolean;
   labelAlign?: "left" | "right";
   [key: string]: any;
+}
+
+export interface ISFUISchemaItemValidate {
+  validator: (form: Ref<any>) => void;
+  trigger: "blur" | "change" | typeof CUSTOM_TRIGGER;
 }
 
 export interface ISFUISchemaItemGutter {

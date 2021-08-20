@@ -52,7 +52,11 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
 };
 
 export function generateDemo(file: File): Demo[] {
-  const demoPath = path.join(file.dir, "demo");
+  let demoPath = file.dir;
+  if (!demoPath.endsWith("demo")) {
+    demoPath = path.join(file.dir, "demo");
+  }
+  console.log(demoPath);
   if (!fs.existsSync(demoPath)) {
     return [];
   }

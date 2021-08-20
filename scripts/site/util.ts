@@ -21,3 +21,7 @@ export function toHump(name: string) {
 
 export const rootDir = path.resolve(__dirname, "../../");
 export const viewDir = `${rootDir}/src/views/`;
+
+export function isMd(filename: string) {
+  return path.extname(filename) === ".md";
+}
