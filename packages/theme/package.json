@@ -19,10 +19,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
+    "build:webpack": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "build:theme": "webpack --config style.webpack.config.js",
-    "build:rollup": "rollup -c",
+    "build": "rollup -c",
     "analyze": "webpack"
   },
   "publishConfig": {
