@@ -233,11 +233,12 @@ import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import FilterOutlined from "@ant-design/icons-vue/FilterOutlined";
 import message from "ant-design-vue/lib/message";
 import { useRouter } from "vue-router";
+import { array } from "vue-types";
 
 export default defineComponent({
   name: "st",
   props: {
-    columns: Array,
+    columns: array<ISTColumn>().isRequired,
     pageVo: Object,
     data: [String, Array, Object],
     pi: Number,
