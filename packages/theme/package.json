@@ -1,6 +1,6 @@
 {
   "name": "@blazes/theme",
-  "version": "0.0.4-push.0",
+  "version": "0.0.5-push.0",
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
