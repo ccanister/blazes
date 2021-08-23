@@ -1,13 +1,11 @@
 <template>
   <template v-if="type === 'button'">
     <a-button-group>
-      <template v-for="(btn, index) in operates$" :key="btn.text">
+      <template v-for="btn in operates$" :key="btn.text">
         <a-dropdown v-if="btn._children.length > 0">
-          <a-button
-            :type="firstButtonPrimary && index === 0 ? 'primary' : btn.type"
-            :icon="btn.icon"
-            ><span v-html="btn._text"></span
-          ></a-button>
+          <a-button :type="btn.buttonType" :icon="btn.icon">
+            <span v-html="btn._text"></span>
+          </a-button>
           <template #overlay>
             <a-menu>
               <a-menu-item
@@ -21,13 +19,24 @@
             </a-menu>
           </template>
         </a-dropdown>
-        <a-button
-          v-else
-          :type="firstButtonPrimary && index === 0 ? 'primary' : btn.type"
-          :icon="btn.icon"
-          @click="operateClick(btn)"
-          ><span v-html="btn._text"></span
-        ></a-button>
+        <template v-else>
+          <a-popconfirm
+            v-if="btn.type === 'popconfirm'"
+            :title="btn.popconfirm.title"
+            @confirm="btn.popconfirm.confirm(record)"
+          >
+            <a-button :type="btn.buttonType" :icon="btn.icon">
+              <span v-html="btn._text"></span>
+            </a-button>
+          </a-popconfirm>
+          <a-button
+            v-else
+            :type="btn.buttonType"
+            :icon="btn.icon"
+            @click="operateClick(btn)"
+            ><span v-html="btn._text"></span
+          ></a-button>
+        </template>
       </template>
     </a-button-group>
   </template>
@@ -50,10 +59,22 @@
           </a-menu>
         </template>
       </a-dropdown>
-      <a v-else @click="operateClick(btn)">
-        <span v-html="btn._text"></span>
-        <i :class="btn.icon"></i>
-      </a>
+      <template v-else>
+        <a-popconfirm
+          v-if="btn.type === 'popconfirm'"
+          :title="btn.popconfirm.title"
+          @confirm="btn.popconfirm.confirm(record)"
+        >
+          <a>
+            <span v-html="btn._text"></span>
+            <component :is="btn.icon" />
+          </a>
+        </a-popconfirm>
+        <a v-else @click="operateClick(btn)">
+          <span v-html="btn._text"></span>
+          <i :class="btn.icon"></i>
+        </a>
+      </template>
     </span>
   </template>
 </template>
@@ -89,7 +110,7 @@ export default defineComponent({
           typeof operate.text === "function"
             ? operate.text(item, operate)
             : operate.text || "";
-        operate.type = operate.type || "default";
+        operate.buttonType = operate.buttonType || "default";
         return result || isRenderDisabled;
       });
     };
