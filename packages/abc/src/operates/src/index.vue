@@ -1,30 +1,5 @@
 <template>
-  <template v-if="type === 'text'">
-    <span v-for="btn in operates$" :key="btn.text" class="mr-md btn">
-      <a-dropdown v-if="btn._children.length > 0">
-        <span>
-          <a> <span v-html="btn._text"></span> <DownOutlined /> </a>
-        </span>
-        <template #dropdown>
-          <a-menu>
-            <a-menu-item
-              v-for="subBtn in btn._children"
-              :key="subBtn._text"
-              @click="operateClick(subBtn)"
-            >
-              <span v-html="subBtn._text"></span>
-              <i :class="subBtn.icon"></i>
-            </a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
-      <a v-else @click="operateClick(btn)">
-        <span v-html="btn._text"></span>
-        <i :class="btn.icon"></i>
-      </a>
-    </span>
-  </template>
-  <template v-else>
+  <template v-if="type === 'button'">
     <a-button-group>
       <template v-for="(btn, index) in operates$" :key="btn.text">
         <a-dropdown v-if="btn._children.length > 0">
@@ -56,6 +31,31 @@
       </template>
     </a-button-group>
   </template>
+  <template v-else>
+    <span v-for="btn in operates$" :key="btn.text" class="mr-md btn">
+      <a-dropdown v-if="btn._children.length > 0">
+        <span>
+          <a> <span v-html="btn._text"></span> <DownOutlined /> </a>
+        </span>
+        <template #dropdown>
+          <a-menu>
+            <a-menu-item
+              v-for="subBtn in btn._children"
+              :key="subBtn._text"
+              @click="operateClick(subBtn)"
+            >
+              <span v-html="subBtn._text"></span>
+              <i :class="subBtn.icon"></i>
+            </a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
+      <a v-else @click="operateClick(btn)">
+        <span v-html="btn._text"></span>
+        <i :class="btn.icon"></i>
+      </a>
+    </span>
+  </template>
 </template>
 
 <script lang="ts">
@@ -63,6 +63,7 @@ import { computed, defineComponent } from "vue";
 import { IOperate } from "./type";
 import DownOutlined from "@ant-design/icons-vue/DownOutlined";
 import { ArrayService } from "@blazes/utils";
+import { array, object, oneOf } from "vue-types";
 
 export default defineComponent({
   name: "operates",
@@ -70,10 +71,9 @@ export default defineComponent({
     DownOutlined,
   },
   props: {
-    operates: Array,
-    record: Object,
-    type: { type: String, default: "text" },
-    firstButtonPrimary: { type: Boolean, default: true },
+    operates: array<IOperate>().isRequired,
+    record: object(),
+    type: oneOf(["text", "button"]).def("button"),
   },
   setup(props) {
     const validOperates = (operates: IOperate[], item: any) => {
@@ -104,7 +104,7 @@ export default defineComponent({
       if (!btn.click) {
         return;
       }
-      const result = btn.click(props.record);
+      btn.click(props.record);
     };
 
     return { operates$, operateClick };
