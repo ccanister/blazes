@@ -115,7 +115,7 @@
               :column="column"
             ></slot>
             <template v-else>
-              <template>
+              <template v-if="!column.buttons?.length">
                 <a-tag
                   v-if="column.type === 'tag'"
                   :color="record._values[index].color"
@@ -133,54 +133,56 @@
                   >{{ record._values[index].text }}</span
                 >
               </template>
-              <span
-                v-for="btn in validBtns(column.buttons, record, column)"
-                :key="btn.text"
-                class="mr-md btn"
-              >
-                <a-dropdown v-if="btn.children.length > 0">
-                  <span class="icon-xs">
-                    <a>
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <DownOutlined />
-                    </a>
-                  </span>
-                  <template #overlay>
-                    <a-menu>
-                      <a-menu-item
-                        v-for="subBtn in validBtns(
-                          btn.children,
-                          record,
-                          column
-                        )"
-                        :key="subBtn.text"
-                        @click="btnClick(record, subBtn)"
-                      >
-                        <span v-html="btnText(record._values, subBtn)"></span>
-                        <component :is="subBtn.icon" />
-                      </a-menu-item>
-                    </a-menu>
-                  </template>
-                </a-dropdown>
-                <template v-else>
-                  <a-popconfirm
-                    v-if="btn.type === 'popconfirm'"
-                    :title="btn.popconfirm.title"
-                    @confirm="btn.popconfirm.confirm(record)"
-                  >
-                    <a>
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <component :is="btn.icon" />
-                    </a>
-                  </a-popconfirm>
+              <template v-else>
+                <span
+                  v-for="btn in validBtns(column.buttons, record, column)"
+                  :key="btn.text"
+                  class="mr-md btn"
+                >
+                  <a-dropdown v-if="btn.children.length > 0">
+                    <span class="icon-xs">
+                      <a>
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <DownOutlined />
+                      </a>
+                    </span>
+                    <template #overlay>
+                      <a-menu>
+                        <a-menu-item
+                          v-for="subBtn in validBtns(
+                            btn.children,
+                            record,
+                            column
+                          )"
+                          :key="subBtn.text"
+                          @click="btnClick(record, subBtn)"
+                        >
+                          <span v-html="btnText(record._values, subBtn)"></span>
+                          <component :is="subBtn.icon" />
+                        </a-menu-item>
+                      </a-menu>
+                    </template>
+                  </a-dropdown>
                   <template v-else>
-                    <a @click="btnClick(record, btn)">
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <component :is="btn.icon" />
-                    </a>
+                    <a-popconfirm
+                      v-if="btn.type === 'popconfirm'"
+                      :title="btn.popconfirm.title"
+                      @confirm="btn.popconfirm.confirm(record)"
+                    >
+                      <a>
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <component :is="btn.icon" />
+                      </a>
+                    </a-popconfirm>
+                    <template v-else>
+                      <a @click="btnClick(record, btn)">
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <component :is="btn.icon" />
+                      </a>
+                    </template>
                   </template>
-                </template>
-              </span>
+                </span>
+              </template>
             </template>
           </template>
           <template v-else>
