@@ -404,7 +404,7 @@ export default defineComponent({
         columns$.value.forEach((c) => {
           c.sorter = {
             ...c.sorter,
-            default: c._key === column?.key ? order : undefined,
+            default: c.key === column?.key ? order : undefined,
           } as ISTColumnsSort;
         });
       }
