@@ -33,6 +33,9 @@ export default class STColumnSource {
       item.width = item.width || "auto";
       item.default = item.default || "";
       item.filter = this.filterCoerce(item);
+      item.key =
+        item.key ||
+        `${item.index}` + `${item.render}` + item.title + item.renderTitle;
       columns.push(item);
     }
 

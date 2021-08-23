@@ -20,7 +20,7 @@
     >
       <a-table-column
         :width="column.width"
-        :key="column.index + column.render + column.title + column.renderTitle"
+        :key="column.key"
         v-for="(column, index) in columns$"
         :customRender="column.customRender"
         :fixed="column.fixed || false"
