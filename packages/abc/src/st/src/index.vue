@@ -115,7 +115,7 @@
               :column="column"
             ></slot>
             <template v-else>
-              <template v-if="record._values[index].text">
+              <template>
                 <a-tag
                   v-if="column.type === 'tag'"
                   :color="record._values[index].color"
