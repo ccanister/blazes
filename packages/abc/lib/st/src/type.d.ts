@@ -159,3 +159,8 @@ export declare const DEFAULT_FILTER: {
     filterConfirmText: string;
     filterClearText: string;
 };
+export interface IChangeSort {
+    column?: ISTColumn;
+    columnKey: string;
+    order?: Sort | undefined;
+}

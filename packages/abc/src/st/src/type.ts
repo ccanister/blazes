@@ -191,3 +191,9 @@ export const DEFAULT_FILTER = {
   filterConfirmText: "确定",
   filterClearText: "重置",
 };
+
+export interface IChangeSort {
+  column?: ISTColumn;
+  columnKey: string;
+  order?: Sort | undefined;
+}

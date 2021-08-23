@@ -190,8 +190,10 @@ import {
   DEFAULT_ST_PAGE,
   DEFAULT_ST_REQ,
   DEFAULT_ST_RES,
+  IChangeSort,
   ISTColumn,
   ISTColumnButton,
+  ISTColumnsSort,
   ISTData,
   ISTLoadOptions,
   ISTResetColumnsOption,
@@ -389,9 +391,22 @@ export default defineComponent({
       }
     };
 
-    const changeTable = (event: { current?: number }) => {
+    const changeTable = (
+      event: { current?: number },
+      _: any,
+      sort: IChangeSort
+    ) => {
       if (event.current != null) {
         load(event.current);
+      }
+      if (sort) {
+        const { order, column } = sort;
+        columns$.value.forEach((c) => {
+          c.sorter = {
+            ...c.sorter,
+            default: c._key === column?.key ? order : undefined,
+          } as ISTColumnsSort;
+        });
       }
     };
 

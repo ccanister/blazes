@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-import { ISTColumn, ISTColumnButton, ISTData, ISTLoadOptions, ISTResetColumnsOption } from "./type";
+import { IChangeSort, ISTColumn, ISTColumnButton, ISTData, ISTLoadOptions, ISTResetColumnsOption } from "./type";
 declare const _default: import("vue").DefineComponent<{
     columns: ArrayConstructor;
     pageVo: ObjectConstructor;
@@ -42,14 +42,13 @@ declare const _default: import("vue").DefineComponent<{
     handleCheckPart: (col: ISTColumn, index: number) => void;
     changeTable: (event: {
         current?: number;
-    }) => void;
+    }, _: any, sort: IChangeSort) => void;
     showTotal: (total: number) => string;
     reloadCurrent: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     pagination: boolean;
     bordered: boolean;
 } & {
-    total?: number | undefined;
     req?: Record<string, any> | undefined;
     pi?: number | undefined;
     ps?: number | undefined;
@@ -57,6 +56,7 @@ declare const _default: import("vue").DefineComponent<{
     data?: unknown;
     res?: Record<string, any> | undefined;
     page?: Record<string, any> | undefined;
+    total?: number | undefined;
     pageVo?: Record<string, any> | undefined;
     rowKey?: string | undefined;
     scroll?: Record<string, any> | undefined;
