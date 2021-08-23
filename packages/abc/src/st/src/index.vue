@@ -24,10 +24,9 @@
         v-for="(column, index) in columns$"
         :customRender="column.customRender"
         :fixed="column.fixed || false"
-        :sorter="column.sorter"
+        :sorter="column.sorter?.compare"
         :ellipsis="column.ellipsis"
       >
-        <!-- :sortOrder="column.sortOrder" -->
         <template #title="scope">
           <div class="header">
             <slot
@@ -48,7 +47,7 @@
               <FilterOutlined
                 class="point"
                 :class="{ active: column.filter._default.value }"
-                @click.self="column.filter._visible.value = true"
+                @click.stop="column.filter._visible.value = true"
               />
               <template #overlay>
                 <a-menu>

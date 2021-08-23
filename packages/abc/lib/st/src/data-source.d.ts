@@ -5,4 +5,5 @@ export default class STDataSource {
     private getByHttp;
     private getFilteredData;
     private getReqFilterMap;
+    private getReqSortMap;
 }

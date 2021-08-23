@@ -38,6 +38,14 @@ export interface ISTColumnFilter {
   fn?: (filter: ISTColumnFilterMenu, record: ISTData) => boolean; // 本地筛选函数
 }
 
+export type Sort = "descend" | "ascend";
+
+export interface ISTColumnsSort {
+  default?: Sort | undefined;
+  compare: ((o1: ISTData, o2: ISTData, order: Sort) => number) | true;
+  reName?: (col: ISTColumn, sort: Sort) => Record<string, any>;
+}
+
 export interface ISTColumn {
   title?: string;
   renderTitle?: string | ((column: ISTColumn, index: number) => void);
@@ -65,8 +73,7 @@ export interface ISTColumn {
     record: ISTData;
     index: number;
   }) => Record<string, any>;
-  sorter?: (o1: ISTData, o2: ISTData) => number;
-  sortOrder?: "descend" | "ascend";
+  sorter?: ISTColumnsSort | null;
   ellipsis?: boolean;
   [key: string]: any;
 }

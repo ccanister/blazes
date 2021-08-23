@@ -195,4 +195,20 @@ export default class STDataSource {
       });
     return ret;
   }
+
+  private getReqSortMap(columns: ISTColumn[]): { [key: string]: string } {
+    let ret = {};
+    columns
+      .filter((w) => w.sorter?.compare === true && w.sorter?.default)
+      .forEach((col) => {
+        let obj: { [key: string]: any } = {};
+        if (col.sorter?.reName) {
+          obj = col.sorter.reName!(col, col.sorter.default!);
+        } else {
+          obj[col.index as string] = col.sorter?.default;
+        }
+        ret = { ...ret, ...obj };
+      });
+    return ret;
+  }
 }
