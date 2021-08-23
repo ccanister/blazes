@@ -1,5 +1,5 @@
 <template>
-  <template v-if="type === 'button'">
+  <template v-if="type === OperateType.Button">
     <a-button-group>
       <template v-for="btn in operates$" :key="btn.text">
         <a-dropdown v-if="btn._children.length > 0">
@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { IOperate } from "./type";
+import { IOperate, OperateType } from "./type";
 import DownOutlined from "@ant-design/icons-vue/DownOutlined";
 import { ArrayService } from "@blazes/utils";
 import { array, object, oneOf } from "vue-types";
@@ -94,7 +94,7 @@ export default defineComponent({
   props: {
     operates: array<IOperate>().isRequired,
     record: object(),
-    type: oneOf(["text", "button"]).def("button"),
+    type: oneOf([OperateType.Text, OperateType.Button]).def(OperateType.Button),
   },
   setup(props) {
     const validOperates = (operates: IOperate[], item: any) => {
@@ -116,9 +116,7 @@ export default defineComponent({
     };
 
     const operates$ = computed(() => {
-      return props.record
-        ? validOperates((props.operates as IOperate[]) || [], props.record)
-        : [];
+      return validOperates((props.operates as IOperate[]) || [], props.record);
     });
 
     const operateClick = (btn: IOperate) => {
@@ -128,7 +126,7 @@ export default defineComponent({
       btn.click(props.record);
     };
 
-    return { operates$, operateClick };
+    return { operates$, operateClick, OperateType };
   },
 });
 </script>

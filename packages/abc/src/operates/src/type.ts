@@ -15,3 +15,8 @@ export interface IOperatePopConfirm<T> {
   title: string;
   confirm: (record: T) => void;
 }
+
+export enum OperateType {
+  Button = "button",
+  Text = "text",
+}
