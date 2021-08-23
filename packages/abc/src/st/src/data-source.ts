@@ -168,6 +168,7 @@ export default class STDataSource {
       ...params,
       ...req.params,
       ...this.getReqFilterMap(columns),
+      ...this.getReqSortMap(columns),
       ...(first && req.firstParams ? req.firstParams : {}),
     };
 
