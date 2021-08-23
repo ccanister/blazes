@@ -392,12 +392,12 @@ export default defineComponent({
     };
 
     const changeTable = (
-      event: { current?: number },
+      event: { current: number },
       _: any,
       sort: IChangeSort
     ) => {
-      if (event.current != null) {
-        load(event.current);
+      if (pi$.value !== event.current) {
+        pi$.value = event.current;
       }
       if (sort) {
         const { order, column } = sort;
@@ -408,6 +408,7 @@ export default defineComponent({
           } as ISTColumnsSort;
         });
       }
+      load(event.current);
     };
 
     const showTotal = (total: number) => `共${total}条`;

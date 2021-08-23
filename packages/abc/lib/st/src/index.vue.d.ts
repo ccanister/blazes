@@ -41,7 +41,7 @@ declare const _default: import("vue").DefineComponent<{
     click: (item: ISTData, col: ISTColumn) => void;
     handleCheckPart: (col: ISTColumn, index: number) => void;
     changeTable: (event: {
-        current?: number;
+        current: number;
     }, _: any, sort: IChangeSort) => void;
     showTotal: (total: number) => string;
     reloadCurrent: () => void;
