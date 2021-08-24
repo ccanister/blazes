@@ -3,3 +3,4 @@ export * from "./src/hook";
 export * from "./src/constant";
 export * from "./src/other";
 export * from "./src/dom";
+export * from "./src/config";

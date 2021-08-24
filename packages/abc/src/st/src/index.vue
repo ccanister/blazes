@@ -203,7 +203,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useRefs } from "@blazes/utils";
+import { configService, useRefs } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -216,9 +216,7 @@ import {
 import STColumnSource from "./column-source";
 import STDataSource from "./data-source";
 import {
-  DEFAULT_ST_PAGE,
-  DEFAULT_ST_REQ,
-  DEFAULT_ST_RES,
+  DEFAULT_CONFIG,
   IChangePagination,
   IChangeSort,
   ISTColumn,
@@ -264,6 +262,7 @@ export default defineComponent({
   },
   emits: { change: null },
   setup(props, { emit }) {
+    const stConfig = configService.merge("st", DEFAULT_CONFIG)!;
     // 依赖
     const columnSource = new STColumnSource();
     const dataSource = new STDataSource();
@@ -271,13 +270,13 @@ export default defineComponent({
     const loading = ref(false);
     const columns$: Ref<ISTColumn[]> = ref([]);
     const _req = computed(() =>
-      Object.assign({}, DEFAULT_ST_REQ, props.req || {})
+      Object.assign({}, stConfig.req, stConfig?.req, props.req || {})
     );
     const _res = computed(() =>
-      Object.assign({}, DEFAULT_ST_RES, props.res || {})
+      Object.assign({}, stConfig.res, stConfig?.res, props.res || {})
     );
     const _page = computed(() =>
-      Object.assign({}, DEFAULT_ST_PAGE, props.page || {})
+      Object.assign({}, stConfig.page, props.page || {})
     );
     const pi$ = ref(props.pi || 1);
     const ps$ = ref(props.ps || 10);
