@@ -1,10 +1,10 @@
 <template>
   <div>
-    <a-range-picker
+    <a-date-picker
       v-model:value="model"
       :disabledDate="ui.disabledDate"
-      :separator="ui.separator"
       :format="ui.format"
+      :show-time="ui.showTime"
       @change="changeValue"
     />
   </div>
@@ -22,7 +22,7 @@ import {
 import { object } from "vue-types";
 
 export default defineComponent({
-  name: "sf-range-picker",
+  name: "sf-date",
   props: {
     property: object<AtomicProperty>().isRequired,
     ui: object<ISFUISchemaItem>().isRequired,
@@ -30,7 +30,6 @@ export default defineComponent({
   },
   components: {
     [DatePicker.name]: DatePicker,
-    [DatePicker.RangePicker.name]: DatePicker.RangePicker,
   },
   setup(props) {
     const property = toRaw(props.property);
