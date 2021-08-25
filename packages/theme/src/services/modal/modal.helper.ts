@@ -11,6 +11,7 @@ export interface IModalOption extends ModalFuncProps {
 export interface IDrawerOption {
   component: any;
   componentParams?: { [key: string]: any };
+  title?: string;
   mask?: boolean;
   prefixCls?: string;
   keyboard?: boolean;

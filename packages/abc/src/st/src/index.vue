@@ -511,13 +511,13 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .st {
-  .ant-table {
+  :deep(.ant-table) {
     width: 100%;
     .header {
       .filter {
         position: static;
         height: 16px;
-        :deep(svg) {
+        svg {
           position: static;
           margin: 0;
         }
