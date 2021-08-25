@@ -167,6 +167,8 @@
                     <a-popconfirm
                       v-if="btn.type === 'popconfirm'"
                       :title="btn.popconfirm.title"
+                      :okText="btn.popconfirm.okText"
+                      :cancelText="btn.popconfirm.cancelText"
                       @confirm="btn.popconfirm.confirm(record)"
                     >
                       <a>

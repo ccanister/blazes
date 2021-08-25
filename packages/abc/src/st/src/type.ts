@@ -152,6 +152,8 @@ export interface ISTColumnButton {
 export interface ISTColumnPopConfirm {
   title: string;
   confirm: (record: ISTData) => void;
+  cancelText?: string;
+  okText?: string;
 }
 
 export interface ISTResetColumnsOption {

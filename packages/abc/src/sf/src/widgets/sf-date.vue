@@ -4,6 +4,7 @@
       v-model:value="model"
       :disabledDate="ui.disabledDate"
       :format="ui.format"
+      :placeholder="ui.placeholder"
       :show-time="ui.showTime"
       @change="changeValue"
     />
