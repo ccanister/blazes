@@ -1,6 +1,6 @@
 {
   "name": "@blazes/theme",
-  "version": "0.0.32-type.0",
+  "version": "0.0.33-type.0",
   "main": "dist/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
