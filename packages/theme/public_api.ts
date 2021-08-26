@@ -9,4 +9,6 @@ export * from "./src/services/settings/type";
 export * from "./src/services/title/title.service";
 export * from "./src/services/validator";
 export * from "./src/services/request/request.service";
+export * from "./src/services/polling";
 export * from "./src/directive/btn-loading";
+export * from "./src/directive/format-deci";
