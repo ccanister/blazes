@@ -94,6 +94,7 @@ export class ModalHelper {
       (resolve) => (resolveAfterClose = resolve)
     );
     function close(result?: T) {
+      config.onCancel?.();
       (instance.component!.proxy as any).sVisible = false;
       setTimeout(() => {
         document.body.removeChild(container);
