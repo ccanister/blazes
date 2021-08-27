@@ -7,6 +7,7 @@
       :placeholder="ui.placeholder"
       :show-time="ui.showTime"
       @change="changeValue"
+      :locale="locale"
     />
   </div>
 </template>
@@ -21,6 +22,7 @@ import {
   SFValue,
 } from "@blazes/abc/lib/sf/src/type";
 import { object } from "vue-types";
+import locale from "ant-design-vue/es/date-picker/locale/zh_CN";
 
 export default defineComponent({
   name: "sf-date",
@@ -44,7 +46,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { model, changeValue, reset };
+    return { model, changeValue, reset, locale };
   },
 });
 </script>
