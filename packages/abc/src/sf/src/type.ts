@@ -41,6 +41,7 @@ export interface ISFUISchemaItemGutter {
   spanControl?: number;
   span?: number;
   arraySpan?: number;
+  spanLabelFixed?: number;
 }
 
 export type ISFSchemaType =

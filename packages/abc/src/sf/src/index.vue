@@ -12,6 +12,12 @@
           v-for="(item, key, index) in rootProperty.properties"
           :key="item"
           :span="item.ui.gutter.span"
+          :style="{
+            width: item.ui.gutter.spanLabelFixed
+              ? item.ui.gutter.spanLabelFixed + 'px'
+              : 'auto',
+          }"
+          :class="{ hideFlex: item.ui.gutter.spanLabelFixed }"
         >
           <template v-if="item._visibilityChanges && !item.hidden">
             <a-form-item
@@ -309,6 +315,9 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .sf-wrapper {
+  .hideFlex {
+    flex: none;
+  }
   .title {
     .help {
       cursor: pointer;
