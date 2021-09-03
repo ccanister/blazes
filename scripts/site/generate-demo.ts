@@ -56,12 +56,14 @@ export function generateDemo(file: File): Demo[] {
   if (!demoPath.endsWith("demo")) {
     demoPath = path.join(file.dir, "demo");
   }
-  console.log(demoPath);
   if (!fs.existsSync(demoPath)) {
     return [];
   }
   const demos: Demo[] = [];
   klawSync(demoPath).forEach((item) => {
+    if (item.path.endsWith("demo.md")) {
+      return;
+    }
     const source = fs.readFileSync(item.path, "utf8");
     const markdownData: string = md.render(source);
     const componentIndex = markdownData.indexOf("<pre>");
