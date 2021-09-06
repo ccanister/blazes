@@ -5,6 +5,13 @@
       :placeholder="ui.placeholder"
       :mode="mode"
       :disabled="schema.readOnly"
+      :allowClear="ui.allowClear"
+      :bordered="ui.bordered"
+      :dropdownClassName="ui.dropdownClassName"
+      :dropdownStyle="ui.dropdownStyle"
+      :maxTagCount="ui.maxTagCount"
+      :notFoundContent="ui.notFoundContent"
+      :showSearch="ui.showSearch"
       @change="changeValue"
     >
       <a-select-option

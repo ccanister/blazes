@@ -102,6 +102,7 @@ export default defineComponent({
 
     const changeCheckAll = () => {
       all.checkAll();
+      list.value = [...list.value];
       updateModel();
     };
 

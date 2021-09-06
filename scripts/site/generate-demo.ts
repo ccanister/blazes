@@ -61,7 +61,7 @@ export function generateDemo(file: File): Demo[] {
   }
   const demos: Demo[] = [];
   klawSync(demoPath).forEach((item) => {
-    if (item.path.endsWith("demo.md")) {
+    if (item.path.endsWith("index.md")) {
       return;
     }
     const source = fs.readFileSync(item.path, "utf8");

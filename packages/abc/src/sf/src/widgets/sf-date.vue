@@ -1,6 +1,25 @@
 <template>
   <div>
+    <a-month-picker
+      v-if="mode === 'month'"
+      v-model:value="model"
+      :disabledDate="ui.disabledDate"
+      :format="ui.format"
+      :placeholder="ui.placeholder"
+      @change="changeValue"
+      :locale="locale"
+    />
+    <a-week-picker
+      v-if="mode === 'week'"
+      v-model:value="model"
+      :disabledDate="ui.disabledDate"
+      :format="ui.format"
+      :placeholder="ui.placeholder"
+      @change="changeValue"
+      :locale="locale"
+    />
     <a-date-picker
+      v-else
       v-model:value="model"
       :disabledDate="ui.disabledDate"
       :format="ui.format"
@@ -35,8 +54,9 @@ export default defineComponent({
     [DatePicker.name]: DatePicker,
   },
   setup(props) {
-    const property = toRaw(props.property);
+    const { property, ui } = toRaw(props);
     const model = ref(toRaw(property.value));
+    const mode = ui.mode || "date";
 
     const changeValue = () => {
       property.setValue(model.value);
@@ -46,7 +66,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { model, changeValue, reset, locale };
+    return { model, changeValue, reset, locale, mode };
   },
 });
 </script>
