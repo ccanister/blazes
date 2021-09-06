@@ -1,11 +1,11 @@
 {
   "name": "@blazes/theme",
-  "version": "0.0.18-type.0",
+  "version": "0.0.38-type.0",
   "main": "dist/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
   "dependencies": {
-    "@blazes/utils": "^0.0.18-type.0",
+    "@blazes/utils": "^0.0.32-type.0",
     "ant-design-vue": "^2.1.2",
     "axios": "^0.21.1",
     "vue": "^3.0.0",
@@ -19,10 +19,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
+    "build:webpack": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "build:theme": "webpack --config style.webpack.config.js",
-    "build:rollup": "rollup -c",
+    "build": "rollup -c && node ./build",
     "analyze": "webpack"
   },
   "publishConfig": {

@@ -36,7 +36,7 @@ import {
 import { StringProperty } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
-  name: "sf-default",
+  name: "sf-input",
   props: {
     property: object<StringProperty>().isRequired,
     ui: object<ISFUISchemaItem>().isRequired,

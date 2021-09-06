@@ -115,7 +115,7 @@
               :column="column"
             ></slot>
             <template v-else>
-              <template v-if="record._values[index].text">
+              <template v-if="!column.buttons?.length">
                 <a-tag
                   v-if="column.type === 'tag'"
                   :color="record._values[index].color"
@@ -133,54 +133,58 @@
                   >{{ record._values[index].text }}</span
                 >
               </template>
-              <span
-                v-for="btn in validBtns(column.buttons, record, column)"
-                :key="btn.text"
-                class="mr-md btn"
-              >
-                <a-dropdown v-if="btn.children.length > 0">
-                  <span class="icon-xs">
-                    <a>
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <DownOutlined />
-                    </a>
-                  </span>
-                  <template #overlay>
-                    <a-menu>
-                      <a-menu-item
-                        v-for="subBtn in validBtns(
-                          btn.children,
-                          record,
-                          column
-                        )"
-                        :key="subBtn.text"
-                        @click="btnClick(record, subBtn)"
-                      >
-                        <span v-html="btnText(record._values, subBtn)"></span>
-                        <component :is="subBtn.icon" />
-                      </a-menu-item>
-                    </a-menu>
-                  </template>
-                </a-dropdown>
-                <template v-else>
-                  <a-popconfirm
-                    v-if="btn.type === 'popconfirm'"
-                    :title="btn.popconfirm.title"
-                    @confirm="btn.popconfirm.confirm(record)"
-                  >
-                    <a>
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <component :is="btn.icon" />
-                    </a>
-                  </a-popconfirm>
+              <template v-else>
+                <span
+                  v-for="btn in validBtns(column.buttons, record, column)"
+                  :key="btn.text"
+                  class="mr-md btn"
+                >
+                  <a-dropdown v-if="btn.children.length > 0">
+                    <span class="icon-xs">
+                      <a>
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <DownOutlined />
+                      </a>
+                    </span>
+                    <template #overlay>
+                      <a-menu>
+                        <a-menu-item
+                          v-for="subBtn in validBtns(
+                            btn.children,
+                            record,
+                            column
+                          )"
+                          :key="subBtn.text"
+                          @click="btnClick(record, subBtn)"
+                        >
+                          <span v-html="btnText(record._values, subBtn)"></span>
+                          <component :is="subBtn.icon" />
+                        </a-menu-item>
+                      </a-menu>
+                    </template>
+                  </a-dropdown>
                   <template v-else>
-                    <a @click="btnClick(record, btn)">
-                      <span v-html="btnText(record._values, btn)"></span>
-                      <component :is="btn.icon" />
-                    </a>
+                    <a-popconfirm
+                      v-if="btn.type === 'popconfirm'"
+                      :title="btn.popconfirm.title"
+                      :okText="btn.popconfirm.okText"
+                      :cancelText="btn.popconfirm.cancelText"
+                      @confirm="btn.popconfirm.confirm(record)"
+                    >
+                      <a>
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <component :is="btn.icon" />
+                      </a>
+                    </a-popconfirm>
+                    <template v-else>
+                      <a @click="btnClick(record, btn)">
+                        <span v-html="btnText(record._values, btn)"></span>
+                        <component :is="btn.icon" />
+                      </a>
+                    </template>
                   </template>
-                </template>
-              </span>
+                </span>
+              </template>
             </template>
           </template>
           <template v-else>
@@ -201,7 +205,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useRefs } from "@blazes/utils";
+import { configService, useRefs } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -214,9 +218,7 @@ import {
 import STColumnSource from "./column-source";
 import STDataSource from "./data-source";
 import {
-  DEFAULT_ST_PAGE,
-  DEFAULT_ST_REQ,
-  DEFAULT_ST_RES,
+  DEFAULT_CONFIG,
   IChangePagination,
   IChangeSort,
   ISTColumn,
@@ -233,11 +235,12 @@ import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import FilterOutlined from "@ant-design/icons-vue/FilterOutlined";
 import message from "ant-design-vue/lib/message";
 import { useRouter } from "vue-router";
+import { array } from "vue-types";
 
 export default defineComponent({
   name: "st",
   props: {
-    columns: Array,
+    columns: array<ISTColumn>().isRequired,
     pageVo: Object,
     data: [String, Array, Object],
     pi: Number,
@@ -261,6 +264,7 @@ export default defineComponent({
   },
   emits: { change: null },
   setup(props, { emit }) {
+    const stConfig = configService.merge("st", DEFAULT_CONFIG)!;
     // 依赖
     const columnSource = new STColumnSource();
     const dataSource = new STDataSource();
@@ -268,13 +272,13 @@ export default defineComponent({
     const loading = ref(false);
     const columns$: Ref<ISTColumn[]> = ref([]);
     const _req = computed(() =>
-      Object.assign({}, DEFAULT_ST_REQ, props.req || {})
+      Object.assign({}, stConfig.req, stConfig?.req, props.req || {})
     );
     const _res = computed(() =>
-      Object.assign({}, DEFAULT_ST_RES, props.res || {})
+      Object.assign({}, stConfig.res, stConfig?.res, props.res || {})
     );
     const _page = computed(() =>
-      Object.assign({}, DEFAULT_ST_PAGE, props.page || {})
+      Object.assign({}, stConfig.page, props.page || {})
     );
     const pi$ = ref(props.pi || 1);
     const ps$ = ref(props.ps || 10);
@@ -509,13 +513,13 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .st {
-  .ant-table {
+  :deep(.ant-table) {
     width: 100%;
     .header {
       .filter {
         position: static;
         height: 16px;
-        :deep(svg) {
+        svg {
           position: static;
           margin: 0;
         }

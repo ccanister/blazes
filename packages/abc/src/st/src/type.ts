@@ -152,6 +152,8 @@ export interface ISTColumnButton {
 export interface ISTColumnPopConfirm {
   title: string;
   confirm: (record: ISTData) => void;
+  cancelText?: string;
+  okText?: string;
 }
 
 export interface ISTResetColumnsOption {
@@ -190,23 +192,6 @@ export interface ISTChange {
 export const COLUMN_DEFAULT = "-";
 export const NO_INDEX = 1;
 
-export const DEFAULT_ST_RES: ISTRes = {
-  reName: { total: "total", list: "items" },
-};
-export const DEFAULT_ST_REQ: ISTReq = {
-  reName: { pi: "offset", ps: "limit" },
-};
-export const DEFAULT_ST_PAGE: ISTPage = {
-  front: true,
-  position: "bottom",
-  show: true,
-  showSize: false,
-  pageSizes: ["10", "20", "30", "40", "50"],
-  showQuickJumper: false,
-  indexReset: true,
-  toTop: true,
-  toTopOffset: 100,
-};
 export const DEFAULT_IIF_BEHAIVOR = "hide";
 export const DEFAULT_FILTER = {
   filterConfirmText: "确定",
@@ -248,3 +233,23 @@ export interface ISTRowSelection {
   selectWay: "onSelect" | "onSelectMultiple" | "onSelectAll" | "onSelectInvert";
   columnTitle: any;
 }
+
+export const DEFAULT_CONFIG = {
+  res: {
+    reName: { total: "total", list: "items" },
+  },
+  req: {
+    reName: { pi: "offset", ps: "limit" },
+  },
+  page: {
+    front: true,
+    position: "bottom",
+    show: true,
+    showSize: false,
+    pageSizes: ["10", "20", "30", "40", "50"],
+    showQuickJumper: false,
+    indexReset: true,
+    toTop: true,
+    toTopOffset: 100,
+  },
+};

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <a-range-picker
+    <a-date-picker
       v-model:value="model"
       :disabledDate="ui.disabledDate"
-      :separator="ui.separator"
       :format="ui.format"
+      :placeholder="ui.placeholder"
+      :show-time="ui.showTime"
       @change="changeValue"
+      :locale="locale"
     />
   </div>
 </template>
@@ -20,9 +22,10 @@ import {
   SFValue,
 } from "@blazes/abc/lib/sf/src/type";
 import { object } from "vue-types";
+import locale from "ant-design-vue/es/date-picker/locale/zh_CN";
 
 export default defineComponent({
-  name: "sf-range-picker",
+  name: "sf-date",
   props: {
     property: object<AtomicProperty>().isRequired,
     ui: object<ISFUISchemaItem>().isRequired,
@@ -30,7 +33,6 @@ export default defineComponent({
   },
   components: {
     [DatePicker.name]: DatePicker,
-    [DatePicker.RangePicker.name]: DatePicker.RangePicker,
   },
   setup(props) {
     const property = toRaw(props.property);
@@ -44,7 +46,7 @@ export default defineComponent({
       property.setValue(value);
     };
 
-    return { model, changeValue, reset };
+    return { model, changeValue, reset, locale };
   },
 });
 </script>

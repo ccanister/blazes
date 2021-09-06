@@ -9,3 +9,4 @@ Operates.install = (app: App): void => {
 
 const _Operates: SFCWithInstall<typeof Operates> = Operates as any;
 export default _Operates;
+export * from "./src/type";

@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.0.19-type.0",
+  "version": "0.0.39-type.0",
   "main": "lib/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
@@ -10,8 +10,8 @@
   ],
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@blazes/theme": "^0.0.18-type.0",
-    "@blazes/utils": "^0.0.18-type.0",
+    "@blazes/theme": "^0.0.38-type.0",
+    "@blazes/utils": "^0.0.32-type.0",
     "ant-design-vue": "^2.1.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
@@ -20,12 +20,12 @@
     "copy-webpack-plugin": "^6.0.4"
   },
   "scripts": {
-    "build": "rm -rf ./lib && yarn build:jsdelivr && yarn build:component && webpack --mode=production && yarn build:type ",
+    "build:webpack": "rm -rf ./lib && yarn build:jsdelivr && yarn build:component && webpack --mode=production && yarn build:type ",
     "build:component": "webpack --mode=production --config component.webpack.config.js",
     "build:type": "node ./build/gen-type.js",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "analyze": "webpack --mode=production",
-    "build:rollup": "rollup -c && yarn build:rollup-component && yarn build:type",
+    "build": "rollup -c && yarn build:rollup-component && yarn build:type",
     "build:rollup-component": "rollup -c component.rollup.config.js"
   },
   "publishConfig": {
