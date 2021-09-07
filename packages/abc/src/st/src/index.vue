@@ -519,10 +519,6 @@ export default defineComponent({
       .filter {
         position: static;
         height: 16px;
-        :deep(svg) {
-          position: static;
-          margin: 0;
-        }
         &.active {
           color: #1890ff;
         }
@@ -543,6 +539,12 @@ export default defineComponent({
       }
     }
   }
+}
+</style>
+<style scoped>
+.st .header .filter ::v-deep svg {
+  position: static;
+  margin: 0;
 }
 </style>
 <style lang="less">
