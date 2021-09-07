@@ -62,7 +62,7 @@ export abstract class FormProperty {
   }
 
   get visible() {
-    return this._visibilityChanges.value;
+    return this._visibilityChanges;
   }
 
   abstract setValue(value: SFValue, onlySelf: boolean): void;

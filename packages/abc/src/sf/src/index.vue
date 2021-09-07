@@ -1,7 +1,7 @@
 <template>
   <div class="sf-wrapper">
     <a-form
-      :model="form"
+      :model="rootProperty._valueChanges.value"
       ref="formRef"
       :layout="schema?.ui?.layout || 'horizontal'"
       :labelAlign="schema?.ui?.labelAlign"
@@ -154,7 +154,9 @@ export default defineComponent({
     const formPropertyFactory = new FormPropertyFactory();
     const rootProperty: Ref<FormProperty | null> = ref(null);
     const formRef: Ref<typeof Form | null> = ref(null);
-    const form: Ref<Record<string, unknown>> = ref({});
+    const form = computed(() =>
+      rootProperty.value ? rootProperty.value!._valueChanges.value : {}
+    );
     provide(formSymbol, form);
     provide(formRefSymbol, formRef);
     const addReuiqredRule = (item: ISFSchema, type: ISFSchemaType) => {
@@ -244,7 +246,6 @@ export default defineComponent({
             first = false;
             return;
           }
-          form.value = valueChange.value;
           context.emit("formChange", valueChange);
         },
         { immediate: true }
