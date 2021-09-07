@@ -1,7 +1,7 @@
 <template>
   <div class="sf-wrapper">
     <a-form
-      :model="rootProperty._valueChanges.value"
+      :model="form"
       ref="formRef"
       :layout="schema?.ui?.layout || 'horizontal'"
       :labelAlign="schema?.ui?.labelAlign"
