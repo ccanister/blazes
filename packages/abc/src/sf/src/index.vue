@@ -154,7 +154,7 @@ export default defineComponent({
     const formPropertyFactory = new FormPropertyFactory();
     const rootProperty: Ref<FormProperty | null> = ref(null);
     const formRef: Ref<typeof Form | null> = ref(null);
-    const form = computed(() =>
+    const form: Ref<{ value?: any }> = computed(() =>
       rootProperty.value ? rootProperty.value!._valueChanges.value : {}
     );
     provide(formSymbol, form);
@@ -295,11 +295,11 @@ export default defineComponent({
 
     const submit = () => {
       (formRef.value as any).validate().then(() => {
-        context.emit("formSubmit", form.value);
+        context.emit("formSubmit", form.value.value);
       });
     };
     const reset = () => {
-      context.emit("formReset", form.value);
+      context.emit("formReset", form.value.value);
     };
 
     return {
