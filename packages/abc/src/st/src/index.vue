@@ -519,7 +519,7 @@ export default defineComponent({
       .filter {
         position: static;
         height: 16px;
-        svg {
+        :deep(svg) {
           position: static;
           margin: 0;
         }
