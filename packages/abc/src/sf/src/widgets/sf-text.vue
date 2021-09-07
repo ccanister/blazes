@@ -1,5 +1,5 @@
 <template>
-  <span>{{ modelValue || ui.defaultText || "-" }}</span>
+  <span>{{ property.value || ui.defaultText || "-" }}</span>
 </template>
 
 <script lang="ts">
