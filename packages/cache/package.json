@@ -1,6 +1,6 @@
 {
   "name": "@blazes/cache",
-  "version": "0.0.41-type.0",
+  "version": "0.0.44-type.0",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
