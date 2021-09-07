@@ -1,8 +1,7 @@
 <template>
   <div class="sf-wrapper">
-    {{ form }}
     <a-form
-      :model="form"
+      :model="form.value"
       ref="formRef"
       :layout="schema?.ui?.layout || 'horizontal'"
       :labelAlign="schema?.ui?.labelAlign"
