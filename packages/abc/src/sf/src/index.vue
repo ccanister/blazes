@@ -1,5 +1,6 @@
 <template>
   <div class="sf-wrapper">
+    {{ form }}
     <a-form
       :model="form"
       ref="formRef"
