@@ -138,6 +138,7 @@
                   v-for="btn in validBtns(column.buttons, record, column)"
                   :key="btn.text"
                   class="mr-md btn"
+                  :class="{ disabled: btn._disabled }"
                 >
                   <a-dropdown v-if="btn.children.length > 0">
                     <span class="icon-xs">
@@ -156,6 +157,7 @@
                           )"
                           :key="subBtn.text"
                           @click="btnClick(record, subBtn)"
+                          :disabled="subBtn._disabled"
                         >
                           <span v-html="btnText(record._values, subBtn)"></span>
                           <component :is="subBtn.icon" />
@@ -383,7 +385,11 @@ export default defineComponent({
     ): ISTColumnButton[] => {
       return btns.filter((btn) => {
         const result = btn.iif!(item, col);
-        const isRenderDisabled = btn.iifBehavior === "disabled";
+        const iifBehavior =
+          typeof btn.iifBehavior === "function"
+            ? btn.iifBehavior(item)
+            : btn.iifBehavior;
+        const isRenderDisabled = iifBehavior === "disabled";
         btn._result = result;
         btn._disabled = !result && isRenderDisabled;
         return result || isRenderDisabled;
@@ -527,15 +533,24 @@ export default defineComponent({
         }
       }
     }
-    .btn:not(:last-child) {
-      position: relative;
-      &::after {
-        content: " ";
-        height: 1em;
-        position: absolute;
-        right: -8px;
-        top: 4px;
-        border-right: 1px solid #dcdfe6;
+    .btn {
+      &:not(:last-child) {
+        position: relative;
+        &::after {
+          content: " ";
+          height: 1em;
+          position: absolute;
+          right: -8px;
+          top: 4px;
+          border-right: 1px solid #dcdfe6;
+        }
+      }
+      &.disabled {
+        a {
+          color: rgba(0, 0, 0, 0.25);
+          cursor: not-allowed;
+          pointer-events: auto;
+        }
       }
     }
   }

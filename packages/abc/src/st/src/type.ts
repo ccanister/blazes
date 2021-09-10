@@ -143,7 +143,9 @@ export interface ISTColumnButton {
   click?: (record: ISTData) => void | "reload";
   children?: ISTColumnButton[]; // 更多的下拉菜单
   iif?: (record: ISTData, column: ISTColumn) => boolean;
-  iifBehavior?: "hide" | "disabled"; // iif返回false时候的表现
+  iifBehavior?:
+    | ("hide" | "disabled")
+    | ((record: ISTData) => "hide" | "disabled"); // iif返回false时候的表现
   type?: "popconfirm";
   popconfirm?: ISTColumnPopConfirm;
   [key: string]: any;
