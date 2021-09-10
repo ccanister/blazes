@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.0.53-type.0",
+  "version": "0.0.54-type.0",
   "main": "lib/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
@@ -31,5 +31,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "e7999a3631049fcea7b86a2ba05d425c93129434"
+  "gitHead": "88bd6a93b15bfc3f8225ab196681405632860f3f"
 }
