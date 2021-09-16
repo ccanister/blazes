@@ -216,6 +216,7 @@ import {
   onMounted,
   Ref,
   ref,
+  toRaw,
   toRefs,
   watch,
 } from "vue";
@@ -385,7 +386,7 @@ export default defineComponent({
       item: ISTData,
       col: ISTColumn
     ): ISTColumnButton[] => {
-      return btns.filter((btn) => {
+      return toRaw(btns).filter((btn) => {
         const result = btn.iif!(item, col);
         const iifBehavior =
           typeof btn.iifBehavior === "function"
