@@ -123,6 +123,7 @@
                 >
                 <a
                   @click.stop.prevent="click(record, column)"
+                  :title="column.ellipsis ? record._values[index].text : ''"
                   v-else-if="column.type === 'link'"
                 >
                   {{ record._values[index].text }}
