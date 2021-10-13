@@ -31,7 +31,7 @@
       </template>
       <a-table-column
         :width="column.width"
-        :key="column.key"
+        :key="column._key"
         v-for="(column, index) in columns$"
         :customRender="column.customRender"
         :fixed="column.fixed || false"
