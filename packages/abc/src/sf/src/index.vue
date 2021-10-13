@@ -289,7 +289,7 @@ export default defineComponent({
     const button$ = computed(() =>
       props.button === null
         ? null
-        : Object.assign({}, props.button, DEFAULT_BUTTON)
+        : Object.assign({}, DEFAULT_BUTTON, props.button)
     );
 
     const submit = () => {
