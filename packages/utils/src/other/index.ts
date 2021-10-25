@@ -107,3 +107,9 @@ export function upperCase(str: string) {
   const reg = /\b(\w)|\s(\w)/g;
   return str.replace(reg, (m) => m.toUpperCase());
 }
+
+export function keepDecimal(num: number, max: number) {
+  return num.toLocaleString(undefined, {
+    maximumFractionDigits: max,
+  });
+}

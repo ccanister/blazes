@@ -194,8 +194,10 @@ export default defineComponent({
           const item = properties[key];
           const ui = (item.ui = { ...(item.ui || {}) });
           ui.widget =
-            typeof ui.widget === "object"
-              ? markRaw(toRaw(ui.widget || SfDefault))
+            ui.widget == null
+              ? SfDefault
+              : typeof ui.widget === "object"
+              ? markRaw(toRaw(ui.widget))
               : ui.widget;
           ui.placeholder =
             ui.placeholder == null ? `请填写${item.title}` : ui.placeholder;
