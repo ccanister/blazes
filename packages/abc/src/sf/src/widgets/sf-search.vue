@@ -1,6 +1,6 @@
 <template>
   <a-input
-    :placeholder="placeholder"
+    :placeholder="ui.placeholder"
     v-model:value="model"
     @keyup.enter="changeValue"
   >
