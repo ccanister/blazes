@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.0.65-type.0",
+  "version": "0.0.66-type.0",
   "main": "lib/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
@@ -10,8 +10,8 @@
   ],
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@blazes/theme": "^0.0.56-type.0",
-    "@blazes/utils": "^0.0.56-type.0",
+    "@blazes/theme": "^0.0.66-type.0",
+    "@blazes/utils": "^0.0.66-type.0",
     "ant-design-vue": "^2.1.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
