@@ -101,7 +101,7 @@ export class ModalHelper {
         resolveAfterClose(result instanceof Event ? null : result);
       }, 200);
     }
-    const dialogRef = { instance, close, afterClose };
+    const dialogRef = { instance, close, afterClose, content };
     if (contentIsComponent) {
       content.props.dialogRef = dialogRef;
     }
@@ -151,7 +151,7 @@ export class ModalHelper {
         resolveAfterClose(result instanceof Event ? null : result);
       }, 200);
     }
-    const dialogRef = { instance, close, afterClose };
+    const dialogRef = { instance, close, afterClose, content };
     if (contentIsComponent) {
       content.props.dialogRef = dialogRef;
     }
