@@ -3,9 +3,11 @@ import { IACLCanType } from "./type";
 import { watch } from "vue";
 
 function updateEl(el: HTMLElement, binding: { value: IACLCanType }) {
-  el.style.display = ((aclService.can(binding.value)
-    ? null
-    : "none !important") as unknown) as string;
+  el.style.setProperty(
+    "display",
+    aclService.can(binding.value) ? null : "none",
+    "important"
+  );
 }
 
 export class AclDirecitve {
