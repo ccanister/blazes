@@ -5,7 +5,7 @@ import { watch } from "vue";
 function updateEl(el: HTMLElement, binding: { value: IACLCanType }) {
   el.style.display = ((aclService.can(binding.value)
     ? null
-    : "none") as unknown) as string;
+    : "none !important") as unknown) as string;
 }
 
 export class AclDirecitve {
