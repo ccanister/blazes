@@ -75,6 +75,7 @@ export interface ISTColumn {
   sorter?: ISTColumnsSort | null;
   ellipsis?: boolean;
   colSpan?: number;
+  children?: ISTColumn[];
   [key: string]: any;
 }
 
