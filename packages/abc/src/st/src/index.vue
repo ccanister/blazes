@@ -29,176 +29,306 @@
       <template #footer v-if="$slots.footer">
         <slot name="footer"></slot>
       </template>
-      <a-table-column
-        :width="column.width"
-        :key="column._key"
-        v-for="(column, index) in columns$"
-        :customRender="column.customRender"
-        :fixed="column.fixed || false"
-        :sorter="column.sorter?.compare"
-        :ellipsis="column.ellipsis"
-        :colSpan="column.colSpan"
-      >
-        <template #title="scope">
-          <div class="header">
-            <slot
-              :name="column.renderTitle"
-              v-if="column.renderTitle"
-              :row="scope.row"
-              :title="column.title"
-            ></slot>
-            <template v-else> {{ column.title }} </template>
-            <a-dropdown
-              v-if="column.filter"
-              class="filter"
-              :ref="setDropdownRef(index)"
-              overlayClassName="st-dropdown-filter"
-              v-model:visible="column.filter._visible.value"
-              :trigger="['click']"
-            >
-              <FilterOutlined
-                class="point"
-                :class="{ active: column.filter._default.value }"
-                @click.stop="column.filter._visible.value = true"
-              />
-              <template #overlay>
-                <a-menu>
-                  <template v-if="column.filter._menus.value.length">
-                    <a-menu-item
-                      v-for="menu in column.filter._menus.value"
-                      :key="menu.value"
+      <template :key="column._key" v-for="(column, index) in columns$">
+        <a-table-column-group v-if="column.children?.length">
+          <a-table-column
+            :width="child.width"
+            :customRender="child.customRender"
+            :fixed="child.fixed || false"
+            :sorter="child.sorter?.compare"
+            :ellipsis="child.ellipsis"
+            :colSpan="child.colSpan"
+            :key="child._key"
+            v-for="(child, index) in column"
+          >
+            <template #title="scope">
+              <div class="header">
+                <slot
+                  :name="child.renderTitle"
+                  v-if="child.renderTitle"
+                  :row="scope.row"
+                  :title="child.title"
+                ></slot>
+                <template v-else> {{ child.title }} </template>
+              </div>
+            </template>
+            <template #default="{ record }">
+              <template v-if="record._values">
+                <slot
+                  :name="child.render"
+                  v-if="child.render"
+                  :row="record"
+                  :value="record._values && record._values[index]"
+                  :column="child"
+                ></slot>
+                <template v-else>
+                  <template v-if="!child.buttons?.length">
+                    <a-tag
+                      v-if="child.type === 'tag'"
+                      :color="record._values[index].color"
+                      >{{ record._values[index].text }}</a-tag
                     >
-                      <div class="st-filter-menu">
-                        <a-checkbox
-                          v-model:checked="menu.checked"
-                          @change="handleCheckPart(column, index)"
-                          >{{ menu.text }}</a-checkbox
-                        >
-                      </div>
-                    </a-menu-item>
-                    <a-menu-item class="footer" divided>
-                      <div class="st-filter-menu fx-jb fx-ac">
-                        <a-checkbox
-                          :indeterminate="column.filter.indeterminate.value"
-                          v-model:checked="column.filter.checkAll.value"
-                          @change="handleCheckAll($event, column, index)"
-                          >全选</a-checkbox
-                        >
-                        <a-button
-                          size="small"
-                          type="primary"
-                          @click="filterConfirm(column, index)"
-                          >{{ column.filter.confirmText }}</a-button
-                        >
-                      </div>
-                    </a-menu-item>
+                    <a
+                      @click.stop.prevent="click(record, child)"
+                      :title="child.ellipsis ? record._values[index].text : ''"
+                      v-else-if="child.type === 'link'"
+                    >
+                      {{ record._values[index].text }}
+                    </a>
+                    <span
+                      v-else
+                      :title="child.ellipsis ? record._values[index].text : ''"
+                      >{{ record._values[index].text }}</span
+                    >
                   </template>
                   <template v-else>
-                    <a-menu-item>
-                      <div class="st-filter-menu">
-                        加载中<LoadingOutlined />
-                      </div>
-                    </a-menu-item>
+                    <template
+                      v-for="btn in validBtns(child.buttons, record, child)"
+                      :key="btn.text"
+                    >
+                      <span
+                        class="mr-md btn"
+                        :class="{ disabled: btn._disabled }"
+                      >
+                        <a-dropdown v-if="btn.children.length > 0">
+                          <span class="icon-xs">
+                            <a>
+                              <span
+                                v-html="btnText(record._values, btn)"
+                              ></span>
+                              <DownOutlined />
+                            </a>
+                          </span>
+                          <template #overlay>
+                            <a-menu>
+                              <a-menu-item
+                                v-for="subBtn in validBtns(
+                                  btn.children,
+                                  record,
+                                  child
+                                )"
+                                :key="subBtn.text"
+                                @click="btnClick(record, subBtn)"
+                                :disabled="subBtn._disabled"
+                              >
+                                <span
+                                  v-html="btnText(record._values, subBtn)"
+                                ></span>
+                                <component :is="subBtn.icon" />
+                              </a-menu-item>
+                            </a-menu>
+                          </template>
+                        </a-dropdown>
+                        <template v-else>
+                          <a-popconfirm
+                            v-if="btn.type === 'popconfirm'"
+                            :title="btn.popconfirm.title"
+                            :okText="btn.popconfirm.okText"
+                            :cancelText="btn.popconfirm.cancelText"
+                            @confirm="btn.popconfirm.confirm(record)"
+                          >
+                            <a>
+                              <span
+                                v-html="btnText(record._values, btn)"
+                              ></span>
+                              <component :is="btn.icon" />
+                            </a>
+                          </a-popconfirm>
+                          <template v-else>
+                            <a @click="btnClick(record, btn)">
+                              <span
+                                v-html="btnText(record._values, btn)"
+                              ></span>
+                              <component :is="btn.icon" />
+                            </a>
+                          </template>
+                        </template>
+                      </span>
+                    </template>
                   </template>
-                </a-menu>
-              </template>
-            </a-dropdown>
-          </div>
-        </template>
-        <template #default="{ record }">
-          <template v-if="record._values">
-            <slot
-              :name="column.render"
-              v-if="column.render"
-              :row="record"
-              :value="record._values && record._values[index]"
-              :column="column"
-            ></slot>
-            <template v-else>
-              <template v-if="!column.buttons?.length">
-                <a-tag
-                  v-if="column.type === 'tag'"
-                  :color="record._values[index].color"
-                  >{{ record._values[index].text }}</a-tag
-                >
-                <a
-                  @click.stop.prevent="click(record, column)"
-                  :title="column.ellipsis ? record._values[index].text : ''"
-                  v-else-if="column.type === 'link'"
-                >
-                  {{ record._values[index].text }}
-                </a>
-                <span
-                  v-else
-                  :title="column.ellipsis ? record._values[index].text : ''"
-                  >{{ record._values[index].text }}</span
-                >
+                </template>
               </template>
               <template v-else>
-                <template
-                  v-for="btn in validBtns(column.buttons, record, column)"
-                  :key="btn.text"
-                >
-                  <span class="mr-md btn" :class="{ disabled: btn._disabled }">
-                    <a-dropdown v-if="btn.children.length > 0">
-                      <span class="icon-xs">
-                        <a>
-                          <span v-html="btnText(record._values, btn)"></span>
-                          <DownOutlined />
-                        </a>
-                      </span>
-                      <template #overlay>
-                        <a-menu>
-                          <a-menu-item
-                            v-for="subBtn in validBtns(
-                              btn.children,
-                              record,
-                              column
-                            )"
-                            :key="subBtn.text"
-                            @click="btnClick(record, subBtn)"
-                            :disabled="subBtn._disabled"
-                          >
-                            <span
-                              v-html="btnText(record._values, subBtn)"
-                            ></span>
-                            <component :is="subBtn.icon" />
-                          </a-menu-item>
-                        </a-menu>
-                      </template>
-                    </a-dropdown>
-                    <template v-else>
-                      <a-popconfirm
-                        v-if="btn.type === 'popconfirm'"
-                        :title="btn.popconfirm.title"
-                        :okText="btn.popconfirm.okText"
-                        :cancelText="btn.popconfirm.cancelText"
-                        @confirm="btn.popconfirm.confirm(record)"
+                <span :title="child.ellipsis ? record[child.index] : ''">{{
+                  record[child.index]
+                }}</span>
+              </template>
+            </template>
+          </a-table-column>
+        </a-table-column-group>
+        <a-table-column
+          v-else
+          :width="column.width"
+          :customRender="column.customRender"
+          :fixed="column.fixed || false"
+          :sorter="column.sorter?.compare"
+          :ellipsis="column.ellipsis"
+          :colSpan="column.colSpan"
+        >
+          <template #title="scope">
+            <div class="header">
+              <slot
+                :name="column.renderTitle"
+                v-if="column.renderTitle"
+                :row="scope.row"
+                :title="column.title"
+              ></slot>
+              <template v-else> {{ column.title }} </template>
+              <a-dropdown
+                v-if="column.filter"
+                class="filter"
+                :ref="setDropdownRef(index)"
+                overlayClassName="st-dropdown-filter"
+                v-model:visible="column.filter._visible.value"
+                :trigger="['click']"
+              >
+                <FilterOutlined
+                  class="point"
+                  :class="{ active: column.filter._default.value }"
+                  @click.stop="column.filter._visible.value = true"
+                />
+                <template #overlay>
+                  <a-menu>
+                    <template v-if="column.filter._menus.value.length">
+                      <a-menu-item
+                        v-for="menu in column.filter._menus.value"
+                        :key="menu.value"
                       >
-                        <a>
-                          <span v-html="btnText(record._values, btn)"></span>
-                          <component :is="btn.icon" />
-                        </a>
-                      </a-popconfirm>
-                      <template v-else>
-                        <a @click="btnClick(record, btn)">
-                          <span v-html="btnText(record._values, btn)"></span>
-                          <component :is="btn.icon" />
-                        </a>
-                      </template>
+                        <div class="st-filter-menu">
+                          <a-checkbox
+                            v-model:checked="menu.checked"
+                            @change="handleCheckPart(column, index)"
+                            >{{ menu.text }}</a-checkbox
+                          >
+                        </div>
+                      </a-menu-item>
+                      <a-menu-item class="footer" divided>
+                        <div class="st-filter-menu fx-jb fx-ac">
+                          <a-checkbox
+                            :indeterminate="column.filter.indeterminate.value"
+                            v-model:checked="column.filter.checkAll.value"
+                            @change="handleCheckAll($event, column, index)"
+                            >全选</a-checkbox
+                          >
+                          <a-button
+                            size="small"
+                            type="primary"
+                            @click="filterConfirm(column, index)"
+                            >{{ column.filter.confirmText }}</a-button
+                          >
+                        </div>
+                      </a-menu-item>
                     </template>
-                  </span>
+                    <template v-else>
+                      <a-menu-item>
+                        <div class="st-filter-menu">
+                          加载中<LoadingOutlined />
+                        </div>
+                      </a-menu-item>
+                    </template>
+                  </a-menu>
+                </template>
+              </a-dropdown>
+            </div>
+          </template>
+          <template #default="{ record }">
+            <template v-if="record._values">
+              <slot
+                :name="column.render"
+                v-if="column.render"
+                :row="record"
+                :value="record._values && record._values[index]"
+                :column="column"
+              ></slot>
+              <template v-else>
+                <template v-if="!column.buttons?.length">
+                  <a-tag
+                    v-if="column.type === 'tag'"
+                    :color="record._values[index].color"
+                    >{{ record._values[index].text }}</a-tag
+                  >
+                  <a
+                    @click.stop.prevent="click(record, column)"
+                    :title="column.ellipsis ? record._values[index].text : ''"
+                    v-else-if="column.type === 'link'"
+                  >
+                    {{ record._values[index].text }}
+                  </a>
+                  <span
+                    v-else
+                    :title="column.ellipsis ? record._values[index].text : ''"
+                    >{{ record._values[index].text }}</span
+                  >
+                </template>
+                <template v-else>
+                  <template
+                    v-for="btn in validBtns(column.buttons, record, column)"
+                    :key="btn.text"
+                  >
+                    <span
+                      class="mr-md btn"
+                      :class="{ disabled: btn._disabled }"
+                    >
+                      <a-dropdown v-if="btn.children.length > 0">
+                        <span class="icon-xs">
+                          <a>
+                            <span v-html="btnText(record._values, btn)"></span>
+                            <DownOutlined />
+                          </a>
+                        </span>
+                        <template #overlay>
+                          <a-menu>
+                            <a-menu-item
+                              v-for="subBtn in validBtns(
+                                btn.children,
+                                record,
+                                column
+                              )"
+                              :key="subBtn.text"
+                              @click="btnClick(record, subBtn)"
+                              :disabled="subBtn._disabled"
+                            >
+                              <span
+                                v-html="btnText(record._values, subBtn)"
+                              ></span>
+                              <component :is="subBtn.icon" />
+                            </a-menu-item>
+                          </a-menu>
+                        </template>
+                      </a-dropdown>
+                      <template v-else>
+                        <a-popconfirm
+                          v-if="btn.type === 'popconfirm'"
+                          :title="btn.popconfirm.title"
+                          :okText="btn.popconfirm.okText"
+                          :cancelText="btn.popconfirm.cancelText"
+                          @confirm="btn.popconfirm.confirm(record)"
+                        >
+                          <a>
+                            <span v-html="btnText(record._values, btn)"></span>
+                            <component :is="btn.icon" />
+                          </a>
+                        </a-popconfirm>
+                        <template v-else>
+                          <a @click="btnClick(record, btn)">
+                            <span v-html="btnText(record._values, btn)"></span>
+                            <component :is="btn.icon" />
+                          </a>
+                        </template>
+                      </template>
+                    </span>
+                  </template>
                 </template>
               </template>
             </template>
+            <template v-else>
+              <span :title="column.ellipsis ? record[column.index] : ''">{{
+                record[column.index]
+              }}</span>
+            </template>
           </template>
-          <template v-else>
-            <span :title="column.ellipsis ? record[column.index] : ''">{{
-              record[column.index]
-            }}</span>
-          </template>
-        </template>
-      </a-table-column>
+        </a-table-column>
+      </template>
       <template #expandedRowRender="{ record }" v-if="$slots.expandedRowRender">
         <slot
           :record="record"
