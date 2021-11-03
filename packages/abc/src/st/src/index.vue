@@ -31,6 +31,17 @@
       </template>
       <template :key="column._key" v-for="(column, index) in columns$">
         <a-table-column-group v-if="column.children?.length">
+          <template #title="scope">
+            <div class="header">
+              <slot
+                :name="child.renderTitle"
+                v-if="child.renderTitle"
+                :row="scope.row"
+                :title="child.title"
+              ></slot>
+              <template v-else> {{ child.title }} </template>
+            </div>
+          </template>
           <a-table-column
             :width="child.width"
             :customRender="child.customRender"
@@ -39,7 +50,7 @@
             :ellipsis="child.ellipsis"
             :colSpan="child.colSpan"
             :key="child._key"
-            v-for="(child, index) in column"
+            v-for="(child, index) in column.children"
           >
             <template #title="scope">
               <div class="header">
@@ -50,6 +61,61 @@
                   :title="child.title"
                 ></slot>
                 <template v-else> {{ child.title }} </template>
+                <a-dropdown
+                  v-if="child.filter"
+                  class="filter"
+                  :ref="setDropdownRef(index)"
+                  overlayClassName="st-dropdown-filter"
+                  v-model:visible="child.filter._visible.value"
+                  :trigger="['click']"
+                >
+                  <FilterOutlined
+                    class="point"
+                    :class="{ active: child.filter._default.value }"
+                    @click.stop="child.filter._visible.value = true"
+                  />
+                  <template #overlay>
+                    <a-menu>
+                      <template v-if="child.filter._menus.value.length">
+                        <a-menu-item
+                          v-for="menu in child.filter._menus.value"
+                          :key="menu.value"
+                        >
+                          <div class="st-filter-menu">
+                            <a-checkbox
+                              v-model:checked="menu.checked"
+                              @change="handleCheckPart(child, index)"
+                              >{{ menu.text }}</a-checkbox
+                            >
+                          </div>
+                        </a-menu-item>
+                        <a-menu-item class="footer" divided>
+                          <div class="st-filter-menu fx-jb fx-ac">
+                            <a-checkbox
+                              :indeterminate="child.filter.indeterminate.value"
+                              v-model:checked="child.filter.checkAll.value"
+                              @change="handleCheckAll($event, child, index)"
+                              >全选</a-checkbox
+                            >
+                            <a-button
+                              size="small"
+                              type="primary"
+                              @click="filterConfirm(child, index)"
+                              >{{ child.filter.confirmText }}</a-button
+                            >
+                          </div>
+                        </a-menu-item>
+                      </template>
+                      <template v-else>
+                        <a-menu-item>
+                          <div class="st-filter-menu">
+                            加载中<LoadingOutlined />
+                          </div>
+                        </a-menu-item>
+                      </template>
+                    </a-menu>
+                  </template>
+                </a-dropdown>
               </div>
             </template>
             <template #default="{ record }">
