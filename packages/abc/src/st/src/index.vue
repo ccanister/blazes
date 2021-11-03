@@ -34,12 +34,12 @@
           <template #title="scope">
             <div class="header">
               <slot
-                :name="child.renderTitle"
-                v-if="child.renderTitle"
+                :name="column.renderTitle"
+                v-if="column.renderTitle"
                 :row="scope.row"
-                :title="child.title"
+                :title="column.title"
               ></slot>
-              <template v-else> {{ child.title }} </template>
+              <template v-else> {{ column.title }} </template>
             </div>
           </template>
           <a-table-column
