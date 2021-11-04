@@ -76,6 +76,7 @@ export interface ISTColumn {
   ellipsis?: boolean;
   colSpan?: number;
   children?: ISTColumn[];
+  _index?: number;
   [key: string]: any;
 }
 

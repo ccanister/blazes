@@ -97,8 +97,17 @@ export default class STDataSource {
         const resultOffset = ((retPi || pi) - 1) * (retPs || ps);
         for (let i = 0, len = result.length; i < len; i++) {
           const realIndex = resultOffset + i + 1;
-          result[i]._values = columns.map((column, index) =>
-            this.get(result[i], column, index, realIndex)
+          result[i]._values = columns.reduce(
+            (tmpResult: any[], column, index) => {
+              tmpResult.push(this.get(result[i], column, index, realIndex));
+              if (column.children) {
+                column.children.forEach((child) => {
+                  tmpResult.push(this.get(result[i], child, index, realIndex));
+                });
+              }
+              return tmpResult;
+            },
+            []
           );
         }
 
@@ -130,7 +139,6 @@ export default class STDataSource {
       const formatRes = column.format(item, column, index, realIndex);
       return { text: formatRes || "", org: formatRes };
     }
-
     const value = deepGet(item, column.index, column.default);
     let text = value;
     let color: string | undefined;

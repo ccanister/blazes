@@ -17,11 +17,24 @@ export default class STColumnSource {
     if (ArrayService.arrIsEmpty(list)) {
       throw new Error(`[st]: the columns property muse be define!`);
     }
-    const columns: ISTColumn[] = [];
-    const copyColumens = deepCopy(list) as ISTColumn[];
-    for (const item of copyColumens) {
+    const columns: ISTColumn[] = this.fixColumns(list);
+
+    this.fixedCoerce(columns);
+    return columns;
+  }
+
+  private fixColumns(columns: ISTColumn[], parent?: ISTColumn) {
+    const copyColumns = deepCopy(columns) as ISTColumn[];
+    const result: ISTColumn[] = [];
+    let position = parent ? parent._index! + 1 : 0;
+    copyColumns.forEach((item, index) => {
       if (item.iif && !item.iif(item)) {
-        continue;
+        return;
+      }
+      item._index = position + index;
+      if (item.children) {
+        item.children = this.fixColumns(item.children, item);
+        position += item.children.length;
       }
       if (item.index) {
         if (!Array.isArray(item.index)) {
@@ -36,12 +49,10 @@ export default class STColumnSource {
       item._key =
         item.key ||
         `${item.index}` + `${item.render}` + item.title + item.renderTitle;
-      columns.push(item);
-    }
+      result.push(item);
+    });
 
-    this.fixedCoerce(columns);
-
-    return columns;
+    return result;
   }
 
   private filterCoerce(item: ISTColumn): ISTColumnFilter | null {

@@ -29,7 +29,7 @@
       <template #footer v-if="$slots.footer">
         <slot name="footer"></slot>
       </template>
-      <template :key="column._key" v-for="(column, index) in columns$">
+      <template :key="column._key" v-for="column in columns$">
         <a-table-column-group v-if="column.children?.length">
           <template #title="scope">
             <div class="header">
@@ -50,7 +50,8 @@
             :ellipsis="child.ellipsis"
             :colSpan="child.colSpan"
             :key="child._key"
-            v-for="(child, index) in column.children"
+            :data-index="child._key"
+            v-for="child in column.children"
           >
             <template #title="scope">
               <div class="header">
@@ -64,7 +65,6 @@
                 <a-dropdown
                   v-if="child.filter"
                   class="filter"
-                  :ref="setDropdownRef(index)"
                   overlayClassName="st-dropdown-filter"
                   v-model:visible="child.filter._visible.value"
                   :trigger="['click']"
@@ -84,7 +84,7 @@
                           <div class="st-filter-menu">
                             <a-checkbox
                               v-model:checked="menu.checked"
-                              @change="handleCheckPart(child, index)"
+                              @change="handleCheckPart(child)"
                               >{{ menu.text }}</a-checkbox
                             >
                           </div>
@@ -94,13 +94,13 @@
                             <a-checkbox
                               :indeterminate="child.filter.indeterminate.value"
                               v-model:checked="child.filter.checkAll.value"
-                              @change="handleCheckAll($event, child, index)"
+                              @change="handleCheckAll($event, child)"
                               >全选</a-checkbox
                             >
                             <a-button
                               size="small"
                               type="primary"
-                              @click="filterConfirm(child, index)"
+                              @click="filterConfirm(child)"
                               >{{ child.filter.confirmText }}</a-button
                             >
                           </div>
@@ -124,27 +124,31 @@
                   :name="child.render"
                   v-if="child.render"
                   :row="record"
-                  :value="record._values && record._values[index]"
+                  :value="record._values && record._values[child._index]"
                   :column="child"
                 ></slot>
                 <template v-else>
                   <template v-if="!child.buttons?.length">
                     <a-tag
                       v-if="child.type === 'tag'"
-                      :color="record._values[index].color"
-                      >{{ record._values[index].text }}</a-tag
+                      :color="record._values[child._index].color"
+                      >{{ record._values[child._index].text }}</a-tag
                     >
                     <a
                       @click.stop.prevent="click(record, child)"
-                      :title="child.ellipsis ? record._values[index].text : ''"
+                      :title="
+                        child.ellipsis ? record._values[child._index].text : ''
+                      "
                       v-else-if="child.type === 'link'"
                     >
-                      {{ record._values[index].text }}
+                      {{ record._values[child._index].text }}
                     </a>
                     <span
                       v-else
-                      :title="child.ellipsis ? record._values[index].text : ''"
-                      >{{ record._values[index].text }}</span
+                      :title="
+                        child.ellipsis ? record._values[child._index].text : ''
+                      "
+                      >{{ record._values[child._index].text }}</span
                     >
                   </template>
                   <template v-else>
@@ -243,7 +247,6 @@
               <a-dropdown
                 v-if="column.filter"
                 class="filter"
-                :ref="setDropdownRef(index)"
                 overlayClassName="st-dropdown-filter"
                 v-model:visible="column.filter._visible.value"
                 :trigger="['click']"
@@ -263,7 +266,7 @@
                         <div class="st-filter-menu">
                           <a-checkbox
                             v-model:checked="menu.checked"
-                            @change="handleCheckPart(column, index)"
+                            @change="handleCheckPart(column)"
                             >{{ menu.text }}</a-checkbox
                           >
                         </div>
@@ -273,13 +276,13 @@
                           <a-checkbox
                             :indeterminate="column.filter.indeterminate.value"
                             v-model:checked="column.filter.checkAll.value"
-                            @change="handleCheckAll($event, column, index)"
+                            @change="handleCheckAll($event, column)"
                             >全选</a-checkbox
                           >
                           <a-button
                             size="small"
                             type="primary"
-                            @click="filterConfirm(column, index)"
+                            @click="filterConfirm(column)"
                             >{{ column.filter.confirmText }}</a-button
                           >
                         </div>
@@ -303,27 +306,31 @@
                 :name="column.render"
                 v-if="column.render"
                 :row="record"
-                :value="record._values && record._values[index]"
+                :value="record._values && record._values[column._index]"
                 :column="column"
               ></slot>
               <template v-else>
                 <template v-if="!column.buttons?.length">
                   <a-tag
                     v-if="column.type === 'tag'"
-                    :color="record._values[index].color"
-                    >{{ record._values[index].text }}</a-tag
+                    :color="record._values[column._index].color"
+                    >{{ record._values[column._index].text }}</a-tag
                   >
                   <a
                     @click.stop.prevent="click(record, column)"
-                    :title="column.ellipsis ? record._values[index].text : ''"
+                    :title="
+                      column.ellipsis ? record._values[column._index].text : ''
+                    "
                     v-else-if="column.type === 'link'"
                   >
-                    {{ record._values[index].text }}
+                    {{ record._values[column._index].text }}
                   </a>
                   <span
                     v-else
-                    :title="column.ellipsis ? record._values[index].text : ''"
-                    >{{ record._values[index].text }}</span
+                    :title="
+                      column.ellipsis ? record._values[column._index].text : ''
+                    "
+                    >{{ record._values[column._index].text }}</span
                   >
                 </template>
                 <template v-else>
@@ -486,7 +493,6 @@ export default defineComponent({
     const ps$ = ref(props.ps || 10);
     const total$ = ref(props.total || 0);
     const data$: Ref<ISTData[]> = ref([]);
-    const [dropdownRefs, setDropdownRef] = useRefs<any>();
     const router = useRouter(); // works
     // 方法
     const getBasicChangeInfo = () => {
@@ -623,18 +629,17 @@ export default defineComponent({
       });
       loadPageData();
     };
-    const handleCheckPart = (col: ISTColumn, index: number) => {
+    const handleCheckPart = (col: ISTColumn) => {
       columnSource.updateIndeterminate(col.filter!);
     };
     const handleCheckAll = (
       event: { target: { checked: boolean } },
-      col: ISTColumn,
-      index: number
+      col: ISTColumn
     ) => {
       columnSource.checkAllFilter(event.target.checked, col);
       columnSource.updateIndeterminate(col.filter!);
     };
-    const filterConfirm = (col: ISTColumn, index: number) => {
+    const filterConfirm = (col: ISTColumn) => {
       handleFilter(col);
     };
     // 监听变化
@@ -706,7 +711,6 @@ export default defineComponent({
       reload,
       handleCheckAll,
       filterConfirm,
-      setDropdownRef,
       resetColumns,
       click,
       handleCheckPart,
