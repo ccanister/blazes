@@ -21,9 +21,9 @@
       </div>
       <div class="main">
         <div class="row">
-          <template v-if="$slots.title">
+          <slot name="title">
             <h1 class="title">{{ title$ }}</h1>
-          </template>
+          </slot>
           <div v-if="$slots.action" class="action">
             <slot name="action"></slot>
           </div>
