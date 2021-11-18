@@ -21,7 +21,7 @@
       </div>
       <div class="main">
         <div class="row">
-          <slot name="title">
+          <slot name="title" :title="title">
             <h1 class="title">{{ title$ }}</h1>
           </slot>
           <div v-if="$slots.action" class="action">
