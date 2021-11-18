@@ -46,6 +46,7 @@ export interface IDialogRef<T = any> {
   instance: VNode;
   close: (result?: T) => any;
   afterClose: Promise<T>;
+  content: any;
 }
 
 let seed = 1;
