@@ -9,7 +9,7 @@
       :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
-      :allowClear="allowClear"
+      :allowClear="ui.allowClear"
     />
     <a-week-picker
       v-else-if="mode === 'week'"
@@ -20,7 +20,7 @@
       :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
-      :allowClear="allowClear"
+      :allowClear="ui.allowClear"
     />
     <a-date-picker
       v-else
@@ -32,7 +32,7 @@
       :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
-      :allowClear="allowClear"
+      :allowClear="ui.allowClear"
     />
   </div>
 </template>
