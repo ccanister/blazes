@@ -6,17 +6,21 @@
       :disabledDate="ui.disabledDate"
       :format="ui.format"
       :placeholder="ui.placeholder"
+      :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
+      :allowClear="allowClear"
     />
     <a-week-picker
-      v-if="mode === 'week'"
+      v-else-if="mode === 'week'"
       v-model:value="model"
       :disabledDate="ui.disabledDate"
       :format="ui.format"
       :placeholder="ui.placeholder"
+      :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
+      :allowClear="allowClear"
     />
     <a-date-picker
       v-else
@@ -25,8 +29,10 @@
       :format="ui.format"
       :placeholder="ui.placeholder"
       :show-time="ui.showTime"
+      :dropdownClassName="ui.dropdownClassName"
       @change="changeValue"
       :locale="locale"
+      :allowClear="allowClear"
     />
   </div>
 </template>
@@ -54,7 +60,8 @@ export default defineComponent({
     [DatePicker.name]: DatePicker,
   },
   setup(props) {
-    const { property, ui } = toRaw(props);
+    const property = toRaw(props.property);
+    const { ui } = toRaw(props);
     const model = ref(toRaw(property.value));
     const mode = ui.mode || "date";
 
