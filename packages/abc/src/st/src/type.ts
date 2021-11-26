@@ -105,6 +105,7 @@ export interface ISTPage {
   indexReset?: boolean;
   toTop?: boolean; // 滚动到顶部
   toTopOffset?: number; // 滚动的偏移距离
+  showTotal?: (total: number, range: number[]) => string;
 }
 
 export interface ISTReq {
@@ -255,5 +256,6 @@ export const DEFAULT_CONFIG = {
     indexReset: true,
     toTop: true,
     toTopOffset: 100,
+    showTotal: (total: number) => `共${total}条`,
   },
 };

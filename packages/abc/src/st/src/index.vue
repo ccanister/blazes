@@ -10,7 +10,7 @@
               current: pi$,
               pageSize: ps$,
               total: total$,
-              'show-total': showTotal,
+              'show-total': page$.showTotal,
               showSizeChanger: page$.showSize,
               pageSizeOptions: page$.pageSizes,
               showQuickJumper: page$.showQuickJumper,
@@ -694,8 +694,6 @@ export default defineComponent({
       load(current);
     };
 
-    const showTotal = (total: number) => `共${total}条`;
-
     return {
       loading,
       columns$,
@@ -715,7 +713,6 @@ export default defineComponent({
       click,
       handleCheckPart,
       changeTable,
-      showTotal,
       reloadCurrent,
     };
   },
