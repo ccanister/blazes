@@ -22,6 +22,7 @@
       :bordered="bordered"
       :rowClassName="rowClassName"
       :row-selection="rowSelection"
+      :size="size"
     >
       <template #title v-if="$slots.title">
         <slot name="title"></slot>
@@ -463,6 +464,7 @@ export default defineComponent({
     bordered: Boolean,
     rowSelection: Object,
     rowClassName: Function,
+    size: String,
   },
   components: {
     LoadingOutlined,
