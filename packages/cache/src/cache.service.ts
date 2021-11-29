@@ -60,7 +60,7 @@ export class CacheService {
     const value = memoryCache.has(key)
       ? memoryCache.get(key)
       : cacheStore.get(this.getCacheStoreKey(key));
-    if (value && value.e === 0 && value.e > +new Date()) {
+    if (value && (value.e === 0 || value.e > +new Date())) {
       return value.v;
     }
     return null;
