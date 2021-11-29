@@ -150,6 +150,7 @@ export class ModalHelper {
     );
     function close(result?: T) {
       instance.component!.props.visible = false;
+      config.onClose && config.onClose();
       setTimeout(() => {
         renderContainer.removeChild(container);
         resolveAfterClose(result instanceof Event ? null : result);
