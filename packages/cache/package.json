@@ -3,7 +3,7 @@
   "version": "0.0.85-type.0",
   "main": "dist/index.js",
   "license": "MIT",
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build:webpack": "rm -rf ./dist && webpack",
     "build": "rollup -c"
