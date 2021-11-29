@@ -3,9 +3,10 @@
   "version": "0.0.56-type.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./dist && webpack",
-    "build:rollup": "rollup -c"
+    "build:webpack": "rm -rf ./dist && webpack",
+    "build": "rollup -c"
   },
   "files": [
     "dist"
