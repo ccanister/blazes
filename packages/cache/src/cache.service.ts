@@ -5,7 +5,7 @@ import moment from "moment";
 const CACHE_CONFIG: CacheConfig = {
   type: "m",
   prefix: "",
-  expire: -1,
+  expire: 0,
   meta_key: "__cache_meta",
 };
 
@@ -23,7 +23,7 @@ export class CacheService {
   }
 
   set(key: string, data: any, options: { type?: "m" | "s"; expire?: number }) {
-    let e = -1;
+    let e = 0;
     const { type, expire } = this.defaultConfig;
     options = {
       type: type as "m",
@@ -91,7 +91,7 @@ export class CacheService {
   private saveMeta() {
     const { metas, cacheStore, defaultConfig } = this;
     cacheStore.set(defaultConfig.meta_key, {
-      e: -1,
+      e: 0,
       v: Array.from(metas.values()),
     });
   }
