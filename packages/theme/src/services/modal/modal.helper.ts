@@ -112,12 +112,15 @@ export class ModalHelper {
     };
   }
 
-  static openDrawer<T>(config: IDrawerOption): { dialogRef: IDialogRef<T> } {
+  static openDrawer<T>(
+    config: IDrawerOption,
+    renderContainer = document.body
+  ): { dialogRef: IDialogRef<T> } {
     const container = document.createElement("div");
     const id = "drawer_" + seed++;
 
     container.className = `container_${id}`;
-    document.body.appendChild(container);
+    renderContainer.appendChild(container);
 
     const { component, componentParams } = config;
     const contentIsComponent =
@@ -148,7 +151,7 @@ export class ModalHelper {
     function close(result?: T) {
       instance.component!.props.visible = false;
       setTimeout(() => {
-        document.body.removeChild(container);
+        renderContainer.removeChild(container);
         resolveAfterClose(result instanceof Event ? null : result);
       }, 200);
     }
