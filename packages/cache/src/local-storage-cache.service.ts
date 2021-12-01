@@ -9,6 +9,6 @@ export default class LocalStorageCacheService implements ICacheStore {
     return JSON.parse(localStorage.getItem(key) || "null");
   }
   remove(key: string): void {
-    localStorage.remove(key);
+    localStorage.removeItem(key);
   }
 }
