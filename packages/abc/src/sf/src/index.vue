@@ -6,6 +6,7 @@
       :layout="schema?.ui?.layout || 'horizontal'"
       :labelAlign="schema?.ui?.labelAlign"
       :colon="!schema?.ui?.noColon"
+      :hideRequiredMark="schema?.ui?.hideRequiredMark"
     >
       <a-row>
         <a-col

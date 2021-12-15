@@ -25,6 +25,7 @@ export interface ISFUISchemaItem {
   visibleIf?: { [key: string]: any[] | ((value: any) => boolean) };
   noColon?: boolean;
   labelAlign?: "left" | "right";
+  hideRequiredMark?: boolean;
   [key: string]: any;
 }
 
