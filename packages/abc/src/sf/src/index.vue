@@ -287,7 +287,7 @@ export default defineComponent({
           if (!formProperty) {
             return;
           }
-          formProperty.widget!.reset(data[prop]);
+          formProperty.widget?.reset(data[prop]);
         });
       }
     );
