@@ -68,3 +68,13 @@ export function useChecked<T extends { checked?: boolean }>(
 
   return { checkAll, checkApart, checked, resetItems, updateChecked };
 }
+
+export function useCollapse() {
+  const collapse = ref(false);
+
+  const toggle = () => {
+    collapse.value = !collapse.value;
+  };
+
+  return { collapse, toggle };
+}
