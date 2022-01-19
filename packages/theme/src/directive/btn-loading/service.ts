@@ -1,6 +1,6 @@
 import { h, render } from "vue";
 import { addClass, prepend, removeClass } from "@blazes/utils";
-import { LoadingOutlined } from "@ant-design/icons-vue";
+import LoadingOutlined from "@ant-design/icons-vue/LoadingOutlined";
 
 class BtnLoadingService {
   private registerBtnMap: WeakMap<
