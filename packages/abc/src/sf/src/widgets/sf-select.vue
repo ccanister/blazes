@@ -12,6 +12,7 @@
       :maxTagCount="ui.maxTagCount"
       :notFoundContent="ui.notFoundContent"
       :showSearch="ui.showSearch"
+      :filterOption="ui.filterOption"
       @change="changeValue"
     >
       <a-select-option
