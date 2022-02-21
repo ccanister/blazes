@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, Ref, ref, toRaw } from "vue";
 import { useChecked } from "@blazes/utils";
-import Checkbox from "ant-design-vue/lib/checkbox";
+import Checkbox from "ant-design-vue/es/checkbox";
 import { AtomicProperty, getData } from "@blazes/abc/lib/sf";
 import {
   ISFSchema,

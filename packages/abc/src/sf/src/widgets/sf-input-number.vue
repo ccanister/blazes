@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from "vue";
-import InputNumber from "ant-design-vue/lib/input-number";
+import InputNumber from "ant-design-vue/es/input-number";
 import { object } from "vue-types";
 import {
   ISFSchema,

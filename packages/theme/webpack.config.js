@@ -51,7 +51,7 @@ module.exports = {
   plugins,
   externals: [
     {
-      "ant-design-vue/lib/modal": "ant-design-vue/lib/modal",
+      "ant-design-vue/es/modal": "ant-design-vue/es/modal",
       vue: {
         root: "Vue",
         commonjs: "vue",

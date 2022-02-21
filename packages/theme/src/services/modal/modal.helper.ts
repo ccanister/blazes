@@ -1,5 +1,5 @@
-import Modal, { ModalFuncProps } from "ant-design-vue/lib/modal";
-import Drawer from "ant-design-vue/lib/drawer";
+import Modal, { ModalFuncProps } from "ant-design-vue/es/modal";
+import Drawer from "ant-design-vue/es/drawer";
 import { AppContext, h, isVNode, render, VNode } from "vue";
 
 export interface IModalOption extends ModalFuncProps {

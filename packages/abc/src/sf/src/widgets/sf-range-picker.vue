@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from "vue";
-import DatePicker from "ant-design-vue/lib/date-picker";
+import DatePicker from "ant-design-vue/es/date-picker";
 import { AtomicProperty } from "../model";
 import {
   ISFSchema,

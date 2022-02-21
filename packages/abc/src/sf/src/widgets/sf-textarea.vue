@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from "vue";
-import Input from "ant-design-vue/lib/input";
+import Input from "ant-design-vue/es/input";
 import { StringProperty } from "@blazes/abc/lib/sf";
 import {
   ISFUISchemaItem,

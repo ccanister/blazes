@@ -51,7 +51,7 @@ module.exports = {
   plugins,
   externals: {
     "vue-router": "vue-router/dist/vue-router.esm-bundler",
-    "ant-design-vue/lib/modal": "ant-design-vue/lib/modal",
+    "ant-design-vue/es/modal": "ant-design-vue/es/modal",
     vue: {
       root: "Vue",
       commonjs: "vue",

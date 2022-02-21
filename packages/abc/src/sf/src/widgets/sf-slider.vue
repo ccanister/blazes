@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from "vue";
-import Slider from "ant-design-vue/lib/slider";
+import Slider from "ant-design-vue/es/slider";
 import { object } from "vue-types";
 import { AtomicProperty } from "@blazes/abc/lib/sf";
 import {

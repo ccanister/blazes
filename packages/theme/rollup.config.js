@@ -41,7 +41,7 @@ export default [
       "async-validator",
       "vue-router",
       /^@blazes\/utils/,
-      /^ant-design-vue\/lib/,
+      /^ant-design-vue\/es/,
       /^@ant-design\/icons-vue/,
     ],
   },

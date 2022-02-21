@@ -7,6 +7,7 @@
       :labelAlign="schema?.ui?.labelAlign"
       :colon="!schema?.ui?.noColon"
       :hideRequiredMark="schema?.ui?.hideRequiredMark"
+      name="form"
     >
       <a-row>
         <a-col
@@ -105,10 +106,10 @@ import {
   ISFFormValueChange,
   ISFUISchemaItem,
 } from "./type";
-import Form from "ant-design-vue/lib/form";
-import Row from "ant-design-vue/lib/row";
-import Col from "ant-design-vue/lib/col";
-import Button from "ant-design-vue/lib/button";
+import Form from "ant-design-vue/es/form";
+import Row from "ant-design-vue/es/row";
+import Col from "ant-design-vue/es/col";
+import Button from "ant-design-vue/es/button";
 import {
   computed,
   defineComponent,

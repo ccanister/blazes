@@ -443,7 +443,7 @@ import DownOutlined from "@ant-design/icons-vue/DownOutlined";
 import EditOutlined from "@ant-design/icons-vue/EditOutlined";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import FilterOutlined from "@ant-design/icons-vue/FilterOutlined";
-import message from "ant-design-vue/lib/message";
+import message from "ant-design-vue/es/message";
 import { useRouter } from "vue-router";
 import { array } from "vue-types";
 
