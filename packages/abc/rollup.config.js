@@ -60,7 +60,7 @@ export default {
     "vue-router",
     /^@blazes\/utils/,
     /^@blazes\/theme/,
-    /^ant-design-vue\/lib/,
+    /^ant-design-vue\/es/,
     /^@ant-design\/icons-vue/,
   ],
 };

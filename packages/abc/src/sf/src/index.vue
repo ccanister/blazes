@@ -9,71 +9,13 @@
       :hideRequiredMark="schema?.ui?.hideRequiredMark"
       name="form"
     >
-      <a-row>
-        <a-col
-          v-for="(item, key, index) in rootProperty.properties"
-          :key="item"
-          :span="item.ui.gutter.span"
-          :style="{
-            width: item.ui.gutter.spanLabelFixed
-              ? item.ui.gutter.spanLabelFixed + 'px'
-              : 'auto',
-          }"
-          :class="{ hideFlex: item.ui.gutter.spanLabelFixed }"
-        >
-          <template v-if="item._visibilityChanges && !item.hidden">
-            <a-form-item
-              :name="item.ui.prop"
-              :rules="item.ui.rules"
-              :class="item.ui.class"
-              :style="{ width: item.ui.gutter.controlWidth }"
-              :wrapperCol="{
-                span: item.ui.gutter.spanControl,
-                offset: item.ui.gutter.controlOffset,
-              }"
-              :labelCol="{
-                span: item.ui.gutter.spanLabel,
-                offset: item.ui.gutter.spanOffset,
-              }"
-              :labelAlign="item.ui.labelAlign"
-              :colon="!schema?.ui?.noColon"
-              :extra="item.description"
-            >
-              <template #label>
-                <slot
-                  v-if="$slots[item.ui.prop]"
-                  :name="item.ui.prop"
-                  :schema="item"
-                ></slot>
-                <template v-else>
-                  <span class="title">
-                    {{ item.schema.title }}
-                    <a-tooltip v-if="item.ui.optionalHelp">
-                      <template #title>{{ item.ui.optionalHelp }} </template>
-                      <QuestionCircleOutlined class="help" />
-                    </a-tooltip>
-                  </span>
-                </template>
-              </template>
-              <component
-                :ui="item.ui"
-                :schema="item.schema"
-                :property="item"
-                :is="item.ui.widget"
-                :ref="addItem(item.ui.prop)"
-              ></component>
-            </a-form-item>
-            <template v-if="$slots.item">
-              <slot
-                name="item"
-                :item="item"
-                :prop="item.ui.prop"
-                :index="index"
-              ></slot>
-            </template>
-          </template>
-        </a-col>
-      </a-row>
+      <sf-object
+        :ui="schema.ui"
+        :schema="schema"
+        :property="rootProperty"
+        :slots="$slots"
+      >
+      </sf-object>
     </a-form>
     <div v-if="button$" :class="button$.className">
       <a-row type="flex" justify="end">
@@ -122,12 +64,13 @@ import {
   WatchStopHandle,
 } from "vue";
 import SfDefault from "./widgets/sf-default.vue";
+import SfObject from "./widgets/sf-object.vue";
 import { CUSTOM_TRIGGER } from "@blazes/theme";
 import { BtnLoading } from "@blazes/theme";
-import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
 import { object } from "vue-types";
 import { FormPropertyFactory } from "./model/form.property.factory";
 import { FormProperty } from "./model/form.property";
+import { deepCopy } from "@blazes/utils";
 
 export default defineComponent({
   name: "sf",
@@ -147,7 +90,7 @@ export default defineComponent({
     [Row.name]: Row,
     [Col.name]: Col,
     [Button.name]: Button,
-    QuestionCircleOutlined,
+    SfObject,
   },
   directives: {
     btnLoading: new BtnLoading(),
@@ -232,6 +175,15 @@ export default defineComponent({
               gutter: { ...ui.gutter, ...item.items.ui?.gutter },
             };
             inFn(item.items, itemsUI, ui["$items"]);
+          }
+          if (item.properties && Object.keys(item.properties)) {
+            if (ui.forceHideLabel) {
+              inFn(item, deepCopy(ui), ui);
+              ui.gutter.spanLabel = 0;
+              ui.gutter.spanControl = 24;
+            } else {
+              inFn(item, ui, ui);
+            }
           }
         });
         return properties;
@@ -323,13 +275,5 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .sf-wrapper {
-  .hideFlex {
-    flex: none;
-  }
-  .title {
-    .help {
-      cursor: pointer;
-    }
-  }
 }
 </style>

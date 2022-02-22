@@ -109,7 +109,7 @@ export abstract class FormProperty {
     let result = null;
     if (path[0] === SF_SEQ) {
       base = this.root;
-      result = base.getProperty(path.substr(1));
+      result = base.getProperty(path.substring(1));
     } else {
       while (result === null && prop.parent !== null) {
         prop = base = prop.parent;
@@ -218,4 +218,13 @@ export abstract class PropertyGroup extends FormProperty {
   isRoot(): boolean {
     return this === this.root;
   }
+
+  addWidget = (prop: string) => (widget: any) => {
+    // 卸载时候会调用该方法
+    if (widget == null) {
+      return;
+    }
+    const formProperty = this.searchProperty(`${prop}`)!;
+    formProperty.widget = widget;
+  };
 }

@@ -26,6 +26,7 @@ export interface ISFUISchemaItem {
   noColon?: boolean;
   labelAlign?: "left" | "right";
   hideRequiredMark?: boolean;
+  forceHideLabel?: boolean;
   [key: string]: any;
 }
 

@@ -13,46 +13,15 @@
       >
         <a-row class="sf-array-item-wrapper">
           <a-col v-for="item in ui.$items" :key="item" :span="item.gutter.span">
-            <a-form-item
-              :name="item.prop"
-              :rules="item.rules"
-              :class="item.class"
-              :style="{ width: item.gutter.controlWidth }"
-              :wrapperCol="{
-                span: item.gutter.spanControl,
-                offset: item.gutter.controlOffset,
-              }"
-              :labelCol="{
-                span: item.gutter.spanLabel,
-                offset: item.gutter.spanOffset,
-              }"
-              :labelAlign="item.labelAlign"
-              :colon="!item.noColon"
-              :extra="item.description"
-            >
-              <template #label>
-                <slot
-                  v-if="$slots[item.prop]"
-                  :name="item.prop"
-                  :schema="schema.items.properties[item.prop]"
-                ></slot>
-                <template v-else>
-                  <span class="title">
-                    {{ schema.items.properties[item.prop].title }}
-                    <a-tooltip v-if="item.optionalHelp">
-                      <template #title>{{ item.optionalHelp }} </template>
-                      <QuestionCircleOutlined class="help" />
-                    </a-tooltip>
-                  </span>
-                </template>
-              </template>
+            <sf-item :ui="item" :schema="schema.items.properties[item.prop]">
               <component
                 :ui="item"
                 :schema="schema.items.properties[item.prop]"
                 :property="formData.properties[item.prop]"
                 :is="item.widget"
+                :ref="property.addWidget(formData.properties[item.prop].path)"
               ></component>
-            </a-form-item>
+            </sf-item>
           </a-col>
         </a-row>
         <div class="sf-array-item-del" @click="del(index)">
@@ -65,18 +34,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRaw } from "vue";
+import { defineComponent, toRef } from "vue";
 import { object } from "vue-types";
 import { ArrayProperty } from "../model/array.property";
 import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
-import QuestionCircleOutlined from "@ant-design/icons-vue/QuestionCircleOutlined";
+import SfItem from "./sf-item.vue";
 
 export default defineComponent({
   name: "sf-array",
   components: {
     DeleteOutlined,
-    QuestionCircleOutlined,
+    SfItem,
   },
   props: {
     property: object<ArrayProperty>().isRequired,
@@ -84,12 +53,13 @@ export default defineComponent({
     schema: object<ISFSchema>().isRequired,
   },
   setup(props) {
-    const property = toRaw(props.property);
+    const property = toRef(props, "property");
+
     const add = () => {
-      property.add({});
+      property.value.add({});
     };
     const del = (index: number) => {
-      property.remove(index);
+      property.value.remove(index);
     };
 
     return { add, del };

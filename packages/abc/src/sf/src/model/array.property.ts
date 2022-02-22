@@ -62,7 +62,10 @@ export class ArrayProperty extends PropertyGroup {
       formData,
       this as PropertyGroup
     ) as ObjectProperty;
-    (this.properties as FormProperty[]).push(newProperty);
+    (this.properties as FormProperty[]) = [
+      ...(this.properties as FormProperty[]),
+      newProperty,
+    ];
     return newProperty;
   }
 
