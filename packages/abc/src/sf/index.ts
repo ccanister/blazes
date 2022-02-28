@@ -5,6 +5,7 @@ import { getData, transMapToEnum } from "./src/util";
 import {
   AnyProperty,
   AtomicProperty,
+  ArrayProperty,
   BooleanProperty,
   FormProperty,
   NumberProperty,
@@ -27,6 +28,7 @@ export {
   formSymbol,
   AnyProperty,
   AtomicProperty,
+  ArrayProperty,
   BooleanProperty,
   FormProperty,
   NumberProperty,
