@@ -24,7 +24,9 @@ export class ArrayProperty extends PropertyGroup {
       return undefined;
     }
     const subPath = path.substr(subPathIdx + 1);
-    return list[pos].getProperty(subPath);
+    return list[pos] instanceof PropertyGroup
+      ? list[pos].getProperty(subPath)
+      : list[pos];
   }
 
   setValue(value: SFValue, onlySelf: boolean): void {
@@ -46,10 +48,14 @@ export class ArrayProperty extends PropertyGroup {
     const value: any[] = [];
     this.forEachChild((property: FormProperty) => {
       if (property.visible) {
-        value.push({
-          ...(this.widget?.cleanValue ? null : property.formData),
-          ...property.value,
-        });
+        if (property instanceof ObjectProperty) {
+          value.push({
+            ...property.formData,
+            ...property.value,
+          });
+        } else {
+          value.push(property.value);
+        }
       }
     });
     this._value = value;

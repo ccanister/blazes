@@ -12,17 +12,36 @@
         }"
       >
         <a-row class="sf-array-item-wrapper">
-          <a-col v-for="item in ui.$items" :key="item" :span="item.gutter.span">
-            <sf-item :ui="item" :schema="schema.items.properties[item.prop]">
-              <component
-                :ui="item"
-                :schema="schema.items.properties[item.prop]"
-                :property="formData.properties[item.prop]"
-                :is="item.widget"
-                :ref="property.addWidget(formData.properties[item.prop].path)"
-              ></component>
-            </sf-item>
-          </a-col>
+          <template v-if="ui.arrayIsSingle">
+            <a-col :span="ui.$items.gutter.span">
+              <sf-item :ui="ui.$items" :schema="schema.items">
+                <component
+                  :ui="ui.$items"
+                  :schema="schema.items"
+                  :property="formData"
+                  :is="ui.$items.widget"
+                  :ref="property.addWidget(formData.path)"
+                ></component>
+              </sf-item>
+            </a-col>
+          </template>
+          <template v-else>
+            <a-col
+              v-for="item in ui.$items"
+              :key="item"
+              :span="item.gutter.span"
+            >
+              <sf-item :ui="item" :schema="schema.items.properties[item.prop]">
+                <component
+                  :ui="item"
+                  :schema="schema.items.properties[item.prop]"
+                  :property="formData.properties[item.prop]"
+                  :is="item.widget"
+                  :ref="property.addWidget(formData.properties[item.prop].path)"
+                ></component>
+              </sf-item>
+            </a-col>
+          </template>
         </a-row>
         <div class="sf-array-item-del" @click="del(index)">
           <DeleteOutlined />
@@ -56,7 +75,11 @@ export default defineComponent({
     const property = toRef(props, "property");
 
     const add = () => {
-      property.value.add({});
+      if (props.ui.arrayIsSingle) {
+        property.value.add(props.schema.default);
+      } else {
+        property.value.add({});
+      }
     };
     const del = (index: number) => {
       property.value.remove(index);

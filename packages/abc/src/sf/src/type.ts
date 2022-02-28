@@ -27,6 +27,7 @@ export interface ISFUISchemaItem {
   labelAlign?: "left" | "right";
   hideRequiredMark?: boolean;
   forceHideLabel?: boolean;
+  arrayIsSingle?: boolean;
   [key: string]: any;
 }
 

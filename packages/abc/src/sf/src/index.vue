@@ -174,7 +174,18 @@ export default defineComponent({
               ...item.items.ui,
               gutter: { ...ui.gutter, ...item.items.ui?.gutter },
             };
-            inFn(item.items, itemsUI, ui["$items"]);
+            if (item.items.properties) {
+              inFn(item.items, itemsUI, ui["$items"]);
+            } else {
+              inFn(
+                { properties: { items: item.items } },
+                itemsUI,
+                ui["$items"]
+              );
+              // 重新赋值 todo 不是完美做法
+              item.ui!.$items = item.ui!.$items.$items;
+              item.ui!.arrayIsSingle = true;
+            }
           }
           if (item.properties && Object.keys(item.properties)) {
             if (ui.forceHideLabel) {

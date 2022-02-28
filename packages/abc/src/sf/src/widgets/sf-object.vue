@@ -20,7 +20,7 @@
               :is="item.ui.widget"
               :ref="property.addWidget(item.path)"
             ></component>
-            <template v-if="slots[item.ui.prop]" v-slot:[item.ui.prop]>
+            <template v-if="slots && slots[item.ui.prop]" v-slot:[item.ui.prop]>
               <v-nodes
                 :vnodes="renderSlot(slots[item.ui.prop], ui, item.schema)"
               />

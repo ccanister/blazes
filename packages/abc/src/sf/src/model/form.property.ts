@@ -1,4 +1,4 @@
-import { DefineComponent, shallowReactive } from "vue";
+import { DefineComponent, shallowReactive, toRaw } from "vue";
 import { computed, ref, Ref, watch } from "vue";
 import {
   ISFFormValueChange,
@@ -86,7 +86,8 @@ export abstract class FormProperty {
     options.updatePath = options.updatePath || this.path;
     options.updateValue =
       options.updateValue == null ? this.value : options.updateValue;
-    this._valueChanges.value = {
+    toRaw(this)._valueChanges.value = {
+      // property会被变成reactive响应式，导致value成了[key]值
       value: this.value,
       path: options.updatePath,
       pathValue: options.updateValue,
