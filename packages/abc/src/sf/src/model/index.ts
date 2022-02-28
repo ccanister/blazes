@@ -1,4 +1,5 @@
 export * from "./any.property";
+export * from "./array.property";
 export * from "./atomic.property";
 export * from "./boolean.property";
 export * from "./form.property";
