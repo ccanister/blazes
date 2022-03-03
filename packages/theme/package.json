@@ -1,11 +1,11 @@
 {
   "name": "@blazes/theme",
-  "version": "0.0.4-type.1",
+  "version": "0.0.5-type.1",
   "main": "dist/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
   "dependencies": {
-    "@blazes/utils": "^0.0.97-type.0",
+    "@blazes/utils": "^0.0.5-type.1",
     "ant-design-vue": "^2.1.2",
     "axios": "^0.21.1",
     "vue": "^3.0.0",
