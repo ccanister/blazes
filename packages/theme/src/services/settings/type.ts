@@ -20,4 +20,5 @@ export interface IProject {
   id: number;
   title: string;
   code?: string;
+  [key: string]: any;
 }
