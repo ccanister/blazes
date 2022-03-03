@@ -96,7 +96,7 @@ export class MenuService {
   }
 
   private getData(key: string) {
-    return JSON.parse(localStorage.getItem(key) || "null");
+    return JSON.parse(localStorage.getItem(key) || "false");
   }
 }
 
