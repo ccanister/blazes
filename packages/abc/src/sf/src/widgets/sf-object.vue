@@ -53,8 +53,7 @@ export default defineComponent({
     schema: object<ISFSchema>().isRequired,
     slots: object(),
   },
-  setup(props) {
-    const property = toRaw(props.property);
+  setup() {
     const renderSlot = (slot: any, ui: ISFUISchemaItem, schema: ISFSchema) => {
       return slot({ name: ui.prop, schema });
     };

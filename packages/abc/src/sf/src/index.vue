@@ -14,6 +14,7 @@
         :schema="schema"
         :property="rootProperty"
         :slots="$slots"
+        :ref="setRootRef"
       >
       </sf-object>
     </a-form>
@@ -270,6 +271,9 @@ export default defineComponent({
     const reset = () => {
       context.emit("formReset", form.value);
     };
+    const setRootRef = (widget: any) => {
+      rootProperty.value!.widget = widget;
+    };
 
     return {
       formRef,
@@ -280,6 +284,7 @@ export default defineComponent({
       searchProperty,
       addItem,
       rootProperty,
+      setRootRef,
     };
   },
 });

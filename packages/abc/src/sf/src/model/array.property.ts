@@ -23,10 +23,11 @@ export class ArrayProperty extends PropertyGroup {
     if (isNaN(pos) || pos >= list.length) {
       return undefined;
     }
+    if (subPathIdx === -1) {
+      return list[pos];
+    }
     const subPath = path.substr(subPathIdx + 1);
-    return list[pos] instanceof PropertyGroup
-      ? list[pos].getProperty(subPath)
-      : list[pos];
+    return list[pos].getProperty(subPath);
   }
 
   setValue(value: SFValue, onlySelf: boolean): void {

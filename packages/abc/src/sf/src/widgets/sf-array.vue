@@ -26,21 +26,12 @@
             </a-col>
           </template>
           <template v-else>
-            <a-col
-              v-for="item in ui.$items"
-              :key="item"
-              :span="item.gutter.span"
-            >
-              <sf-item :ui="item" :schema="schema.items.properties[item.prop]">
-                <component
-                  :ui="item"
-                  :schema="schema.items.properties[item.prop]"
-                  :property="formData.properties[item.prop]"
-                  :is="item.widget"
-                  :ref="property.addWidget(formData.properties[item.prop].path)"
-                ></component>
-              </sf-item>
-            </a-col>
+            <sf-object
+              :property="formData"
+              :schema="ui.$items"
+              :ui="ui"
+              :ref="property.addWidget(formData.path)"
+            />
           </template>
         </a-row>
         <div class="sf-array-item-del" @click="del(index)">
@@ -59,12 +50,14 @@ import { ArrayProperty } from "../model/array.property";
 import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import SfItem from "./sf-item.vue";
+import SfObject from "./sf-object.vue";
 
 export default defineComponent({
   name: "sf-array",
   components: {
     DeleteOutlined,
     SfItem,
+    SfObject,
   },
   props: {
     property: object<ArrayProperty>().isRequired,

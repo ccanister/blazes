@@ -226,6 +226,9 @@ export abstract class PropertyGroup extends FormProperty {
       return;
     }
     const formProperty = this.searchProperty(`${prop}`)!;
+    if (!formProperty) {
+      return;
+    }
     formProperty.widget = widget;
   };
 }
