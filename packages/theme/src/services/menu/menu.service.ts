@@ -61,7 +61,7 @@ export class MenuService {
         }
       });
       if (!recursive) {
-        return null;
+        return item;
       }
 
       if (/[?;]/g.test(url)) {
