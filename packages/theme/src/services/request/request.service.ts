@@ -55,14 +55,9 @@ export class RequestService {
   private addDeDuplication() {
     const instance = this.instance;
     instance.interceptors.request.use((config) => {
-      const { url, method, data, params } = config;
       config.cancelToken = new this.CancelToken((c) => {
         this.findInQueue({
-          info: `${url}_${method}_${
-            method === "post" || method === "put"
-              ? JSON.stringify(data || {})
-              : JSON.stringify(params || {})
-          }`,
+          info: `${this.getQueueKey(config)}`,
           c,
         });
       });
@@ -71,23 +66,32 @@ export class RequestService {
     });
     instance.interceptors.response.use(
       (response: AxiosResponse<any>) => {
-        const { url, method } = response.config;
         this.removeQueue({
-          info: `${url}_${method}`,
+          info: `${this.getQueueKey(response.config)}`,
         });
 
         return response;
       },
       (error) => {
-        // 遗留问题、超时时拿不到响应对象，就无法删除 theQueue 队列
-        const { url, method } = (error.response && error.response.config) || {};
-        this.removeQueue({
-          info: `${url}_${method}`,
-        });
+        if (error.response && error.response.config) {
+          // 遗留问题、超时时拿不到响应对象，就无法删除 theQueue 队列
+          this.removeQueue({
+            info: `${this.getQueueKey(error.response.config)}`,
+          });
+        }
 
         return Promise.reject(error);
       }
     );
+  }
+
+  private getQueueKey(config: AxiosRequestConfig) {
+    const { url, method, data, params } = config;
+    return `${url}_${method}_${
+      method === "post" || method === "put"
+        ? JSON.stringify(data || {})
+        : JSON.stringify(params || {})
+    }`;
   }
 
   private findInQueue(requestInfo: any) {
