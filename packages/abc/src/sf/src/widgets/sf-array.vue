@@ -14,7 +14,11 @@
         <a-row class="sf-array-item-wrapper">
           <template v-if="ui.arrayIsSingle">
             <a-col :span="ui.$items.gutter.span">
-              <sf-item :ui="ui.$items" :schema="schema.items">
+              <sf-item
+                :ui="ui.$items"
+                :schema="schema.items"
+                :property="formData"
+              >
                 <component
                   :ui="ui.$items"
                   :schema="schema.items"

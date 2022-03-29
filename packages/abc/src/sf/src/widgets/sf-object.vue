@@ -12,7 +12,7 @@
           :class="{ hideFlex: item.ui.gutter.spanLabelFixed }"
           v-if="item._visibilityChanges && !item.ui.hidden"
         >
-          <sf-item :ui="item.ui" :schema="item.schema">
+          <sf-item :ui="item.ui" :schema="item.schema" :property="item">
             <component
               :ui="item.ui"
               :schema="item.schema"

@@ -1,6 +1,6 @@
 <template>
   <a-form-item
-    :name="ui.prop"
+    :name="rulePaths"
     :rules="ui.rules"
     :class="ui.class"
     :style="{ width: ui.gutter.controlWidth }"
@@ -35,6 +35,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { object } from "vue-types";
+import { FormProperty } from "../model";
 import { ISFSchema, ISFUISchemaItem } from "../type";
 
 export default defineComponent({
@@ -42,9 +43,13 @@ export default defineComponent({
   props: {
     ui: object<ISFUISchemaItem>().isRequired,
     schema: object<ISFSchema>().isRequired,
+    property: object<FormProperty>().isRequired,
   },
-  setup() {
-    return {};
+  setup(props) {
+    const path = props.property.path.slice(1);
+    const rulePaths = path.split("/");
+
+    return { rulePaths };
   },
 });
 </script>
