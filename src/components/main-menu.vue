@@ -54,7 +54,8 @@ export default defineComponent({
 
 <style scoped lang="less">
 .main-menu-wrapper {
-  height: 100%;
+  height: 100vh;
+  overflow-y: auto;
   .ant-menu {
     :deep(.ant-menu-item-group) {
       .ant-menu-item-group-title,
