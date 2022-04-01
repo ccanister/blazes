@@ -26,7 +26,8 @@
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "analyze": "webpack --mode=production",
     "build": "rollup -c && yarn build:rollup-component && yarn build:type",
-    "build:rollup-component": "rollup -c component.rollup.config.js"
+    "build:rollup-component": "rollup -c component.rollup.config.js",
+    "build:rollup-jsdeliver": "rollup -c jsdeliver.rollup.config.js"
   },
   "publishConfig": {
     "access": "public"

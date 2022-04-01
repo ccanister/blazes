@@ -23,6 +23,7 @@
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "build:theme": "webpack --config style.webpack.config.js",
     "build": "rollup -c",
+    "build:rollup-jsdeliver": "rollup -c jsdeliver.rollup.config.js",
     "analyze": "webpack"
   },
   "publishConfig": {
