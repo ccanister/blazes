@@ -98,6 +98,12 @@ export class ModalHelper {
       config.onCancel?.();
       (instance.component!.proxy as any).sVisible = false;
       setTimeout(() => {
+        // um 代表 unMounted 因为无法导入LifeCycle枚举
+        if (content.component?.um) {
+          content.component.um.forEach((func: () => void) => {
+            func();
+          });
+        }
         document.body.removeChild(container);
         resolveAfterClose(result instanceof Event ? null : result);
       }, 200);
