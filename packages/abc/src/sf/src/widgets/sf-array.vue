@@ -51,7 +51,11 @@
 import { defineComponent, toRef } from "vue";
 import { object } from "vue-types";
 import { ArrayProperty } from "../model/array.property";
-import { ISFSchema, ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import {
+  ISFSchema,
+  ISFUISchemaItem,
+  SFValue,
+} from "@blazes/abc/lib/sf/src/type";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import SfItem from "./sf-item.vue";
 import SfObject from "./sf-object.vue";
@@ -81,8 +85,14 @@ export default defineComponent({
     const del = (index: number) => {
       property.value.remove(index);
     };
+    const reset = (value: SFValue) => {
+      property.value.properties = [];
+      (value || []).forEach((v: SFValue) => {
+        property.value.add(v);
+      });
+    };
 
-    return { add, del };
+    return { add, del, reset };
   },
 });
 </script>

@@ -72,6 +72,7 @@ import { object } from "vue-types";
 import { FormPropertyFactory } from "./model/form.property.factory";
 import { FormProperty } from "./model/form.property";
 import { deepCopy } from "@blazes/utils";
+import { resetData } from "./util";
 
 export default defineComponent({
   name: "sf",
@@ -244,16 +245,7 @@ export default defineComponent({
     watch(
       () => props.formData as any,
       (data) => {
-        if (!data) {
-          return;
-        }
-        Object.keys(data).forEach((prop) => {
-          const formProperty = rootProperty.value!.searchProperty(`/${prop}`)!;
-          if (!formProperty) {
-            return;
-          }
-          formProperty.widget?.reset(data[prop]);
-        });
+        resetData(data, rootProperty.value!);
       }
     );
 

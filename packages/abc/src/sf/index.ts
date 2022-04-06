@@ -1,7 +1,7 @@
 import { App } from "vue";
 import sf from "./src/index.vue";
 import { formRefSymbol, formSymbol } from "./src/type";
-import { getData, transMapToEnum } from "./src/util";
+import { getData, transMapToEnum, resetData } from "./src/util";
 import {
   AnyProperty,
   AtomicProperty,
@@ -24,6 +24,7 @@ export default _sf;
 export {
   getData,
   transMapToEnum,
+  resetData,
   formRefSymbol,
   formSymbol,
   AnyProperty,

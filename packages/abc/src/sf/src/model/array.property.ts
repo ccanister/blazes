@@ -94,7 +94,6 @@ export class ArrayProperty extends PropertyGroup {
     list.splice(index, 1);
     list.forEach((property, idx) => {
       property.path = [property.parent!.path, idx].join(SF_SEQ);
-      // TODO: 受限于 sf 的设计思路，对于移除数组项需要重新对每个子项进行校验，防止错误被父级合并后引起始终是错误的现象
       if (property instanceof ObjectProperty) {
         property.forEachChild((p) => {
           p.updateValueAndValidity();

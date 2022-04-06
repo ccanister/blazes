@@ -104,7 +104,7 @@ export abstract class FormProperty {
 
   /** 根据路径搜索表单属性 */
   searchProperty(path: string): FormProperty | null {
-    let prop: FormProperty = this;
+    let prop: FormProperty | null = this;
     let base: PropertyGroup | null = null;
 
     let result = null;
@@ -112,9 +112,10 @@ export abstract class FormProperty {
       base = this.root;
       result = base.getProperty(path.substring(1));
     } else {
-      while (result === null && prop.parent !== null) {
-        prop = base = prop.parent;
+      while (result === null && prop !== null) {
+        base = prop as PropertyGroup;
         result = base.getProperty(path);
+        prop = prop.parent;
       }
     }
     return result!;

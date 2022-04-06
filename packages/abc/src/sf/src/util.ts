@@ -1,5 +1,6 @@
 import { deepCopy } from "@blazes/utils";
-import { ISFSchema, ISFSchemaEnum, ISFUISchemaItem } from "./type";
+import { FormProperty } from "./model";
+import { ISFSchema, ISFSchemaEnum, ISFUISchemaItem, SFValue } from "./type";
 
 export function isBlank(o: any): boolean {
   return o == null;
@@ -58,4 +59,17 @@ export function transMapToEnum(map: { [key: string]: any }): ISFSchemaEnum[] {
     label: map[key],
     value: key,
   }));
+}
+
+export function resetData(value: SFValue, property: FormProperty) {
+  Object.keys(value || {}).forEach((prop) => {
+    const formProperty = property.searchProperty(`${prop}`)!;
+    if (!formProperty) {
+      return;
+    }
+    const widget = formProperty.widget;
+    if (widget?.reset) {
+      widget.reset(value[prop]);
+    }
+  });
 }

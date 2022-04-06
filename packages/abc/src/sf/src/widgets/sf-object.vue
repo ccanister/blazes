@@ -33,11 +33,11 @@
 </template>
 
 <script lang="ts">
-import { ISFSchema, ISFUISchemaItem } from "../type";
+import { ISFSchema, ISFUISchemaItem, SFValue } from "../type";
 import { defineComponent, toRaw } from "vue";
 import { object } from "vue-types";
-import { ObjectProperty } from "../model";
 import SfItem from "./sf-item.vue";
+import { resetData, FormProperty, ObjectProperty } from "@blazes/abc/src/sf";
 
 export default defineComponent({
   name: "sf-object",
@@ -53,12 +53,17 @@ export default defineComponent({
     schema: object<ISFSchema>().isRequired,
     slots: object(),
   },
-  setup() {
+  setup(props) {
+    const property = toRaw(props.property);
+
     const renderSlot = (slot: any, ui: ISFUISchemaItem, schema: ISFSchema) => {
       return slot({ name: ui.prop, schema });
     };
+    const reset = (value: SFValue) => {
+      resetData(value, property as FormProperty);
+    };
 
-    return { renderSlot };
+    return { renderSlot, reset };
   },
 });
 </script>
