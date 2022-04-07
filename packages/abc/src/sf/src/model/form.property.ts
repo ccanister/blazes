@@ -132,7 +132,7 @@ export abstract class FormProperty {
     const propertiesBinding: Array<Ref<boolean>> = [];
     for (const dependencyPath in visibleIf) {
       if (Object.hasOwnProperty.call(visibleIf, dependencyPath)) {
-        const property = this.searchProperty(dependencyPath);
+        const property = this.parent?.searchProperty(dependencyPath);
         if (property) {
           const visibleCheck = computed(() => {
             if (!property._visibilityChanges.value) {
