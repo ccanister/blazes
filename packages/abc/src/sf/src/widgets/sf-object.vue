@@ -37,7 +37,7 @@ import { ISFSchema, ISFUISchemaItem, SFValue } from "../type";
 import { defineComponent, toRaw } from "vue";
 import { object } from "vue-types";
 import SfItem from "./sf-item.vue";
-import { resetData, FormProperty, ObjectProperty } from "@blazes/abc/src/sf";
+import { resetData, FormProperty, ObjectProperty } from "@blazes/abc/lib/sf";
 
 export default defineComponent({
   name: "sf-object",
