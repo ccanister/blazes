@@ -35,7 +35,7 @@ const ui = {
       $b: { spanLabel: 10 }
     },
     spanLabel: 5,
-    grid: { arraySpan: 12 }
+    gutter: { arraySpan: 12 }
   }
 };
 ```
