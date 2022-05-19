@@ -180,7 +180,11 @@ export default class STDataSource {
       ...(first && req.firstParams ? req.firstParams : {}),
     };
 
-    return instance.get(url, { params, headers: req.headers });
+    return instance.get(url, {
+      params,
+      headers: req.headers,
+      ...(req.config || {}),
+    });
   }
 
   private getReqSortMap(columns: ISTColumn[]): { [key: string]: string } {

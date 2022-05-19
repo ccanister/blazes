@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 export interface ISTData {
   checked?: boolean;
   disabled?: boolean;
@@ -113,6 +115,7 @@ export interface ISTReq {
   headers?: any;
   reName?: ISTReqReNameType; // 重命名pi和ps
   firstParams?: any; // 只在第一次传入的参数
+  config?: AxiosRequestConfig;
 }
 
 export interface ISTDataSourceOption {
