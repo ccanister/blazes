@@ -5,6 +5,7 @@
       :disabledDate="ui.disabledDate"
       :separator="ui.separator"
       :format="ui.format"
+      :locale="ui.locale"
       @change="changeValue"
     />
   </div>
