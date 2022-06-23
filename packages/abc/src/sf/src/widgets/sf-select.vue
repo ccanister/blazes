@@ -13,16 +13,9 @@
       :notFoundContent="ui.notFoundContent"
       :showSearch="ui.showSearch"
       :filterOption="ui.filterOption"
+      :options="list"
       @change="changeValue"
     >
-      <a-select-option
-        v-for="item in list"
-        :key="item.value"
-        :value="item.value"
-        :disabled="list.disabled"
-      >
-        {{ item.label }}
-      </a-select-option>
     </a-select>
   </div>
 </template>
