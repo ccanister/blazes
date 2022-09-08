@@ -1,6 +1,6 @@
 {
   "name": "@blazes/theme",
-  "version": "0.1.18-type.0",
+  "version": "0.1.19-type.0",
   "main": "dist/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
@@ -29,5 +29,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "35765a2472c8e10bd82cc31d0a4e9c6c771f18e9"
+  "gitHead": "0f27e94a9669e504cef8dc79951e5cfa06a04c3c"
 }

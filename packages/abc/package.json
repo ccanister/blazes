@@ -1,6 +1,6 @@
 {
   "name": "@blazes/abc",
-  "version": "0.1.18-type.0",
+  "version": "0.1.19-type.0",
   "main": "lib/index.js",
   "jsdelivr": "dist/index.jsdelivr.js",
   "license": "MIT",
@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@blazes/theme": "^0.1.18-type.0",
+    "@blazes/theme": "^0.1.19-type.0",
     "@blazes/utils": "^0.1.1-type.0",
     "ant-design-vue": "^2.1.2",
     "vue": "^3.0.0",
@@ -32,5 +32,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "7a3be0532d7137949dee8654d4875e7265b1d3ed"
+  "gitHead": "0f27e94a9669e504cef8dc79951e5cfa06a04c3c"
 }
