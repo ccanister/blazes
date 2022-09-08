@@ -35,13 +35,6 @@ export class SettingService {
   }
 
   get user() {
-    if (!this._user) {
-      this._user = {
-        ...this.getData(USER_KEY),
-      };
-      this.setData(USER_KEY, this._user);
-    }
-
     return this._user as IUser;
   }
 
@@ -73,7 +66,6 @@ export class SettingService {
 
   setUser(user: IUser) {
     this._user = user;
-    this.setData(USER_KEY, user);
   }
 
   setProject(project: IProject) {
@@ -95,4 +87,3 @@ export class SettingService {
 }
 
 export const settingService = new SettingService();
-
