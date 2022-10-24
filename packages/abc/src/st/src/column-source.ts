@@ -27,7 +27,8 @@ export default class STColumnSource {
     const copyColumns = deepCopy(columns) as ISTColumn[];
     const result: ISTColumn[] = [];
     let position = parent ? parent._index! + 1 : 0;
-    copyColumns.forEach((item, index) => {
+    let index = 0;
+    copyColumns.forEach((item) => {
       if (item.iif && !item.iif(item)) {
         return;
       }
@@ -49,6 +50,7 @@ export default class STColumnSource {
       item._key =
         item.key ||
         `${item.index}` + `${item.render}` + item.title + item.renderTitle;
+      index++;
       result.push(item);
     });
 
