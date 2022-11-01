@@ -180,7 +180,7 @@ export default class STDataSource {
       ...(first && req.firstParams ? req.firstParams : {}),
     };
 
-    return instance.get(url, {
+    return (options.instance || instance).get(url, {
       params,
       headers: req.headers,
       ...(req.config || {}),

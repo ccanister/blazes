@@ -465,6 +465,7 @@ export default defineComponent({
     rowSelection: Object,
     rowClassName: Function,
     size: String,
+    instance: Function,
   },
   components: {
     LoadingOutlined,
@@ -518,6 +519,7 @@ export default defineComponent({
           paginator: true,
           columns: columns$.value,
           first,
+          instance: props.instance as any,
         })
         .then((result) => {
           loading.value = false;

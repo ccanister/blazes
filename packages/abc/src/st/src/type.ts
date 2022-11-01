@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export interface ISTData {
   checked?: boolean;
@@ -129,6 +129,7 @@ export interface ISTDataSourceOption {
   res: ISTRes;
   page: ISTPage;
   first: boolean;
+  instance?: AxiosInstance;
 }
 
 export interface ISTDataSourceResult {
