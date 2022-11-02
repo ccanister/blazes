@@ -6,6 +6,7 @@
       :separator="ui.separator"
       :format="ui.format"
       :locale="ui.locale"
+      :show-time="ui.showTime"
       @change="changeValue"
     />
   </div>
