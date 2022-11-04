@@ -31,7 +31,7 @@ export class MenuService {
       this.addMenuKey(menu.children, key, menu);
     });
 
-    return menus;
+    return [...menus];
   }
 
   // recursive 向上查找

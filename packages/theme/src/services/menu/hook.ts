@@ -30,7 +30,7 @@ export function useCollapse(
     }
   });
 
-  onMounted(() => {
+  const resetActive = () => {
     const menu = menuService.getHit(route.path, true);
     active.value = [menu?.key || ""];
     const openKey = menu ? [menu._parent?.key || ""] : [""];
@@ -39,6 +39,16 @@ export function useCollapse(
     } else {
       opened.value = openKey;
     }
+  };
+
+  onMounted(() => {
+    watch(
+      menuService.menus,
+      () => {
+        resetActive();
+      },
+      { immediate: true }
+    );
   });
 
   return { active, opened };
