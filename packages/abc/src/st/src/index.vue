@@ -23,6 +23,7 @@
       :rowClassName="rowClassName"
       :row-selection="rowSelection"
       :size="size"
+      @expand="expand"
     >
       <template #title v-if="$slots.title">
         <slot name="title"></slot>
@@ -474,7 +475,7 @@ export default defineComponent({
     DeleteOutlined,
     FilterOutlined,
   },
-  emits: { change: null },
+  emits: { change: null, expand: null },
   setup(props, { emit }) {
     const stConfig = configService.merge("st", DEFAULT_CONFIG)!;
     // 依赖
@@ -698,6 +699,10 @@ export default defineComponent({
       load(current);
     };
 
+    const expand = (expanded: boolean, record: ISTData) => {
+      emit("expand", expanded, record);
+    };
+
     return {
       loading,
       columns$,
@@ -718,6 +723,7 @@ export default defineComponent({
       handleCheckPart,
       changeTable,
       reloadCurrent,
+      expand,
     };
   },
 });
