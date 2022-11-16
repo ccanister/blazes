@@ -77,6 +77,7 @@ export default defineComponent({
     const girdSpan = ui.span;
     const checkAll = ui.checkAll;
     const checkAllText = ui.checkAllText || "全选";
+    const transKey = ui.transKey || "label";
     const all = useChecked<ISFSchemaEnum>([]);
     const list: Ref<any[]> = ref([]);
     getData(schema, ui, model.value).then((result) => {
@@ -91,7 +92,7 @@ export default defineComponent({
       property.setValue(model.value);
     };
     const updateModel = () => {
-      model.value = list.value.filter((l) => l.checked).map((l) => l.label);
+      model.value = list.value.filter((l) => l.checked).map((l) => l[transKey]);
       changeValue();
     };
 
