@@ -67,9 +67,11 @@ export function resetData(value: SFValue, property: FormProperty) {
     if (!formProperty) {
       return;
     }
-    const widget = formProperty.widget;
-    if (widget?.reset) {
-      widget.reset(value[prop]);
-    }
+    setTimeout(() => {
+      const widget = formProperty.widget;
+      if (widget?.reset) {
+        widget.reset(value[prop]);
+      }
+    });
   });
 }
