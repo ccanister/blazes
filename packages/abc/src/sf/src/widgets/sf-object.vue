@@ -2,31 +2,36 @@
   <div class="sf-object">
     <a-row>
       <template v-for="item in property.properties" :key="item">
-        <a-col
-          :span="item.ui.gutter.span"
-          :style="{
-            width: item.ui.gutter.spanLabelFixed
-              ? item.ui.gutter.spanLabelFixed + 'px'
-              : 'auto',
-          }"
-          :class="{ hideFlex: item.ui.gutter.spanLabelFixed }"
-          v-if="item._visibilityChanges && !item.ui.hidden"
-        >
-          <sf-item :ui="item.ui" :schema="item.schema" :property="item">
-            <component
-              :ui="item.ui"
-              :schema="item.schema"
-              :property="item"
-              :is="item.ui.widget"
-              :ref="property.addWidget(item.path)"
-            ></component>
-            <template v-if="slots && slots[item.ui.prop]" v-slot:[item.ui.prop]>
-              <v-nodes
-                :vnodes="renderSlot(slots[item.ui.prop], ui, item.schema)"
-              />
-            </template>
-          </sf-item>
-        </a-col>
+        <template v-if="item._visibilityChanges">
+          <a-col
+            :span="item.ui.gutter.span"
+            :style="{
+              width: item.ui.gutter.spanLabelFixed
+                ? item.ui.gutter.spanLabelFixed + 'px'
+                : 'auto',
+            }"
+            :class="{ hideFlex: item.ui.gutter.spanLabelFixed }"
+            v-show="!item.ui.hidden"
+          >
+            <sf-item :ui="item.ui" :schema="item.schema" :property="item">
+              <component
+                :ui="item.ui"
+                :schema="item.schema"
+                :property="item"
+                :is="item.ui.widget"
+                :ref="property.addWidget(item.path)"
+              ></component>
+              <template
+                v-if="slots && slots[item.ui.prop]"
+                v-slot:[item.ui.prop]
+              >
+                <v-nodes
+                  :vnodes="renderSlot(slots[item.ui.prop], ui, item.schema)"
+                />
+              </template>
+            </sf-item>
+          </a-col>
+        </template>
       </template>
     </a-row>
   </div>
