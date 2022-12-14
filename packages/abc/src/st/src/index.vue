@@ -23,7 +23,8 @@
       :rowClassName="rowClassName"
       :row-selection="rowSelection"
       :size="size"
-      @expand="expand"
+      :expandIconColumnIndex="expandIconColumnIndex"
+      :expandedRowKeys="expandedRowKeys"
     >
       <template #title v-if="$slots.title">
         <slot name="title"></slot>
@@ -411,11 +412,17 @@
           name="expandedRowRender"
         ></slot>
       </template>
+      <template #expandIcon="row">
+        <span class="st-expand-icon" @click="clickExpand(row)">
+          <DownOutlined v-if="row.expanded" />
+          <RightOutlined v-else />
+        </span>
+      </template>
     </a-table>
   </div>
 </template>
 <script lang="ts">
-import { configService, useRefs } from "@blazes/utils";
+import { configService } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -444,6 +451,7 @@ import DownOutlined from "@ant-design/icons-vue/DownOutlined";
 import EditOutlined from "@ant-design/icons-vue/EditOutlined";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 import FilterOutlined from "@ant-design/icons-vue/FilterOutlined";
+import RightOutlined from "@ant-design/icons-vue/RightOutlined";
 import message from "ant-design-vue/es/message";
 import { useRouter } from "vue-router";
 import { array } from "vue-types";
@@ -467,6 +475,7 @@ export default defineComponent({
     rowClassName: Function,
     size: String,
     instance: Function,
+    expandIconColumnIndex: Number,
   },
   components: {
     LoadingOutlined,
@@ -474,6 +483,7 @@ export default defineComponent({
     EditOutlined,
     DeleteOutlined,
     FilterOutlined,
+    RightOutlined,
   },
   emits: { change: null, expand: null },
   setup(props, { emit }) {
@@ -699,8 +709,27 @@ export default defineComponent({
       load(current);
     };
 
-    const expand = (expanded: boolean, record: ISTData) => {
-      emit("expand", expanded, record);
+    const expandedRowKeys: Ref<any[]> = ref([]);
+
+    const clickExpand = (row: {
+      expanded: boolean;
+      expandable: boolean;
+      record: ISTData;
+    }) => {
+      if (!row.expandable) {
+        return;
+      }
+      if (row.expanded) {
+        expandedRowKeys.value = expandedRowKeys.value.filter(
+          (e) => e !== row.record[props.rowKey!]
+        );
+      } else {
+        expandedRowKeys.value = [
+          ...expandedRowKeys.value,
+          row.record[props.rowKey!],
+        ];
+      }
+      emit("expand", row.expanded, row.record);
     };
 
     return {
@@ -723,7 +752,8 @@ export default defineComponent({
       handleCheckPart,
       changeTable,
       reloadCurrent,
-      expand,
+      clickExpand,
+      expandedRowKeys,
     };
   },
 });
@@ -764,6 +794,11 @@ export default defineComponent({
         }
       }
     }
+  }
+  &-expand-icon {
+    font-size: 12px;
+    color: #6f757b;
+    cursor: pointer;
   }
 }
 </style>
