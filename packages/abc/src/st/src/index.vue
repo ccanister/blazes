@@ -413,7 +413,11 @@
         ></slot>
       </template>
       <template #expandIcon="row">
-        <span class="st-expand-icon" @click="clickExpand(row)">
+        <span
+          v-if="row.expandable"
+          class="st-expand-icon"
+          @click="clickExpand(row)"
+        >
           <DownOutlined v-if="row.expanded" />
           <RightOutlined v-else />
         </span>
