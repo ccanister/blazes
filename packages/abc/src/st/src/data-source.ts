@@ -93,22 +93,23 @@ export default class STDataSource {
         data$ = data$.then((result) => res.process!(result, rawData));
       }
 
-      data$ = data$.then((result) => {
+      data$ = data$.then(async (result) => {
         const resultOffset = ((retPi || pi) - 1) * (retPs || ps);
         for (let i = 0, len = result.length; i < len; i++) {
           const realIndex = resultOffset + i + 1;
-          result[i]._values = columns.reduce(
-            (tmpResult: any[], column, index) => {
-              tmpResult.push(this.get(result[i], column, index, realIndex));
-              if (column.children) {
-                column.children.forEach((child) => {
-                  tmpResult.push(this.get(result[i], child, index, realIndex));
-                });
+          const tmpResult: any[] = [];
+          for (let j = 0; j < columns.length; j++) {
+            const column = columns[j];
+            tmpResult.push(await this.get(result[i], column, j, realIndex));
+            if (column.children) {
+              // 循环子节点
+              for (let k = 0; k < column.children.length; k++) {
+                const child = columns[k];
+                tmpResult.push(await this.get(result[i], child, j, realIndex));
               }
-              return tmpResult;
-            },
-            []
-          );
+            }
+          }
+          result[i]._values = tmpResult;
         }
 
         return result;
@@ -129,15 +130,17 @@ export default class STDataSource {
     });
   }
 
-  private get(
+  private async get(
     item: ISTData,
     column: ISTColumn,
     index: number,
     realIndex: number
-  ): { text: any; org: any; color?: string } {
+  ): Promise<{ text: any; org: any; color?: string }> {
     if (column.format) {
       const formatRes = column.format(item, column, index, realIndex);
-      return { text: formatRes || "", org: formatRes };
+      const promise =
+        formatRes instanceof Promise ? formatRes : Promise.resolve(formatRes);
+      return promise.then((res) => ({ text: res || "", org: res }));
     }
     const value = deepGet(item, column.index, column.default);
     let text = value;

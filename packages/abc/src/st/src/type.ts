@@ -58,7 +58,7 @@ export interface ISTColumn {
     column: ISTColumn,
     index: number,
     realIndex: number
-  ) => string;
+  ) => string | Promise<string>;
   iif?: (column: ISTColumn) => boolean;
   noIndex?: number;
   indexKey?: string;
