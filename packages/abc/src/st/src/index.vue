@@ -426,7 +426,7 @@
   </div>
 </template>
 <script lang="ts">
-import { configService } from "@blazes/utils";
+import { configService, objIsEmpty } from "@blazes/utils";
 import {
   computed,
   defineComponent,
@@ -693,12 +693,12 @@ export default defineComponent({
           ...getBasicChangeInfo(),
         });
       }
-      if (sort) {
+      if (sort && !objIsEmpty(sort)) {
         const { order, column } = sort;
         columns$.value.forEach((c) => {
           c.sorter = {
             ...c.sorter,
-            default: c._key === column?.key ? order : undefined,
+            default: c._index === column?.key ? order : undefined,
           } as ISTColumnsSort;
         });
         emit("change", {
