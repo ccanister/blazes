@@ -733,7 +733,7 @@ export default defineComponent({
           row.record[props.rowKey!],
         ];
       }
-      emit("expand", row.expanded, row.record);
+      emit("expand", !row.expanded, row.record);
     };
 
     return {
