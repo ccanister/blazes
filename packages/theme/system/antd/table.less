@@ -1,0 +1,44 @@
+.ant-table {
+  &-body {
+    .ant-table-thead {
+      & > tr {
+        & > th {
+          border-top: 1px solid @border-color-base;
+          color: @text-color-secondary;
+        }
+      }
+      & > tr:first-child > th:first-child {
+        border-top-left-radius: @modal-radius;
+        border-bottom-left-radius: @modal-radius;
+        border-left: 1px solid @border-color-base;
+      }
+      & > tr:first-child > th:last-child {
+        border-top-right-radius: @modal-radius;
+        border-bottom-right-radius: @modal-radius;
+        border-right: 1px solid @border-color-base;
+      }
+      &::after {
+        content: "@";
+        display: block;
+        line-height: @layout-gutter;
+        text-indent: -99999px;
+        background: transparent;
+      }
+    }
+    .ant-table-tbody {
+      & > tr {
+        &:first-child > td {
+          border-top: 1px solid @border-color-base;
+        }
+      }
+    }
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      padding: 12px;
+    }
+
+    .anticon-filter {
+      color: @text-color-secondary;
+    }
+  }
+}

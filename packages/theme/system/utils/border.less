@@ -1,5 +1,4 @@
-@border-color: @border-color-split;
-@border-grids: sm @border-radius-sm, md @border-radius-md, lg @border-radius-lg;
+@border-color: @border-color-base;
 
 /**
  * `1px` 边框
@@ -25,9 +24,11 @@
   .border-left-@{adIndex}   { border-left: @css-value !important; }
 });
 
-.border-white {
-  border-color: #fff !important;
+.border-transparent {
+  border-color: transparent !important;
 }
+
+@border-grids: 3 @border-radius-base, 6 @card-radius, 8 @modal-radius;
 
 // Border-radius
 .for-each(@border-grids, {

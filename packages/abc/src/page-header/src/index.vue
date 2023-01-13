@@ -15,29 +15,6 @@
         </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
-    <div class="detail">
-      <div v-if="$slots.logo" class="logo">
-        <slot name="logo"></slot>
-      </div>
-      <div class="main">
-        <div class="row">
-          <slot name="title" :title="title">
-            <h1 class="title">{{ title$ }}</h1>
-          </slot>
-          <div v-if="$slots.action" class="action">
-            <slot name="action"></slot>
-          </div>
-        </div>
-        <div class="row">
-          <div class="desc" v-if="$slots.default">
-            <slot></slot>
-          </div>
-          <div v-if="$slots.extra" class="extra">
-            <slot name="extra"></slot>
-          </div>
-        </div>
-      </div>
-    </div>
     <slot name="tab"></slot>
   </div>
 </template>
@@ -77,51 +54,10 @@ export default defineComponent({
   margin-bottom: 24px;
   margin-left: -24px;
   margin-right: -24px;
-  border-bottom: 1px solid #ebeef5;
+  border-bottom: 1px solid #dee0e3;
   background-color: #fff;
   .breadcrumb {
-    margin-bottom: 16px;
-  }
-  .detail {
-    display: flex;
-    .logo {
-      margin: 0 16px 16px 0;
-      flex: 0 1 auto;
-      :deep(img) {
-        display: block;
-        width: 28px;
-        height: 28px;
-        border-radius: 2px;
-      }
-    }
-    .main {
-      width: 100%;
-      flex: 0 1 auto;
-      .title {
-        margin: 0 0 16px 0;
-        flex: auto;
-        color: rgba(0, 0, 0, 0.85);
-        font-weight: 500;
-        font-size: 20px;
-      }
-      .action {
-        margin-bottom: 16px;
-        flex: 0 1 auto;
-        text-align: right;
-      }
-      .desc {
-        margin-bottom: 16px;
-        flex: auto;
-      }
-      .extra {
-        min-width: 240px;
-        margin: 0 0 16px 88px;
-        flex: 0 1 auto;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-      }
-    }
+    margin-bottom: 12px;
   }
   .row {
     display: flex;

@@ -1,22 +1,6 @@
 @import '~ant-design-vue/es/style/themes/default.less';
 @import './mixins/index.less';
 
-@white: #fff;
-@black: #000;
-
-// grey
-@grey-1: #ffffff;
-@grey-2: #fafafa;
-@grey-3: #f5f5f5;
-@grey-4: #e8e8e8;
-@grey-5: #d9d9d9;
-@grey-6: #bfbfbf;
-@grey-7: #8c8c8c;
-@grey-8: #595959;
-@grey-9: #262626;
-@grey-10: #000000;
-
-
 // Layout Gutter
 @layout-gutter: 8px;
 
@@ -26,11 +10,11 @@
 @lg:    @layout-gutter * 3;
 
 @grid-breakpoints:
-    xs @screen-xs,
-    sm @screen-sm,
-    md @screen-md,
-    lg @screen-lg,
-    xl @screen-xl;
+    xs @screen-xs,  // 480px
+    sm @screen-sm,  // 576px
+    md @screen-md,  // 768px
+    lg @screen-lg,  // 992px
+    xl @screen-xl;  // 1200px
 
 @mobile-min: @screen-md-min;    // 768px
 @mobile-max: @screen-md-min - 1px;
@@ -38,42 +22,32 @@
 // spaceing
 @spacings:
     0  0,
+    5 5,
+    8 8,
+    12 12,
+    16 16,
+    24 24,
     xs @xs,
     sm @sm,
     md @md,
     lg @lg;
 
-// type
-@ul-ol-margin:      18px;
-
-// position
-@zindex-base:       @zindex-back-top - 1;
-@zindex-fixed:      @zindex-base;
-@zindex:            @zindex-base;
 
 // 文本
-@text-xs:       @font-size-base - 2;  // 12px
-@text-sm:       @font-size-base + 0;  // 14px
-@text-md:       @font-size-base + 2;  // 16px
-@text-lg:       @font-size-base + 4;  // 18px
-@text-xl:       @font-size-base + 8;  // 22px
-@text-xxl:      @font-size-base + 14; // 28px
+@text-info:       @font-size-base - 2;  // 12px
+@text-base:       @font-size-base + 0;  // 14px
+@text-title:       @font-size-base + 2;  // 16px
 
 // icon
-@icon-sm:       @font-size-base * 2;  // 14px * 2 = 28px
-@icon-md:       @font-size-base * 4;  // 14px * 4 = 56px
-@icon-lg:       @font-size-base * 6;  // 14px * 6 = 84px
-@icon-xl:       @font-size-base * 8;  // 14px * 8 = 112px
-@icon-xxl:      @font-size-base * 10; // 14px * 10 = 140px
+@icon-sm:       @font-size-base - 2;  // 12px
+@icon-md:       @font-size-base;  // 14px
+@icon-lg:       @font-size-base + 2;  // 16px
+@icon-xl:       @font-size-base + 4;  // 18px
+@icon-xxl:      @font-size-base + 10; // 24px
 
-// 宽度
+// width
 @widths:
-    xs @layout-gutter * 10, // 80px
-    sm @layout-gutter * 20, // 160px
-    md @layout-gutter * 30, // 240px
-    lg @layout-gutter * 40, // 320px
-    xl @layout-gutter * 50, // 400px
-    xxl @layout-gutter * 60, // 480px
+    0 0,
     10 10%,
     20 20%,
     30 30%,
@@ -85,42 +59,23 @@
     90 90%,
     100 100%;
 
-// 圆角
-@border-radius-md:       @border-radius-base; // 4px
-@border-radius-lg:       @border-radius-base + 2px; // 6px
+// color
+@white: #fff;
+@black: #000;
+@light-blue-bg: rgba(237, 246, 254, 0.6);
+@blue-bg: rgba(237, 246, 254, 0.6);
+@ready-color: #b7edb1;
+@audit-fail-color: #bad8f5;
 
-@muted-color:  @grey-7;
+// gutter
+@item-padding: 5px 12px;
+@icon-spacing: 5px;
+@button-group-top: 36px;
 
-// Colors
-@white:     #fff;
-@black:     #000;
+// font weight
+@font-weight-bold: 500;
 
-// scrollbar
-@scrollbar-enabled:         true;
-@scrollbar-width:           6px;
-@scrollbar-height:          6px;
-@scrollbar-track-color:     rgba(0, 0, 0, 0.3);
-@scrollbar-thumb-color:     #6e6e6e;
-@scrollbar-table-enabled:   false;
-
-// font-size
-// https://ant.design/docs/spec/font-cn#字号
-@font-size-large:         @font-size-base + 8;  // 20px
-@font-size-small:         @font-size-base;      // 12px
-
-@h1-font-size:            @font-size-base + 20; // 32px
-@h2-font-size:            @font-size-base + 12; // 24px
-@h3-font-size:            @font-size-base + 8;  // 20px
-@h4-font-size:            @font-size-base + 4;  // 16px
-@h5-font-size:            @font-size-base + 2;  // 14px
-@h6-font-size:            @font-size-base;      // 12px
-
-@drawer-xl: 1200px;
-@drawer-lg: 900px;
-@drawer-md: 600px;
-@drawer-sm: 300px;
-
-@modal-xl: 1200px;
-@modal-lg: 900px;
-@modal-md: 600px;
-@modal-sm: 300px;
+// position z-index
+@zindex-base:       @zindex-back-top - 1;
+@zindex-fixed:      @zindex-base;
+@zindex:            @zindex-base;

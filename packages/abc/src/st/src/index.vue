@@ -816,6 +816,8 @@ export default defineComponent({
 .st-dropdown-filter {
   max-height: 200px;
   overflow-y: auto;
+  box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.1);
+
   .st-filter-menu {
     min-width: 120px;
   }

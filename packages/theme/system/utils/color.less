@@ -3,7 +3,7 @@
  * White background
  */
 .bg-white {
-  background-color: #fff !important;
+  background-color: @white !important;
 }
 /**
    * 透明背景
@@ -12,12 +12,25 @@
 .bg-transparent {
   background-color: transparent !important;
 }
+
+.bg-light-blue {
+  background-color: @light-blue-bg !important;
+}
+.bg-ready {
+  background-color: @ready-color !important;
+}
+.bg-audit-fail {
+  background-color: @audit-fail-color !important;
+}
+.bg-primary {
+  background-color: @primary-color !important;
+}
 /**
    * 白色文本
    * White text
    */
 .text-white {
-  color: #fff !important;
+  color: @white !important;
 }
 /**
    * 鼠标悬停文本主颜色
@@ -28,4 +41,16 @@
   &:hover {
     color: @primary-color !important;
   }
+}
+.text-info {
+  color: @text-color-secondary !important;
+}
+.text-primary {
+  color: @text-color !important;
+}
+.text-link {
+  color: @primary-color !important;
+}
+.text-label {
+  color: @label-color !important;
 }

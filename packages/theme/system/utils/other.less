@@ -43,6 +43,13 @@
 }
 
 /**
+    * flex布局下靠右
+    */
+.flex-keep-right {
+  margin-left: auto;
+}
+
+/**
     * 背景垂直居中
     * The background is centered vertically
     */
@@ -73,16 +80,23 @@
     */
 .disabled {
   color: @disabled-color;
-  pointer-events: none;
+  pointer-events: not-allowed;
+  background-color: @disabled-bg;
 }
 
-.detail-title {
-  margin-bottom: 20px;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5715;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+/**
+    * 操作分隔符
+*/
+.op-divider {
+  width: 1px;
+  height: 1em;
+  background-color: @border-color-base;
+}
+
+/**
+  * a元素占据单元格100%宽度
+*/
+.link-100 {
+  display: inline-block;
+  width: 100%;
 }

@@ -1,0 +1,26 @@
+.ant-calendar-picker {
+  min-width: 275px !important;
+  &-prefix {
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    z-index: 1;
+    color: @input-placeholder-color;
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      right: -6px;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 1em;
+      background-color: @disabled-color;
+    }
+  }
+  &-input {
+    padding-left: 68px;
+  }
+  .anticon {
+    color: @label-color;
+  }
+}
