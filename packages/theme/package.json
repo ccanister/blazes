@@ -22,7 +22,8 @@
     "build:webpack": "rm -rf ./dist && webpack && yarn build:jsdelivr && yarn build:theme",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "build:theme": "webpack --config style.webpack.config.js",
-    "build": "rollup -c",
+    "build:type": "node ./build",
+    "build": "rollup -c && yarn build:type",
     "build:rollup-jsdeliver": "rollup -c jsdeliver.rollup.config.js",
     "analyze": "webpack"
   },

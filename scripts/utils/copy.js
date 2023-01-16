@@ -33,7 +33,10 @@ function copyDir(srcDir, tarDir, forbiddenCopy) {
   }
 }
 
+const resolvePath = (parentPath, name) => path.join(parentPath, name);
+
 module.exports = {
   copyFile,
   copyDir,
+  resolvePath,
 };
