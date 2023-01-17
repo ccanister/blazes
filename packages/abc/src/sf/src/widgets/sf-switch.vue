@@ -15,7 +15,7 @@ import { defineComponent, ref, toRaw } from "vue";
 import Switch from "ant-design-vue/es/switch";
 import { BooleanProperty } from "@blazes/abc/lib/sf";
 import { object } from "vue-types";
-import {
+import type {
   ISFSchema,
   ISFUISchemaItem,
   SFValue,

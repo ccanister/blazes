@@ -28,7 +28,7 @@
 import { defineComponent, ref, toRaw } from "vue";
 import Input from "ant-design-vue/es/input";
 import { object } from "vue-types";
-import {
+import type {
   ISFUISchemaItem,
   SFValue,
   ISFSchema,

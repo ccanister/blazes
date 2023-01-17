@@ -15,7 +15,7 @@
 import { defineComponent, ref, toRaw } from "vue";
 import Input from "ant-design-vue/es/input";
 import { StringProperty } from "@blazes/abc/lib/sf";
-import {
+import type {
   ISFUISchemaItem,
   ISFSchema,
   SFValue,

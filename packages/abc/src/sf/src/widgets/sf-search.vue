@@ -16,7 +16,7 @@ import { defineComponent, ref, toRaw } from "vue";
 import SearchOutlined from "@ant-design/icons-vue/SearchOutlined";
 import CloseOutlined from "@ant-design/icons-vue/CloseOutlined";
 import { StringProperty } from "@blazes/abc/lib/sf";
-import {
+import type {
   ISFUISchemaItem,
   ISFSchema,
   SFValue,

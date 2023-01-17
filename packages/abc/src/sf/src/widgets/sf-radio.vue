@@ -28,7 +28,7 @@
 import { defineComponent, Ref, ref, toRaw } from "vue";
 import { getData, StringProperty } from "@blazes/abc/lib/sf";
 import Radio from "ant-design-vue/es/radio";
-import {
+import type {
   ISFUISchemaItem,
   SFValue,
   ISFSchema,

@@ -51,7 +51,7 @@
 import { defineComponent, toRef } from "vue";
 import { object } from "vue-types";
 import { ArrayProperty } from "../model/array.property";
-import {
+import type {
   ISFSchema,
   ISFUISchemaItem,
   SFValue,

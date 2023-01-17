@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { AtomicProperty } from "@blazes/abc/lib/sf";
-import { ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
+import type { ISFUISchemaItem } from "@blazes/abc/lib/sf/src/type";
 import { defineComponent } from "vue";
 import { object } from "vue-types";
 

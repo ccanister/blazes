@@ -17,7 +17,7 @@ import { defineComponent, ref, toRaw } from "vue";
 import Slider from "ant-design-vue/es/slider";
 import { object } from "vue-types";
 import { AtomicProperty } from "@blazes/abc/lib/sf";
-import {
+import type {
   ISFSchema,
   ISFUISchemaItem,
   SFValue,

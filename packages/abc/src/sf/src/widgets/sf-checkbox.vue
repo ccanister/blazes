@@ -51,7 +51,7 @@ import { defineComponent, Ref, ref, toRaw } from "vue";
 import { useChecked } from "@blazes/utils";
 import Checkbox from "ant-design-vue/es/checkbox";
 import { AtomicProperty, getData } from "@blazes/abc/lib/sf";
-import {
+import type {
   ISFSchema,
   ISFUISchemaItem,
   SFValue,

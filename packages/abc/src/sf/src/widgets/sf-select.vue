@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref, toRaw } from "vue";
-import {
+import type {
   ISFSchema,
   ISFUISchemaItem,
   SFValue,
