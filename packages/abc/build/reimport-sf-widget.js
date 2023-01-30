@@ -19,7 +19,7 @@ traverse(program, {
       path.node.specifiers.length === 1 &&
       path.node.specifiers[0].imported.name === "resetData"
     ) {
-      path.node.source.value = "@blazes/abc/src/sf";
+      path.node.source.value = "@blazes/abc/lib/sf";
     }
   },
 });
