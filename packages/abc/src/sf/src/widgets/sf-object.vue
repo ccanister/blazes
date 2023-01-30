@@ -42,7 +42,9 @@ import { ISFSchema, ISFUISchemaItem, SFValue } from "../type";
 import { defineComponent, toRaw } from "vue";
 import { object } from "vue-types";
 import SfItem from "./sf-item.vue";
-import { FormProperty, ObjectProperty, resetData } from "../../";
+import type { FormProperty, ObjectProperty } from "../../";
+// vite环境无法使用../
+import { resetData } from "../../";
 
 export default defineComponent({
   name: "sf-object",

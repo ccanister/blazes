@@ -19,10 +19,14 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.4"
   },
+  "peerDependencies": {
+    "@vue/compiler-sfc": "^3.0.0",
+    "vue-types": "3"
+  },
   "scripts": {
     "build:webpack": "rm -rf ./lib && yarn build:jsdelivr && yarn build:component && webpack --mode=production && yarn build:type ",
     "build:component": "webpack --mode=production --config component.webpack.config.js",
-    "build:type": "node ./build/gen-type.js",
+    "build:type": "node ./build/gen-type.js && node ./build/reimport-sf-widget.js",
     "build:jsdelivr": "webpack --mode=production --config jsdelivr.webpack.config.js",
     "analyze": "webpack --mode=production",
     "build": "rollup -c && yarn build:rollup-component && yarn build:type",
