@@ -405,9 +405,15 @@
           </template>
         </a-table-column>
       </template>
-      <template #expandedRowRender="{ record }" v-if="$slots.expandedRowRender">
+      <template
+        #expandedRowRender="{ record, index, indent, expanded }"
+        v-if="$slots.expandedRowRender"
+      >
         <slot
           :record="record"
+          :index="index"
+          :indent="indent"
+          :expanded="expanded"
           :column="columns"
           name="expandedRowRender"
         ></slot>
